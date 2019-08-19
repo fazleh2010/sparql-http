@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blue.product.core.impl;
+package com.blue.product.core.constant;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,7 +13,7 @@ import java.util.Set;
  *
  * @author elahi
  */
-public interface FileTypeConstant {
+public interface FileType {
 
     public static final String TEXT_FILE = "text/plain";
     public static final String IMAGE_JPG = "image/jpeg";

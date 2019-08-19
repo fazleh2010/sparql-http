@@ -6,12 +6,13 @@
 package com.blue.product.core.api;
 
 import com.blue.product.core.impl.LoaderImpl;
+import com.blue.product.core.impl.Report;
 import com.blue.product.exception.DownloadException;
 import com.blue.product.exception.LoaderException;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
-
 /**
  *
  * @author Mohammad Fazleh Elahi
@@ -20,7 +21,7 @@ public abstract  class Downloader{
 
     public final Set<String> inputs;
     public final String downloadLocation;
-    public TreeMap <String, Boolean> outputs=new TreeMap<String,Boolean>();
+    public List<Report> outputs=new ArrayList<Report>();
 
     public Downloader(File inputfile) throws DownloadException, LoaderException {
         Loader resourceLoader=new LoaderImpl(inputfile);
@@ -35,9 +36,9 @@ public abstract  class Downloader{
         this.outputs=download();
     }
     
-    public abstract TreeMap <String, Boolean> download()throws DownloadException;
+    public abstract List<Report> download()throws DownloadException;
 
-    public TreeMap <String, Boolean> getOutputs() {
+    public List<Report> getOutputs() {
         return outputs;
     }
 

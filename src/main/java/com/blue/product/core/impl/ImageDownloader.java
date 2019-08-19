@@ -6,15 +6,11 @@
 package com.blue.product.core.impl;
 
 import com.blue.product.core.api.Downloader;
-import com.blue.product.core.api.Loader;
 import com.blue.product.exception.DownloadException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.TreeMap;
-import com.blue.product.exception.ErrorMessage;
 import com.blue.product.exception.LoaderException;
 import java.io.File;
 import java.net.URLConnection;
@@ -22,25 +18,28 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.blue.product.core.constant.Message;
+import com.blue.product.core.constant.FileType;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Mohammad Fazleh Elahi
  */
-public class ImageDownloader extends Downloader implements ErrorMessage, FileTypeConstant {
+public class ImageDownloader extends Downloader implements Message, FileType {
 
     public ImageDownloader(File inputFile) throws DownloadException, LoaderException {
         super(inputFile);
     }
-    public ImageDownloader(File inputFile,String outputDir) throws DownloadException, LoaderException {
-        super(inputFile,outputDir);
+
+    public ImageDownloader(File inputFile, String outputDir) throws DownloadException, LoaderException {
+        super(inputFile, outputDir);
     }
 
     @Override
-    public TreeMap<String, Boolean> download() throws DownloadException {
-        TreeMap<String, Boolean> downloadedFileNames = new TreeMap<String, Boolean>();
+    public List<Report> download() throws DownloadException {
+        List<Report> reports = new ArrayList<Report>();
 
         for (String line : this.inputs) {
             String name = line.substring(line.lastIndexOf('/') + 1);
@@ -54,6 +53,9 @@ public class ImageDownloader extends Downloader implements ErrorMessage, FileTyp
                 if (isImage(mimeType)) {
                     InputStream is = connection.getInputStream();
                     Files.copy(is, target, StandardCopyOption.REPLACE_EXISTING);
+                    reports.add(new Report(url, Boolean.TRUE, SUCCESSFUL_DOWNLOAD));
+                } else {
+                    reports.add(new Report(url,Boolean.TRUE, FAIL_DOWNLOAD));
                 }
 
             } catch (MalformedURLException ex) {
@@ -63,7 +65,7 @@ public class ImageDownloader extends Downloader implements ErrorMessage, FileTyp
             }
         }
 
-        return downloadedFileNames;
+        return reports;
     }
 
     private boolean isImage(String url) {

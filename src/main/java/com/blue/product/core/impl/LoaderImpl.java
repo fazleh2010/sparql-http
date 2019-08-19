@@ -15,37 +15,43 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
-import com.blue.product.exception.ErrorMessage;
 import java.nio.charset.StandardCharsets;
 import javax.activation.MimetypesFileTypeMap;
-
+import com.blue.product.core.constant.Message;
+import com.blue.product.core.constant.FileType;
+import java.io.FileNotFoundException;
 /**
  *
  * @author Mohammad Fazleh Elahi
  */
-public class LoaderImpl implements ErrorMessage, Loader, FileTypeConstant {
+public class LoaderImpl implements Message, Loader, FileType {
 
     private Set<String> inputs = new HashSet<String>();
 
     public LoaderImpl(File file) throws LoaderException {
-        this.getLinesFromFile(file);
+        if (isValid(file, TEXT_FILE)) {
+            try {
+                InputStream inputStream = new FileInputStream(file);
+                this.getLinesFromFile(inputStream);
+            } catch (FileNotFoundException ex) {
+                throw new LoaderException(ex.getMessage());
+            }
+
+        }
     }
 
-    private void getLinesFromFile(File file) throws LoaderException {
+    private void getLinesFromFile(InputStream inputStream) throws LoaderException {
         BufferedReader reader = null;
-
         try {
-            if (isValid(file, TEXT_FILE)) {
-                InputStream inputStream = new FileInputStream(file);
-                reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8.name()));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    line = line.trim();
-                    if (line.length() > 0) {
-                        inputs.add(line);
-                    }
+            reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8.name()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.length() > 0) {
+                    inputs.add(line);
                 }
             }
+
         } catch (Exception ex) {
             throw new LoaderException(ex.getMessage());
         } finally {
@@ -64,7 +70,7 @@ public class LoaderImpl implements ErrorMessage, Loader, FileTypeConstant {
         if (fileTypeMap.getContentType(inputFile.getName()).equalsIgnoreCase(FileType)) {
             return true;
         } else {
-            throw new LoaderException(ErrorMessage.ERROR_NOT_TEXT_FILE);
+            throw new LoaderException(Message.NOT_TEXT_FILE);
         }
 
     }
