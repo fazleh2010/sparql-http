@@ -5,43 +5,41 @@
  */
 package com.blue.product.core.api;
 
-import com.blue.product.core.impl.LoaderImpl;
 import com.blue.product.core.impl.Report;
 import com.blue.product.exception.DownloadException;
-import com.blue.product.exception.LoaderException;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 /**
  *
  * @author Mohammad Fazleh Elahi
  */
-public abstract  class Downloader{
+public abstract class Downloader {
 
     public final Set<String> inputs;
     public final String downloadLocation;
-    public List<Report> outputs=new ArrayList<Report>();
+    public List<Report> reports = new ArrayList<Report>();
 
-    public Downloader(File inputfile) throws DownloadException, LoaderException {
-        Loader resourceLoader=new LoaderImpl(inputfile);
-        this.inputs=resourceLoader.getInputs();
-        this.downloadLocation = inputfile.getAbsoluteFile().getParent();
-        this.outputs=download();
+    public Downloader(Set<String> inputs,String downloadLocation) throws DownloadException {
+        this.inputs = inputs;
+        this.downloadLocation = downloadLocation; 
+        this.reports = download();
     }
-    public Downloader(File inputfile,String outputDir) throws DownloadException, LoaderException {
-        Loader resourceLoader=new LoaderImpl(inputfile);
-        this.inputs=resourceLoader.getInputs();
-        this.downloadLocation = outputDir;
-        this.outputs=download();
+
+    public abstract List<Report> download() throws DownloadException;
+
+    public void display() {
+        for (Report report : reports) {
+            System.out.println(report.getUrl() + " " + report.getUrl() + " " + report.getNote());
+            System.out.println();
+
+        }
+
     }
-    
-    public abstract List<Report> download()throws DownloadException;
 
     public List<Report> getOutputs() {
-        return outputs;
+        return reports;
     }
 
-
 }
-

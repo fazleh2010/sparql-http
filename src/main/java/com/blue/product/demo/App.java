@@ -1,7 +1,9 @@
 package com.blue.product.demo;
 
 import com.blue.product.core.api.Downloader;
+import com.blue.product.core.api.Loader;
 import com.blue.product.core.impl.ImageDownloader;
+import com.blue.product.core.impl.LoaderImpl;
 import com.blue.product.exception.DownloadException;
 import com.blue.product.exception.LoaderException;
 import java.io.File;
@@ -30,14 +32,13 @@ public class App {
                 try {
                     Downloader imageDownloader;
                     File file = new File(args[0]);
+                    Loader resourceLoader=new LoaderImpl(file);
                     if(args.length>1){
-                       imageDownloader = new ImageDownloader(file,args[1]);
+                       imageDownloader = new ImageDownloader(resourceLoader.getInputs(),args[1]);
                     }else{
-                       imageDownloader = new ImageDownloader(file);
+                       imageDownloader = new ImageDownloader(resourceLoader.getInputs(),resourceLoader.getResourceLocation());
                     }
                         
-                    imageDownloader.download();
-                    System.out.print(imageDownloader.getOutputs());
                 } catch (DownloadException ex) {
                     Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (LoaderException ex) {

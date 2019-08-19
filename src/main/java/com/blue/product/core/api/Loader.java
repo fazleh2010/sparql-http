@@ -13,5 +13,6 @@ import java.util.Set;
  */
 public interface Loader {
     public Set<String> getInputs();
+    public String getResourceLocation();
     
 }

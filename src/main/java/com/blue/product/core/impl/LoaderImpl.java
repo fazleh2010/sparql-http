@@ -20,19 +20,23 @@ import javax.activation.MimetypesFileTypeMap;
 import com.blue.product.core.constant.Message;
 import com.blue.product.core.constant.FileType;
 import java.io.FileNotFoundException;
+
 /**
  *
  * @author Mohammad Fazleh Elahi
  */
 public class LoaderImpl implements Message, Loader, FileType {
 
-    private Set<String> inputs = new HashSet<String>();
+    private final String resourceLocation;
+    private  Set<String> inputs;
 
-    public LoaderImpl(File file) throws LoaderException {
-        if (isValid(file, TEXT_FILE)) {
+
+    public LoaderImpl(File inputfile) throws LoaderException {
+        this.resourceLocation = inputfile.getAbsoluteFile().getParent();
+        if (isValid(inputfile, TEXT_FILE)) {
             try {
-                InputStream inputStream = new FileInputStream(file);
-                this.getLinesFromFile(inputStream);
+                InputStream inputStream = new FileInputStream(inputfile);
+                this.inputs = this.getLinesFromFile(inputStream);
             } catch (FileNotFoundException ex) {
                 throw new LoaderException(ex.getMessage());
             }
@@ -40,8 +44,9 @@ public class LoaderImpl implements Message, Loader, FileType {
         }
     }
 
-    private void getLinesFromFile(InputStream inputStream) throws LoaderException {
+    private Set<String> getLinesFromFile(InputStream inputStream) throws LoaderException {
         BufferedReader reader = null;
+        Set<String> inputs = new HashSet<String>();
         try {
             reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8.name()));
             String line;
@@ -63,6 +68,7 @@ public class LoaderImpl implements Message, Loader, FileType {
                 throw new LoaderException(ex.getMessage());
             }
         }
+        return inputs;
     }
 
     private boolean isValid(File inputFile, String FileType) throws LoaderException {
@@ -78,6 +84,10 @@ public class LoaderImpl implements Message, Loader, FileType {
     @Override
     public Set<String> getInputs() {
         return this.inputs;
+    }
+
+    public String getResourceLocation() {
+        return resourceLocation;
     }
 
 }

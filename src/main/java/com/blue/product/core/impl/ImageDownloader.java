@@ -6,6 +6,7 @@
 package com.blue.product.core.impl;
 
 import com.blue.product.core.api.Downloader;
+import com.blue.product.core.api.Loader;
 import com.blue.product.exception.DownloadException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +23,7 @@ import com.blue.product.core.constant.Message;
 import com.blue.product.core.constant.FileType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -29,17 +31,13 @@ import java.util.List;
  */
 public class ImageDownloader extends Downloader implements Message, FileType {
 
-    public ImageDownloader(File inputFile) throws DownloadException, LoaderException {
-        super(inputFile);
-    }
-
-    public ImageDownloader(File inputFile, String outputDir) throws DownloadException, LoaderException {
-        super(inputFile, outputDir);
+    public ImageDownloader(Set<String> inputs, String outputDir) throws DownloadException {
+        super(inputs, outputDir);
     }
 
     @Override
     public List<Report> download() throws DownloadException {
-        List<Report> reports = new ArrayList<Report>();
+        reports = new ArrayList<Report>();
 
         for (String line : this.inputs) {
             String name = line.substring(line.lastIndexOf('/') + 1);
@@ -55,7 +53,7 @@ public class ImageDownloader extends Downloader implements Message, FileType {
                     Files.copy(is, target, StandardCopyOption.REPLACE_EXISTING);
                     reports.add(new Report(url, Boolean.TRUE, SUCCESSFUL_DOWNLOAD));
                 } else {
-                    reports.add(new Report(url,Boolean.TRUE, FAIL_DOWNLOAD));
+                    reports.add(new Report(url,Boolean.FALSE, FAIL_DOWNLOAD));
                 }
 
             } catch (MalformedURLException ex) {
