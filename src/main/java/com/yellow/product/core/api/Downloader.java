@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blue.product.core.api;
+package com.yellow.product.core.api;
 
-import com.blue.product.core.impl.Report;
-import com.blue.product.exception.DownloadException;
+import com.yellow.product.core.impl.Report;
+import com.yellow.product.exception.DownloadException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

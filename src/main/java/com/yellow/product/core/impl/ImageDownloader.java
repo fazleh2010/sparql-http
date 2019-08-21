@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blue.product.core.impl;
+package com.yellow.product.core.impl;
 
-import com.blue.product.core.api.Downloader;
-import com.blue.product.core.api.Loader;
-import com.blue.product.exception.DownloadException;
+import com.yellow.product.core.api.Downloader;
+import com.yellow.product.core.api.Loader;
+import com.yellow.product.exception.DownloadException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import com.blue.product.exception.LoaderException;
+import com.yellow.product.exception.LoaderException;
 import java.io.File;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import com.blue.product.core.constant.Message;
-import com.blue.product.core.constant.FileType;
+import com.yellow.product.core.constant.Message;
+import com.yellow.product.core.constant.FileType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

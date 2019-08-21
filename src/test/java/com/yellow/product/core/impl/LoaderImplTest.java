@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blue.product.core.impl;
+package com.yellow.product.core.impl;
 
-import com.blue.product.core.api.Loader;
-import com.blue.product.exception.LoaderException;
+import com.yellow.product.core.impl.LoaderImpl;
+import com.yellow.product.core.api.Loader;
+import com.yellow.product.exception.LoaderException;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;

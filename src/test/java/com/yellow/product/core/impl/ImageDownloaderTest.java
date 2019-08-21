@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blue.product.core.impl;
+package com.yellow.product.core.impl;
 
-import com.blue.product.core.constant.Message;
-import com.blue.product.exception.DownloadException;
-import com.blue.product.exception.LoaderException;
+import com.yellow.product.core.impl.ImageDownloader;
+import com.yellow.product.core.impl.Report;
+import com.yellow.product.core.constant.Message;
+import com.yellow.product.exception.DownloadException;
+import com.yellow.product.exception.LoaderException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;

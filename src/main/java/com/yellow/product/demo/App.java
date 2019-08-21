@@ -1,11 +1,11 @@
-package com.blue.product.demo;
+package com.yellow.product.demo;
 
-import com.blue.product.core.api.Downloader;
-import com.blue.product.core.api.Loader;
-import com.blue.product.core.impl.ImageDownloader;
-import com.blue.product.core.impl.LoaderImpl;
-import com.blue.product.exception.DownloadException;
-import com.blue.product.exception.LoaderException;
+import com.yellow.product.core.api.Downloader;
+import com.yellow.product.core.api.Loader;
+import com.yellow.product.core.impl.ImageDownloader;
+import com.yellow.product.core.impl.LoaderImpl;
+import com.yellow.product.exception.DownloadException;
+import com.yellow.product.exception.LoaderException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
