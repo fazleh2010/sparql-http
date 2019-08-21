@@ -1,8 +1,8 @@
 package com.yellow.product.demo;
 
-import com.yellow.product.core.api.Downloader;
+import com.yellow.product.core.api.DownLoadManager;
 import com.yellow.product.core.api.Loader;
-import com.yellow.product.core.impl.ImageDownloader;
+import com.yellow.product.core.impl.ImageDownloadManager;
 import com.yellow.product.core.impl.LoaderImpl;
 import com.yellow.product.exception.DownloadException;
 import com.yellow.product.exception.LoaderException;
@@ -30,13 +30,12 @@ public class App {
                 System.exit(1);
             } else {
                 try {
-                    Downloader imageDownloader;
+                    DownLoadManager imageDownloader;
                     File file = new File(args[0]);
-                    Loader resourceLoader=new LoaderImpl(file);
                     if(args.length>1){
-                       imageDownloader = new ImageDownloader(resourceLoader.getInputs(),args[1]);
+                       imageDownloader = new ImageDownloadManager(file,args[1]);
                     }else{
-                       imageDownloader = new ImageDownloader(resourceLoader.getInputs(),resourceLoader.getResourceLocation());
+                       imageDownloader = new ImageDownloadManager(file,null);
                     }
                         
                 } catch (DownloadException ex) {

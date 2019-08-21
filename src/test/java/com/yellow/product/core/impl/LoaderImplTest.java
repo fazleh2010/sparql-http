@@ -5,7 +5,6 @@
  */
 package com.yellow.product.core.impl;
 
-import com.yellow.product.core.impl.LoaderImpl;
 import com.yellow.product.core.api.Loader;
 import com.yellow.product.exception.LoaderException;
 import java.io.File;
@@ -18,8 +17,8 @@ import junit.framework.TestCase;
  * @author elahi
  */
 public class LoaderImplTest extends TestCase {
-    private String TEST_PATH="src/test/resources"; 
-    private File inputFile = new File(TEST_PATH+File.separator+"links.txt");
+    private String inputLocation="src/test/resources"; 
+    private File inputFile = new File(inputLocation+File.separator+"links.txt");
     
     public LoaderImplTest(String testName) {
         super(testName);

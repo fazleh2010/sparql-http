@@ -85,7 +85,8 @@ public class LoaderImpl implements Message, Loader, FileType {
     public Set<String> getInputs() {
         return this.inputs;
     }
-
+    
+    @Override
     public String getResourceLocation() {
         return resourceLocation;
     }
