@@ -54,7 +54,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.blue.product.demo.App</mainClass>
+                            <mainClass>com.yellow.product.demo.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
