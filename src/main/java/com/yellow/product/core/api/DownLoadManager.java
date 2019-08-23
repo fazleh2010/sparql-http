@@ -1,9 +1,12 @@
-/*
- * 
+/**
+ * <h1>Download Manager</h1>
+ * The DownloadManager is a abstract class for download application.
+ * The input file is processed. 
+ * The download function has to be implemented to subclass. 
+ * The result of download is displayed here.
  */
 package com.yellow.product.core.api;
 
-import com.yellow.product.core.constant.Message;
 import com.yellow.product.core.impl.InputLoader;
 import com.yellow.product.core.impl.Report;
 import com.yellow.product.exception.DownloadException;

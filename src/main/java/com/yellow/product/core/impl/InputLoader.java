@@ -1,5 +1,7 @@
-/*
- * 
+/**
+ * <h1>Input processor</h1>
+ * The InputLoader simply takes a input file and extract all lines. It does not check what the line contains.
+ * The line can be anything. and save them in a set.
  */
 package com.yellow.product.core.impl;
 

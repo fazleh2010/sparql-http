@@ -1,5 +1,8 @@
-/*
- * 
+/**
+ * <h1>Report</h1>
+ * The Report stored the url, a flag which indicated whether it is downloaded or not,
+ * and a note.
+ *
  */
 package com.yellow.product.core.impl;
 

@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * <h1>Loader</h1>
+ * The Loader is a interface to get the result of input file processing. 
+ *
  */
 package com.yellow.product.core.api;
 

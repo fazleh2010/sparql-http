@@ -1,5 +1,9 @@
-/*
- * 
+/**
+ * <h1>Image download Manager</h1>
+ * The ImageDownloadManager is subclass of DownloadManager. 
+ * This program  takes a input file and downloads and save all images.
+ * The input file is extracted at super class.
+ * The results of download displayed at super class.
  */
 package com.yellow.product.core.impl;
 
