@@ -21,7 +21,7 @@ The program is written using core java. The external library as added and used.
 
 ## How To Run And Test
 
-git clone project
+git clone <project url>
 ```
 java -jar <generated jar> <input file>
 
