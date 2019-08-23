@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package com.yellow.product.core.impl;
 
@@ -13,25 +11,33 @@ import java.net.URL;
 import java.io.File;
 import java.net.URLConnection;
 import com.yellow.product.core.constant.Message;
-import com.yellow.product.core.constant.FileType;
 import com.yellow.product.exception.LoaderException;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javafx.util.Pair;
 import javax.imageio.ImageIO;
+import com.yellow.product.core.constant.MimeType;
 
 /**
  *
  * @author Mohammad Fazleh Elahi
  */
-public class ImageDownloadManager extends DownLoadManager implements Message, FileType {
+public class ImageDownloadManager extends DownLoadManager implements Message, MimeType {
 
     public ImageDownloadManager(File inputFile, String outputDir) throws DownloadException, LoaderException {
         super(inputFile, outputDir);
     }
 
+    /**
+     * Returns reports of all the image urls, whether these urls are downloaded
+     * or not (true or false) and note attached.
+     * <p>
+     * The method downloads images and reports the results.
+     *
+     * @return it returns download reports of all urls. That is the urls,
+     * whether they are downloaded or not, and note attached.
+     */
     @Override
     public List<Report> download() throws DownloadException {
         List<Report> reports = new ArrayList<Report>();
@@ -40,13 +46,13 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Fi
             Report report = null;
             try {
                 url = new URL(line);
-                String name = getfileName(url);
+                String name = getFileNameFromUrl(url);
                 Pair<Boolean, String> pair = isImage(name);
                 if (pair.getKey()) {
                     String extension = pair.getValue();
                     File outputFile = new File(super.downloadLocation + File.separator + name);
                     try {
-                        report = urlToImageDownload(url, extension, outputFile);
+                        report = downloadImageFromUrl(url, extension, outputFile);
                     } catch (IOException ex) {
                         report = new Report(url, Boolean.FALSE, FAIL_DOWNLOAD);
                     }
@@ -62,7 +68,17 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Fi
         return reports;
     }
 
-    private Report urlToImageDownload(URL url, String imageType, File outputFile) throws IOException, MalformedURLException {
+    /**
+     * Return download report for the url.
+     * <p>
+     * The method downloads the image and store it in download location.
+     *
+     * @param url to download
+     * @param imageType
+     * @return the output file
+     * @throws IOException if the image is failed to download
+     */
+    private Report downloadImageFromUrl(URL url, String imageType, File outputFile) throws IOException {
         BufferedImage image = ImageIO.read(url);
         if (image != null) {
             ImageIO.write(image, imageType, outputFile);
@@ -72,10 +88,17 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Fi
         }
     }
 
+    /**
+     * Check whether it is a valid image file of not (i.e. jpg, jpeg, png, etc.)
+     * <p>
+     * @param the file name
+     * @return two results. Whether it is image type or not (true or false). and
+     * the file name.
+     */
     private Pair<Boolean, String> isImage(String name) {
         Boolean isImage = false;
         String mimeType = URLConnection.guessContentTypeFromName(new File(name).getName());
-        if (IMAGE_FILE.contains(mimeType)) {
+        if (IMAGE_FILES.contains(mimeType)) {
             isImage = true;
             if (mimeType.contains("\\/")) {
                 mimeType.substring(mimeType.lastIndexOf('/') + 1);
@@ -84,7 +107,7 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Fi
         return new Pair<Boolean, String>(isImage, mimeType);
     }
 
-    private String getfileName(URL url) {
+    private String getFileNameFromUrl(URL url) {
         return new File(url.getPath()).getName();
     }
 

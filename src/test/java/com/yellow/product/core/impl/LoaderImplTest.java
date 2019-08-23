@@ -14,7 +14,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author elahi
+ * @author Mohammad Fazleh Elahi
  */
 public class LoaderImplTest extends TestCase {
     private String inputLocation="src/test/resources"; 
@@ -40,7 +40,7 @@ public class LoaderImplTest extends TestCase {
     public void testGetInputs() throws LoaderException {
         System.out.println("getInputs");
         String url="http://mywebserver.com/images/271947.jpg";
-        Loader instance = new LoaderImpl(inputFile);
+        Loader instance = new InputLoader(inputFile);
         Set<String> expResult = new HashSet<String>();
         expResult.add(url);
         Set<String> result = instance.getInputs();

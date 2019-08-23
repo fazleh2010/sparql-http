@@ -1,24 +1,15 @@
 package com.yellow.product.demo;
 
 import com.yellow.product.core.api.DownLoadManager;
-import com.yellow.product.core.api.Loader;
 import com.yellow.product.core.impl.ImageDownloadManager;
-import com.yellow.product.core.impl.LoaderImpl;
 import com.yellow.product.exception.DownloadException;
 import com.yellow.product.exception.LoaderException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.activation.MimeType;
-import javax.activation.MimetypesFileTypeMap;
-
 /**
- * Hello world!
+ * @author Mohammad Fazleh Elahi
  *
  */
 public class App {

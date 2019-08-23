@@ -9,14 +9,12 @@ import com.yellow.product.core.constant.Message;
 import com.yellow.product.exception.LoaderException;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import junit.framework.TestCase;
 
 /**
  *
- * @author elahi
+ * @author Mohammad Fazleh Elahi
  */
 public class ImageDownloaderTest extends TestCase {
 

@@ -1,13 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package com.yellow.product.core.constant;
 
 /**
  *
  * @author Mohammad Fazleh Elahi
+ *
+ * This is a interface contains messages
  */
 public interface Message {
 

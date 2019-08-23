@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package com.yellow.product.core.impl;
 
@@ -18,33 +16,51 @@ import java.util.Set;
 import java.nio.charset.StandardCharsets;
 import javax.activation.MimetypesFileTypeMap;
 import com.yellow.product.core.constant.Message;
-import com.yellow.product.core.constant.FileType;
 import java.io.FileNotFoundException;
+import com.yellow.product.core.constant.MimeType;
 
 /**
  *
  * @author Mohammad Fazleh Elahi
  */
-public class LoaderImpl implements Message, Loader, FileType {
+public class InputLoader implements Message, Loader, MimeType {
 
     private final String resourceLocation;
-    private  Set<String> inputs;
+    private Set<String> inputs;
 
-
-    public LoaderImpl(File inputfile) throws LoaderException {
+    public InputLoader(File inputfile) throws LoaderException {
         this.resourceLocation = inputfile.getAbsoluteFile().getParent();
-        if (isValid(inputfile, TEXT_FILE)) {
+        this.inputs = this.getContentFromFile(inputfile);
+    }
+
+    /**
+     * Read each line of a text file. The line can be anything.
+     * <p>
+     * @param input file
+     * @return all lines of the file.
+     * @throws LoaderException if the file is not found or not a text file
+     */
+    private Set<String> getContentFromFile(File inputfile) throws LoaderException {
+        Set<String> inputs = new HashSet<String>();
+        if (isTextFile(inputfile, TEXT_FILE)) {
             try {
                 InputStream inputStream = new FileInputStream(inputfile);
-                this.inputs = this.getLinesFromFile(inputStream);
+                inputs = this.getContentFromFile(inputStream);
             } catch (FileNotFoundException ex) {
                 throw new LoaderException(ex.getMessage());
             }
-
         }
+        return inputs;
     }
 
-    private Set<String> getLinesFromFile(InputStream inputStream) throws LoaderException {
+    /**
+     * Read each line of an InputStream .
+     * <p>
+     * @param inputStream of the file
+     * @return all lines of the file.
+     * @throws LoaderException if the file cannot be read
+     */
+    private Set<String> getContentFromFile(InputStream inputStream) throws LoaderException {
         BufferedReader reader = null;
         Set<String> inputs = new HashSet<String>();
         try {
@@ -71,7 +87,15 @@ public class LoaderImpl implements Message, Loader, FileType {
         return inputs;
     }
 
-    private boolean isValid(File inputFile, String FileType) throws LoaderException {
+    /**
+     * Check whether the file is text file.
+     * <p>
+     * @param the input file
+     * @param the file type to check. In this case text file.
+     * @return true if it is text file. false otherwise.
+     * @throws LoaderException if the file is not text file.
+     */
+    private boolean isTextFile(File inputFile, String FileType) throws LoaderException {
         MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
         if (fileTypeMap.getContentType(inputFile.getName()).equalsIgnoreCase(FileType)) {
             return true;
@@ -85,7 +109,7 @@ public class LoaderImpl implements Message, Loader, FileType {
     public Set<String> getInputs() {
         return this.inputs;
     }
-    
+
     @Override
     public String getResourceLocation() {
         return resourceLocation;

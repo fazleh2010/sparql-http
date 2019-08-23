@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package com.yellow.product.core.impl;
 
@@ -33,4 +31,9 @@ public class Report {
     public Boolean getFlag() {
         return flag;
     }    
+
+    @Override
+    public String toString() {
+        return "Report{" + "url=" + url + ", note=" + note + ", flag=" + flag + '}';
+    }
 }
