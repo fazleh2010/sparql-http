@@ -29,18 +29,8 @@ The program is written using core java. No external library is added to pom.xml.
 ## How To Run 
 
 git clone <project url>
-```
-java -jar <generated jar> <input file>
 
-Example:
-java -jar target/downloadApp-1.3.jar data/links.txt
-```
-
-## Contributing
-
-The code can be changed. After making any change in the code do the following:
-
-Make a runnable jar
+Build the program 
 ```
 mvn clean package
 ```
@@ -48,6 +38,9 @@ mvn clean package
 Run the application
 ```
 java -jar <generated jar> <input file>
+
+Example:
+java -jar target/downloadApp-1.3.jar data/links.txt
 ```
 
 ## Author
