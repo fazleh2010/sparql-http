@@ -1,25 +1,23 @@
 
 ## downloadApp
 
-This is in general a download application. The image download part is implemented. 
-The program takes a text file containing urls and downloads and save all the images.
+This is a download application. The image download part is implemented. 
+The program takes a text file containing urls and downloads all the images.
 
 
 ## Input and output
-The downloaded files will be stored in same of input file
 
-For example
 The sample input files in the following location
 /data
 
-The downloaded files will be stored in same location
+The downloaded files will be stored in same of input file
 /data
 
 ## pom.xml
-The program was written using simple artifact.
+A simple artifact is used.
 
 ## dependencies
-The program is written using core java. No external library as added and used.
+The program is written using core java. No external library is added to pom.xml.
 
 
 ## How To Run And Test
