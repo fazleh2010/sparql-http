@@ -15,7 +15,7 @@ For example, there is sample input file in the following location
 
 /data
 
-The downloaded files will be stored in same of input file
+The downloaded files will also be stored 
 
 /data
 
@@ -28,7 +28,7 @@ The program is written using core java. No external library is added to pom.xml.
 
 ## How To Run 
 
-git clone <project url>
+git clone 
 
 Build the program 
 ```
