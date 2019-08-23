@@ -42,7 +42,7 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
     public List<Report> download() throws DownloadException {
         List<Report> reports = new ArrayList<Report>();
         for (String line : inputs) {
-            URL url;
+            URL url = null;
             Report report = null;
             try {
                 url = new URL(line);
@@ -60,7 +60,7 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
                     report = new Report(url, Boolean.FALSE, FAIL_DOWNLOAD);
                 }
             } catch (MalformedURLException ex) {
-                throw new DownloadException(ex.getMessage());
+                report = new Report(url, Boolean.FALSE, INVALID_URL);
             }
             reports.add(report);
         }
@@ -81,6 +81,9 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
     private Report downloadImageFromUrl(URL url, String imageType, File outputFile) throws IOException {
         BufferedImage image = ImageIO.read(url);
         if (image != null) {
+            if (outputFile.exists()) {
+                outputFile.delete();
+            }
             ImageIO.write(image, imageType, outputFile);
             return new Report(url, Boolean.TRUE, SUCCESSFUL_DOWNLOAD);
         } else {
@@ -95,16 +98,14 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
      * @return two results. Whether it is image type or not (true or false). and
      * the file name.
      */
-    private Pair<Boolean, String> isImage(String name) {
-        Boolean isImage = false;
-        String mimeType = URLConnection.guessContentTypeFromName(new File(name).getName());
+    private Pair<Boolean, String> isImage(String path) {
+        String mimeType = URLConnection.guessContentTypeFromName(new File(path).getName());
+        mimeType = mimeType.split("/")[1];
         if (IMAGE_FILES.contains(mimeType)) {
-            isImage = true;
-            if (mimeType.contains("\\/")) {
-                mimeType.substring(mimeType.lastIndexOf('/') + 1);
-            }
+            return new Pair<Boolean, String>(Boolean.TRUE, mimeType);
+
         }
-        return new Pair<Boolean, String>(isImage, mimeType);
+        return new Pair<Boolean, String>(Boolean.FALSE, mimeType);
     }
 
     private String getFileNameFromUrl(URL url) {

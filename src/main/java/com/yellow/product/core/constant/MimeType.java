@@ -19,11 +19,11 @@ public interface MimeType {
     //constants for plain text file
     public static final String TEXT_FILE = "text/plain";
     //constants for image file
-    public static final String IMAGE_JPEG = "image/jpeg";
-    public static final String IMAGE_JPG = "image/jpg";
-    public static final String IMAGE_PNG = "image/png";
-    public static final String IMAGE_BMP = "image/bmp";
-    public static final String IMAGE_GIF = "image/gif";
+    public static final String IMAGE_JPEG = "jpeg";
+    public static final String IMAGE_JPG = "jpg";
+    public static final String IMAGE_PNG = "png";
+    public static final String IMAGE_BMP = "bmp";
+    public static final String IMAGE_GIF = "gif";
     //A sets of all allowed image files
     public static final Set<String> IMAGE_FILES = new HashSet<String>(Arrays.asList(IMAGE_JPEG,
             IMAGE_JPG, IMAGE_PNG, IMAGE_BMP, IMAGE_GIF));
