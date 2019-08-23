@@ -8,10 +8,15 @@ The program is written in java.
 
 ## Input and output
 
-The sample input files in the following location
+The downloaded files will be stored in same of input file.
+
+
+For example, there is sample input file in the following location
+
 /data
 
 The downloaded files will be stored in same of input file
+
 /data
 
 ## pom.xml
