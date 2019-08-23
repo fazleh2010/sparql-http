@@ -3,6 +3,7 @@
  */
 package com.yellow.product.core.impl;
 
+import com.yellow.product.core.constant.Message;
 import java.net.URL;
 
 /**

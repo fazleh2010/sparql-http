@@ -23,6 +23,6 @@ public interface Loader {
      * This method gets the location of input file. in this case the path of
      * input file
      */
-    public String getResourceLocation();
+    public String getInputLocation();
 
 }

@@ -3,6 +3,7 @@
  */
 package com.yellow.product.core.api;
 
+import com.yellow.product.core.constant.Message;
 import com.yellow.product.core.impl.InputLoader;
 import com.yellow.product.core.impl.Report;
 import com.yellow.product.exception.DownloadException;
@@ -16,17 +17,17 @@ import java.util.Set;
  *
  * @author Mohammad Fazleh Elahi
  */
-public abstract class DownLoadManager {
+public abstract class DownLoadManager{
 
     public final Set<String> inputs;
     public final String downloadLocation;
     private List<Report> outputReports = new ArrayList<Report>();
 
-    public DownLoadManager(File inputFile, String OutputLocation) throws DownloadException, LoaderException {
+    public DownLoadManager(File inputFile) throws DownloadException, LoaderException {
         Loader loader = new InputLoader(inputFile);
         this.inputs = loader.getInputs();
-        this.downloadLocation = loader.getResourceLocation();
-        this.outputReports = download();
+        this.downloadLocation = loader.getInputLocation();
+        this.outputReports=download();
     }
 
     /**
@@ -42,13 +43,19 @@ public abstract class DownLoadManager {
     public abstract List<Report> download() throws DownloadException;
 
     /**
-     * display reports of all the urls.
+     * display download reports of all the urls.
      *
      */
     public void display() {
+        System.out.println("\nThe report of download application!!"+ "\n");
+        String line="";
         for (Report report : this.outputReports) {
-            System.out.println(report.getUrl() + " " + report.getNote());
-            System.out.println();
+            if (report.getFlag()) {
+                line = "url=" + report.getUrl()  + "   " + report.getNote() ;
+            } else {
+                line = "url=" + report.getUrl() + "   " + report.getNote();
+            }
+            System.out.println(line);
         }
 
     }

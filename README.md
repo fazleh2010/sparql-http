@@ -1,22 +1,25 @@
 
-## company-download-application
+## downloadApp
 
-This is in general download application. The image download application is implemented. 
+This is in general a download application. The image download part is implemented. 
 The program takes a text file containing urls and downloads and save all the images.
 
 
 ## Input and output
-The sample inputs are in the location
-/sampleData
+The downloaded files will be stored in same of input file
 
-The output files will be stored in same location
-/sampleData
+For example
+The sample input files in the following location
+/data
+
+The downloaded files will be stored in same location
+/data
 
 ## pom.xml
 The program was written using simple artifact.
 
 ## dependencies
-The program is written using core java. The external library as added and used.
+The program is written using core java. No external library as added and used.
 
 
 ## How To Run And Test
@@ -26,7 +29,7 @@ git clone <project url>
 java -jar <generated jar> <input file>
 
 Example:
-java -jar target/company-download-application-1.2.jar sampleData/links.txt
+java -jar target/downloadApp-1.2.jar data/links.txt
 ```
 
 ## Contributing

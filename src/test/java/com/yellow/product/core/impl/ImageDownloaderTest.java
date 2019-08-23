@@ -41,7 +41,7 @@ public class ImageDownloaderTest extends TestCase {
     public void testDownload_WhenSuccess() throws Exception {
         System.out.println("testDownload_WhenSuccess");
         inputFile = new File(downloadLocation + File.separator + "linksSuccess.txt");
-        ImageDownloadManager instance = new ImageDownloadManager(inputFile, downloadLocation);
+        ImageDownloadManager instance = new ImageDownloadManager(inputFile);
         Report report = new Report(null, Boolean.TRUE, null);
         List<Report> expResult = new ArrayList<Report>();
         expResult.add(report);
@@ -57,7 +57,7 @@ public class ImageDownloaderTest extends TestCase {
     public void testDownload_WhenFail() throws Exception {
         System.out.println("testDownload_WhenFail");
         inputFile = new File(downloadLocation + File.separator + "linksFail.txt");
-        ImageDownloadManager instance = new ImageDownloadManager(inputFile, downloadLocation);
+        ImageDownloadManager instance = new ImageDownloadManager(inputFile);
         Report report = new Report(null, Boolean.FALSE, Message.FAIL_DOWNLOAD);
         List<Report> expResult = new ArrayList<Report>();
         expResult.add(report);
@@ -66,19 +66,4 @@ public class ImageDownloaderTest extends TestCase {
         assertEquals(flag, result.iterator().next().getFlag());
     }
 
-    /**
-     * Test of download method, of class ImageDownloader. When no image found in
-     * url. Url not found Download fail
-     *
-     * @Test(expected = com.blue.product.exception.DownloadException.class)
-     * public void testDownload_WhenInvalidUrl() throws DownloadException,
-     * LoaderException { System.out.println("testDownload_WhenFail"); inputs =
-     * new HashSet<String>(); String line="test"; inputs.add(line);
-     * ImageDownloader instance = new ImageDownloader(inputs, downloadLocation);
-     * Report report = new Report(null, Boolean.FALSE, Message.FAIL_DOWNLOAD);
-     * List<Report> expResult = new ArrayList<Report>(); expResult.add(report);
-     * Boolean flag = expResult.iterator().next().getFlag(); List<Report> result
-     * = instance.download(); assertEquals(flag,
-     * result.iterator().next().getFlag()); }
-     */
 }

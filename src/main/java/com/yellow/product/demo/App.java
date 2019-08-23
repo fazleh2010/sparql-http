@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  * @author Mohammad Fazleh Elahi
  *
@@ -21,14 +22,14 @@ public class App {
                 System.exit(1);
             } else {
                 try {
-                    DownLoadManager imageDownloader;
                     File file = new File(args[0]);
-                    if(args.length>1){
-                       imageDownloader = new ImageDownloadManager(file,args[1]);
-                    }else{
-                       imageDownloader = new ImageDownloadManager(file,null);
+                    if (args.length > 1) {
+                        System.out.println("Too many parameters! only one paramter is permitted!!");
+                        System.exit(1);
+                    } else {
+                        DownLoadManager imageDownloader = new ImageDownloadManager(file);
+                        imageDownloader.display();
                     }
-                        
                 } catch (DownloadException ex) {
                     Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (LoaderException ex) {

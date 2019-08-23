@@ -111,7 +111,7 @@ public class InputLoader implements Message, Loader, MimeType {
     }
 
     @Override
-    public String getResourceLocation() {
+    public String getInputLocation() {
         return resourceLocation;
     }
 

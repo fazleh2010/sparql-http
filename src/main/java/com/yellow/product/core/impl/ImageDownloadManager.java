@@ -25,8 +25,8 @@ import com.yellow.product.core.constant.MimeType;
  */
 public class ImageDownloadManager extends DownLoadManager implements Message, MimeType {
 
-    public ImageDownloadManager(File inputFile, String outputDir) throws DownloadException, LoaderException {
-        super(inputFile, outputDir);
+    public ImageDownloadManager(File inputFile) throws DownloadException, LoaderException {
+        super(inputFile);
     }
 
     /**
@@ -62,6 +62,7 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
             } catch (MalformedURLException ex) {
                 report = new Report(url, Boolean.FALSE, INVALID_URL);
             }
+            System.out.println("now processing.." + report.getUrl());
             reports.add(report);
         }
 
