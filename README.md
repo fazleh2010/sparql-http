@@ -3,6 +3,7 @@
 
 This is a download application. The image download part is implemented. 
 The program takes a text file containing urls and downloads all the images.
+The program is written in java.
 
 
 ## Input and output
@@ -20,14 +21,14 @@ A simple artifact is used.
 The program is written using core java. No external library is added to pom.xml.
 
 
-## How To Run And Test
+## How To Run 
 
 git clone <project url>
 ```
 java -jar <generated jar> <input file>
 
 Example:
-java -jar target/downloadApp-1.2.jar data/links.txt
+java -jar target/downloadApp-1.3.jar data/links.txt
 ```
 
 ## Contributing
