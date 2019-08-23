@@ -12,12 +12,20 @@ The sample inputs are in the location
 The output files will be stored in same location
 /sampleData
 
+## pom.xml
+The program was written using simple artifact.
+
+## dependencies
+The program is written using core java. The external library as added and used.
+
 
 ## How To Run And Test
 
 git clone project
 ```
+java -jar <generated jar> <input file>
 
+Example:
 java -jar target/company-download-application-1.2.jar sampleData/links.txt
 ```
 
@@ -32,14 +40,10 @@ mvn clean package
 
 Run the application
 ```
-java -jar target/company-download-application-1.2.jar sampleData/links.txt
+java -jar <generated jar> <input file>
 ```
 
 ## Author
 
 * **Mohammad Fazleh Elahi**
 
-
-
-# blue-test-online-application
-# blue-test-online-application
