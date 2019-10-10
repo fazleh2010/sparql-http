@@ -17,4 +17,6 @@ public interface Message {
     public static final String FAIL_DOWNLOAD = "No image found to download!!";
     public static final String INVALID_URL = "Invalid url!!";
     public static final String NOT_IMAGE_FILE = "This is not a image file!!";
+    public static final String INVALID_MIME_TYPE = "Can not get mime type from the format!!";
+    public static final String NOT_SUPPORTED_URL = "  format is not supported yet!!";
 }

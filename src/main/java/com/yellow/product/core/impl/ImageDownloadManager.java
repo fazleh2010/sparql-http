@@ -58,13 +58,16 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
                     try {
                         report = downloadImageFromUrl(url, extension, outputFile);
                     } catch (IOException ex) {
-                        report = new Report(url, Boolean.FALSE, FAIL_DOWNLOAD);
+                        report = new Report(url, Boolean.FALSE, ex.getMessage());
                     }
                 } else {
-                    report = new Report(url, Boolean.FALSE, FAIL_DOWNLOAD);
+                    report = new Report(url, Boolean.FALSE, pair.getValue() + NOT_SUPPORTED_URL);
                 }
             } catch (MalformedURLException ex) {
                 report = new Report(url, Boolean.FALSE, INVALID_URL);
+            }
+            catch (DownloadException ex) {		
+                report = new Report(url, Boolean.FALSE, ex.getMessage());		
             }
             System.out.println("now processing.." + report.getUrl());
             reports.add(report);
@@ -103,13 +106,20 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
      * @return two results. Whether it is image type or not (true or false). and
      * the file name.
      */
-    private Pair<Boolean, String> isImage(String path) {
-        String mimeType = URLConnection.guessContentTypeFromName(new File(path).getName());
-        mimeType = mimeType.split("/")[1];
-        if (IMAGE_FILES.contains(mimeType)) {
-            return new Pair<Boolean, String>(Boolean.TRUE, mimeType);
-
+    private Pair<Boolean, String> isImage(String path) throws DownloadException {
+        String mimeType = null;
+        try {
+            mimeType = URLConnection.guessContentTypeFromName(new File(path).getName());
+            if (mimeType.contains("/")) {
+                mimeType = mimeType.split("/")[1];
+                if (IMAGE_FILES.contains(mimeType)) {
+                    return new Pair<Boolean, String>(Boolean.TRUE, mimeType);
+                }
+            }
+        } catch (Exception ex) {
+            throw new DownloadException(INVALID_MIME_TYPE);
         }
+
         return new Pair<Boolean, String>(Boolean.FALSE, mimeType);
     }
 
