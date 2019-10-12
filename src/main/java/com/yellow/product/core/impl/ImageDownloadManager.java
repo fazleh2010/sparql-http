@@ -43,11 +43,11 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
      * whether they are downloaded or not, and note attached.
      */
     @Override
-    public List<Report> download() throws DownloadException {
-        super.reports = new ArrayList<Report>();
+    public Report download() throws DownloadException {
+        List<ImageDownloadReport> reports = new ArrayList<ImageDownloadReport>();
         for (String line : inputs) {
             URL url = null;
-            Report report = null;
+            ImageDownloadReport report = null;
             try {
                 url = new URL(line);
                 System.out.println("now processing.." + url);
@@ -59,20 +59,19 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
                     try {
                         report = downloadImageFromUrl(url, extension, outputFile);
                     } catch (IOException ex) {
-                        report = new Report(url, Boolean.FALSE, FAIL_DOWNLOAD_GENERAL + ex.getMessage());
+                        report = new ImageDownloadReport(url, Boolean.FALSE, FAIL_DOWNLOAD_GENERAL + ex.getMessage());
                     }
                 } else {
-                    report = new Report(url, Boolean.FALSE, pair.getValue() + NOT_SUPPORTED_URL);
+                    report = new ImageDownloadReport(url, Boolean.FALSE, pair.getValue() + NOT_SUPPORTED_URL);
                 }
             } catch (MalformedURLException ex) {
-                report = new Report(url, Boolean.FALSE, INVALID_URL);
+                report = new ImageDownloadReport(url, Boolean.FALSE, INVALID_URL);
             } catch (DownloadException ex) {
-                report = new Report(url, Boolean.FALSE, ex.getMessage());
+                report = new ImageDownloadReport(url, Boolean.FALSE, ex.getMessage());
             }
             reports.add(report);
         }
-
-        return reports;
+        return new Report(this.downloadLocation,inputFileName, reports);
     }
 
     /**
@@ -85,16 +84,16 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
      * @return the output file
      * @throws IOException if the image is failed to download
      */
-    private Report downloadImageFromUrl(URL url, String imageType, File outputFile) throws IOException {
+    private ImageDownloadReport downloadImageFromUrl(URL url, String imageType, File outputFile) throws IOException {
         BufferedImage image = ImageIO.read(url);
         if (image != null) {
             if (outputFile.exists()) {
                 outputFile.delete();
             }
             ImageIO.write(image, imageType, outputFile);
-            return new Report(url, Boolean.TRUE, SUCCESSFUL_DOWNLOAD);
+            return new ImageDownloadReport(url, Boolean.TRUE, SUCCESSFUL_DOWNLOAD);
         } else {
-            return new Report(url, Boolean.FALSE, FAIL_DOWNLOAD);
+            return new ImageDownloadReport(url, Boolean.FALSE, FAIL_DOWNLOAD);
         }
     }
 

@@ -7,7 +7,7 @@ package com.yellow.product.core.impl;
 
 import com.yellow.product.core.api.DownLoadManager;
 import com.yellow.product.core.constant.Message;
-import com.yellow.product.core.impl.Report.Status;
+import com.yellow.product.core.impl.ImageDownloadReport.Status;
 import com.yellow.product.exception.LoaderException;
 import java.io.File;
 import java.util.ArrayList;
@@ -44,13 +44,13 @@ public class ImageDownloaderTest extends TestCase {
         System.out.println("testDownload_WhenSuccess");
         inputFile = new File(downloadLocation + File.separator + "linksSuccess.txt");
         DownLoadManager ImagedownLoadManager = new ImageDownloadManager(inputFile);
-        Report report = new Report(null, Boolean.TRUE, null);
-        List<Report> expResult = new ArrayList<Report>();
+        ImageDownloadReport report = new ImageDownloadReport(null, Boolean.TRUE, null);
+        List<ImageDownloadReport> expResult = new ArrayList<ImageDownloadReport>();
         expResult.add(report);
         Status status = expResult.iterator().next().getstatus();
-        List<Report> result = ImagedownLoadManager.download();
-        ImagedownLoadManager.report();
-        assertEquals(status.SUCCESS, result.iterator().next().getstatus());
+        Report result = ImagedownLoadManager.download();
+        ImagedownLoadManager.display();
+        assertEquals(status.SUCCESS, result.getreports().iterator().next().getstatus());
     }
 
     /**
@@ -61,13 +61,13 @@ public class ImageDownloaderTest extends TestCase {
         System.out.println("testDownload_WhenFail");
         inputFile = new File(downloadLocation + File.separator + "linksFail.txt");
         DownLoadManager ImagedownLoadManager = new ImageDownloadManager(inputFile);
-        Report report = new Report(null, Boolean.FALSE, Message.FAIL_DOWNLOAD);
-        List<Report> expResult = new ArrayList<Report>();
+        ImageDownloadReport report = new ImageDownloadReport(null, Boolean.FALSE, Message.FAIL_DOWNLOAD);
+        List<ImageDownloadReport> expResult = new ArrayList<ImageDownloadReport>();
         expResult.add(report);
         Status status = expResult.iterator().next().getstatus();
-        List<Report> result = ImagedownLoadManager.download();
-        ImagedownLoadManager.report();
-        assertEquals(status.FAIL, result.iterator().next().getstatus());
+        Report result = ImagedownLoadManager.download();
+        ImagedownLoadManager.display();
+        assertEquals(status.FAIL, result.getreports().iterator().next().getstatus());
     }
 
 }

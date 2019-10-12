@@ -28,7 +28,7 @@ public class App {
                         System.exit(1);
                     } else {
                         DownLoadManager imageDownloader = new ImageDownloadManager(file);
-                        imageDownloader.report();
+                        imageDownloader.display();
                     }
                 } catch (DownloadException ex) {
                     Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);

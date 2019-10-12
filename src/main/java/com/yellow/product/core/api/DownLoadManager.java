@@ -6,9 +6,9 @@
  */
 package com.yellow.product.core.api;
 
-import com.yellow.product.core.impl.ReportGeneration;
-import com.yellow.product.core.impl.InputLoader;
 import com.yellow.product.core.impl.Report;
+import com.yellow.product.core.impl.InputLoader;
+import com.yellow.product.core.impl.ImageDownloadReport;
 import com.yellow.product.exception.DownloadException;
 import com.yellow.product.exception.LoaderException;
 import com.yellow.product.utils.FileNameUtils;
@@ -28,14 +28,15 @@ public abstract class DownLoadManager {
     public final String inputFileName;
     public final Set<String> inputs;
     public final String downloadLocation;
-    public List<Report> reports;
+    public Report report;
 
     public DownLoadManager(File inputFile) throws DownloadException, LoaderException {
         this.inputFileName = inputFile.getName();
         Loader loader = new InputLoader(inputFile);
         this.inputs = loader.getInputs();
         this.downloadLocation = loader.getInputLocation();
-        this.reports = this.download();
+        this.report = this.download();
+        this.display();
     }
 
     /**
@@ -48,20 +49,18 @@ public abstract class DownLoadManager {
      * @return it returns download reports. That is the urls, whether they are
      * downloaded or not, and a note attached.
      */
-    public abstract List<Report> download() throws DownloadException;
+    public abstract Report download() throws DownloadException;
 
     /*/**
      * display the results of download application
      *
      */
-    public void report() {
-        String outputFileName = FileNameUtils.getFileNameWithoutExtension(inputFileName);
-        Reports report = new ReportGeneration(this.downloadLocation + File.separator + outputFileName, reports);
+    public void display() {
         try {
-            JAXBContext jContext = JAXBContext.newInstance(ReportGeneration.class);
+            JAXBContext jContext = JAXBContext.newInstance(Report.class);
             Marshaller marshallObj = jContext.createMarshaller();
             marshallObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshallObj.marshal(report, new FileOutputStream(report.getReportFileName()));
+            marshallObj.marshal(report, new FileOutputStream(report.getDownloadReportFileName()));
         } catch (Exception e) {
             e.printStackTrace();
         }

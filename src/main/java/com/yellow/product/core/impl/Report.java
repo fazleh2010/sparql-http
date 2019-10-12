@@ -5,53 +5,55 @@
  */
 package com.yellow.product.core.impl;
 
-import java.net.URL;
-import javax.xml.bind.annotation.XmlAttribute;
+import com.yellow.product.utils.FileNameUtils;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mohammad Fazleh Elahi
+ * @author elahi
  */
-@XmlRootElement
+@XmlRootElement(name = "report")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Report {
 
-    private URL url;
-    private String note;
-    private Status status;
+    private static final String REPORT = "_Report.xml";
+    private String inputFileName;
+    private String downloadReportFileName;
+    private String downloadLocation;
 
-    public enum Status {
-        SUCCESS, FAIL;
-    }
+    @XmlElement(name = "element")
+    private List<ImageDownloadReport> reports = new ArrayList<ImageDownloadReport>();
 
     public Report() {
-
     }
 
-    public Report(URL url, Boolean flag, String note) {
-        this.url = url;
-        if (flag) {
-            status = Status.SUCCESS;
-        } else {
-            status = Status.FAIL;
-        }
-        this.note = note;
+    public Report(String downloadLocation, String inputFileName, List<ImageDownloadReport> reports) {
+        this.inputFileName = downloadLocation + File.separator + inputFileName;
+        this.downloadLocation = downloadLocation;
+        this.downloadReportFileName = downloadLocation + File.separator + FileNameUtils.getFileNameWithoutExtension(inputFileName) + REPORT;
+        this.reports = reports;
     }
 
-    @XmlAttribute
-    public URL getUrl() {
-        return url;
+    public List<ImageDownloadReport> getreports() {
+        return reports;
     }
 
-    @XmlElement
-    public String getNote() {
-        return note;
+    public String getDownloadReportFileName() {
+        return downloadReportFileName;
     }
 
-    @XmlElement
-    public Status getstatus() {
-        return this.status;
+    public String getDownloadLocation() {
+        return downloadLocation;
+    }
+
+    public String getInputFileName() {
+        return inputFileName;
     }
 
 }
