@@ -60,7 +60,7 @@ public abstract class DownLoadManager implements Message {
             JAXBContext jContext = JAXBContext.newInstance(Report.class);
             Marshaller marshallObj = jContext.createMarshaller();
             marshallObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshallObj.marshal(report, new FileOutputStream(report.getDownloadReportFileName()));
+            marshallObj.marshal(report, new FileOutputStream(report.getDownloadReport()));
         } catch (JAXBException ex) {
             throw new DownloadException(FAILED_TO_WRITE_XML + " " + ex.getMessage());
         } catch (FileNotFoundException ex) {

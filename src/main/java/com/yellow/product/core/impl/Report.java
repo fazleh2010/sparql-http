@@ -22,8 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Report {
 
     private static final String REPORT = "_Report.xml";
-    private String inputFileName;
-    private String downloadReportFileName;
+    private String input;
+    private String downloadReport;
     private String downloadLocation;
 
     @XmlElement(name = "element")
@@ -33,9 +33,9 @@ public class Report {
     }
 
     public Report(String downloadLocation, String inputFileName, List<ImageDownloadReport> reports) {
-        this.inputFileName = downloadLocation + File.separator + inputFileName;
+        this.input = downloadLocation + File.separator + inputFileName;
         this.downloadLocation = downloadLocation;
-        this.downloadReportFileName = downloadLocation + File.separator + FileNameUtils.getFileNameWithoutExtension(inputFileName) + REPORT;
+        this.downloadReport = downloadLocation + File.separator + FileNameUtils.getFileNameWithoutExtension(inputFileName) + REPORT;
         this.reports = reports;
     }
 
@@ -43,16 +43,16 @@ public class Report {
         return reports;
     }
 
-    public String getDownloadReportFileName() {
-        return downloadReportFileName;
+    public String getDownloadReport() {
+        return downloadReport;
     }
 
     public String getDownloadLocation() {
         return downloadLocation;
     }
 
-    public String getInputFileName() {
-        return inputFileName;
+    public String getInput() {
+        return input;
     }
 
 }
