@@ -1,9 +1,8 @@
 /**
  * <h1>Image download Manager</h1>
- * The ImageDownloadManager is subclass of DownloadManager. 
- * This program  takes a input file and downloads and save all images.
- * The input file is extracted at super class.
- * The results of download displayed at super class.
+ * The ImageDownloadManager is subclass of DownloadManager. This program takes a
+ * input file and downloads and save all images. The input file is extracted at
+ * super class. The results of download displayed at super class.
  */
 package com.yellow.product.core.impl;
 
@@ -22,6 +21,7 @@ import java.util.List;
 import javafx.util.Pair;
 import javax.imageio.ImageIO;
 import com.yellow.product.core.constant.MimeType;
+import com.yellow.product.utils.FileNameUtils;
 
 /**
  *
@@ -44,32 +44,31 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
      */
     @Override
     public List<Report> download() throws DownloadException {
-        List<Report> reports = new ArrayList<Report>();
+        super.reports = new ArrayList<Report>();
         for (String line : inputs) {
             URL url = null;
             Report report = null;
             try {
                 url = new URL(line);
-                String name = getFileNameFromUrl(url);
-                Pair<Boolean, String> pair = isImage(name);
+                System.out.println("now processing.." + url);
+                String name = FileNameUtils.getFileName(url);
+                Pair<Boolean, String> pair = isImageFile(name);
                 if (pair.getKey()) {
                     String extension = pair.getValue();
                     File outputFile = new File(super.downloadLocation + File.separator + name);
                     try {
                         report = downloadImageFromUrl(url, extension, outputFile);
                     } catch (IOException ex) {
-                        report = new Report(url, Boolean.FALSE, ex.getMessage());
+                        report = new Report(url, Boolean.FALSE, FAIL_DOWNLOAD_GENERAL + ex.getMessage());
                     }
                 } else {
                     report = new Report(url, Boolean.FALSE, pair.getValue() + NOT_SUPPORTED_URL);
                 }
             } catch (MalformedURLException ex) {
                 report = new Report(url, Boolean.FALSE, INVALID_URL);
+            } catch (DownloadException ex) {
+                report = new Report(url, Boolean.FALSE, ex.getMessage());
             }
-            catch (DownloadException ex) {		
-                report = new Report(url, Boolean.FALSE, ex.getMessage());		
-            }
-            System.out.println("now processing.." + report.getUrl());
             reports.add(report);
         }
 
@@ -106,25 +105,22 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
      * @return two results. Whether it is image type or not (true or false). and
      * the file name.
      */
-    private Pair<Boolean, String> isImage(String path) throws DownloadException {
+    private Pair<Boolean, String> isImageFile(String path) throws DownloadException {
         String mimeType = null;
         try {
             mimeType = URLConnection.guessContentTypeFromName(new File(path).getName());
-            if (mimeType.contains("/")) {
-                mimeType = mimeType.split("/")[1];
+            Pair<Boolean, String> pair = FileNameUtils.getExtensionFromMimeType(mimeType);
+            if (pair.getKey()) {
+                mimeType = pair.getValue();
                 if (IMAGE_FILES.contains(mimeType)) {
                     return new Pair<Boolean, String>(Boolean.TRUE, mimeType);
                 }
             }
         } catch (Exception ex) {
-            throw new DownloadException(INVALID_MIME_TYPE);
+            throw new DownloadException(INVALID_MIME_TYPE + " " + ex.getMessage());
         }
 
         return new Pair<Boolean, String>(Boolean.FALSE, mimeType);
-    }
-
-    private String getFileNameFromUrl(URL url) {
-        return new File(url.getPath()).getName();
     }
 
 }

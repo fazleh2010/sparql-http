@@ -1,43 +1,57 @@
-/**
- * <h1>Report</h1>
- * The Report stored the url, a flag which indicated whether it is downloaded or not,
- * and a note.
- *
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.yellow.product.core.impl;
 
-import com.yellow.product.core.constant.Message;
 import java.net.URL;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Mohammad Fazleh Elahi
  */
+@XmlRootElement
 public class Report {
-    private final URL url;
-    private final String note;
-    private final Boolean flag;
-    
-    public Report(URL url,Boolean flag,String note){
-        this.url=url;
-        this.flag=flag;
-        this.note=note;
+
+    private URL url;
+    private String note;
+    private Status status;
+
+    public enum Status {
+        SUCCESS, FAIL;
     }
 
+    public Report() {
+
+    }
+
+    public Report(URL url, Boolean flag, String note) {
+        this.url = url;
+        if (flag) {
+            status = Status.SUCCESS;
+        } else {
+            status = Status.FAIL;
+        }
+        this.note = note;
+    }
+
+    @XmlAttribute
     public URL getUrl() {
         return url;
     }
 
+    @XmlElement
     public String getNote() {
         return note;
     }
 
-    public Boolean getFlag() {
-        return flag;
-    }    
-
-    @Override
-    public String toString() {
-        return "Report{" + "url=" + url + ", note=" + note + ", flag=" + flag + '}';
+    @XmlElement
+    public Status getstatus() {
+        return this.status;
     }
+
 }

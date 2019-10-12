@@ -5,7 +5,9 @@
  */
 package com.yellow.product.core.impl;
 
+import com.yellow.product.core.api.DownLoadManager;
 import com.yellow.product.core.constant.Message;
+import com.yellow.product.core.impl.Report.Status;
 import com.yellow.product.exception.LoaderException;
 import java.io.File;
 import java.util.ArrayList;
@@ -41,13 +43,14 @@ public class ImageDownloaderTest extends TestCase {
     public void testDownload_WhenSuccess() throws Exception {
         System.out.println("testDownload_WhenSuccess");
         inputFile = new File(downloadLocation + File.separator + "linksSuccess.txt");
-        ImageDownloadManager instance = new ImageDownloadManager(inputFile);
+        DownLoadManager ImagedownLoadManager = new ImageDownloadManager(inputFile);
         Report report = new Report(null, Boolean.TRUE, null);
         List<Report> expResult = new ArrayList<Report>();
         expResult.add(report);
-        Boolean flag = expResult.iterator().next().getFlag();
-        List<Report> result = instance.download();
-        assertEquals(flag, result.iterator().next().getFlag());
+        Status status = expResult.iterator().next().getstatus();
+        List<Report> result = ImagedownLoadManager.download();
+        ImagedownLoadManager.report();
+        assertEquals(status.SUCCESS, result.iterator().next().getstatus());
     }
 
     /**
@@ -57,13 +60,14 @@ public class ImageDownloaderTest extends TestCase {
     public void testDownload_WhenFail() throws Exception {
         System.out.println("testDownload_WhenFail");
         inputFile = new File(downloadLocation + File.separator + "linksFail.txt");
-        ImageDownloadManager instance = new ImageDownloadManager(inputFile);
+        DownLoadManager ImagedownLoadManager = new ImageDownloadManager(inputFile);
         Report report = new Report(null, Boolean.FALSE, Message.FAIL_DOWNLOAD);
         List<Report> expResult = new ArrayList<Report>();
         expResult.add(report);
-        Boolean flag = expResult.iterator().next().getFlag();
-        List<Report> result = instance.download();
-        assertEquals(flag, result.iterator().next().getFlag());
+        Status status = expResult.iterator().next().getstatus();
+        List<Report> result = ImagedownLoadManager.download();
+        ImagedownLoadManager.report();
+        assertEquals(status.FAIL, result.iterator().next().getstatus());
     }
 
 }

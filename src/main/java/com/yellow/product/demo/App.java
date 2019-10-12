@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  * @author Mohammad Fazleh Elahi
  *
@@ -16,6 +15,7 @@ import java.util.logging.Logger;
 public class App {
 
     public static void main(String[] args) throws IOException {
+
         try {
             if (args.length < 1) {
                 System.out.println("parameter for input file is missing!!");
@@ -28,7 +28,7 @@ public class App {
                         System.exit(1);
                     } else {
                         DownLoadManager imageDownloader = new ImageDownloadManager(file);
-                        imageDownloader.display();
+                        imageDownloader.report();
                     }
                 } catch (DownloadException ex) {
                     Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
