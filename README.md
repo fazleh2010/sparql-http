@@ -53,18 +53,22 @@ The links_Report.xml reports the result of download application. I.e. whether im
 The download status of each url of the `links.txt` file is transformed into a separate element. 
 
 ## pom.xml
-A simple artifact is used.
+A Project Object Model or POM contains information about the project used by Maven to build the project. A simple artifact is used with default project structure.
 
 ## dependencies
-The program is written using core java. No external library is added to pom.xml.
+The program is written using core java. No external library is added to pom.xml.Only junit library is added in dependencies.
 
 
-## How To Run 
 
-git clone 
+How To Run 
+------------
 
-Build the program 
+git clone <repo> 
+
+
+Go to project folder and build the program 
 ```
+downloadApp/
 mvn clean package
 ```
 
@@ -73,8 +77,12 @@ Run the application
 java -jar <generated jar> <input file>
 
 Example:
-java -jar target/downloadApp-1.3.jar data/links.txt
+java -jar target/downloadApp-1.5.jar data/links.txt
 ```
+
+## Note
+No additional library (I.e. Apache Tika) is used to detect file type or mime type. The issue was resolved by codes. No library of utils is used. The program was written in core java.
+
 
 ## Author
 
