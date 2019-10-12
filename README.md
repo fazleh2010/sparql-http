@@ -17,18 +17,20 @@ data/links.txt
 https://www.technicalkeeda.com/img/images/article/spring-file-upload-eclipse-setup.png
 https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg
 http://eeweb.poly.edu/~yao/EL5123/image/barbara_gray.bmp
+http://mywebserver.com/images/24174.jpg
 ```
 
-The program downloads all the images and stores them in the same location of input file
-
-Sample output:
-article/spring-file-upload-eclipse-setup.png
-4094333885_e8462a8338.jpg
-barbara_gray.bmp
+Output
+------------
+The program downloads all the images and stores them in the same location of input file.n example of output is as follow:
+```
+data/article/spring-file-upload-eclipse-setup.png
+data/4094333885_e8462a8338.jpg
+data/barbara_gray.bmp
 links_Report.xml
+```
 
-
-The links_Report.xml reports the result of download application. That is whether images are downloaded or not (SUCCESS or FAIL). It also includes a note that mentions the reason of failure. For example:
+The links_Report.xml reports the result of download application. I.e. whether images are downloaded or not (SUCCESS or FAIL). It also includes a note that mentions the reason of failure. For example:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
