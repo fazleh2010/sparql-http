@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<report>
+    <inputFileName>/Users/elahi/blue/downloadApp/src/test/resources/linksSuccess.txt</inputFileName>
+    <downloadReportFileName>/Users/elahi/blue/downloadApp/src/test/resources/linksSuccess_Report.xml</downloadReportFileName>
+    <downloadLocation>/Users/elahi/blue/downloadApp/src/test/resources</downloadLocation>
+    <element url="https://www.technicalkeeda.com/img/images/article/spring-file-upload-eclipse-setup.png">
+        <note>The image is successfully stored!! </note>
+        <status>SUCCESS</status>
+    </element>
+</report>

@@ -20,4 +20,9 @@ public interface Message {
     public static final String NOT_IMAGE_FILE = "This is not a image file!! ";
     public static final String INVALID_MIME_TYPE = "Can not get mime type from the format!! ";
     public static final String NOT_SUPPORTED_URL = "  format is not supported yet !!";
+    public static final String INTERNET_CONNECTION_PROBLEM = "Internet is not connected!!!";
+    public static final String MISSING_INPUT_FILE = "parameter for input file is missing!!";
+    public static final String TOO_MANY_PARAMETERS =  "Too many parameters! only one paramter is permitted!!";
+    public static final String FAILED_TO_WRITE_XML = "failed to write report in xml file!!!!";
+
 }

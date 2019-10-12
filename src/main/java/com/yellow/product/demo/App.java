@@ -1,6 +1,7 @@
 package com.yellow.product.demo;
 
 import com.yellow.product.core.api.DownLoadManager;
+import com.yellow.product.core.constant.Message;
 import com.yellow.product.core.impl.ImageDownloadManager;
 import com.yellow.product.exception.DownloadException;
 import com.yellow.product.exception.LoaderException;
@@ -12,19 +13,18 @@ import java.util.logging.Logger;
  * @author Mohammad Fazleh Elahi
  *
  */
-public class App {
+public class App implements Message{
 
     public static void main(String[] args) throws IOException {
-
         try {
             if (args.length < 1) {
-                System.out.println("parameter for input file is missing!!");
+                System.out.println(MISSING_INPUT_FILE);
                 System.exit(1);
             } else {
                 try {
                     File file = new File(args[0]);
                     if (args.length > 1) {
-                        System.out.println("Too many parameters! only one paramter is permitted!!");
+                        System.out.println(TOO_MANY_PARAMETERS);
                         System.exit(1);
                     } else {
                         DownLoadManager imageDownloader = new ImageDownloadManager(file);
@@ -42,5 +42,7 @@ public class App {
         }
 
     }
+    
+    
 
 }

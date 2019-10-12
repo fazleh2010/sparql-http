@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * <h1>Report</h1>
+ * The Report class store the result of all urls.
  */
 package com.yellow.product.core.impl;
 
@@ -16,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author elahi
+ * @author Mohammad Fazleh Elahi
  */
 @XmlRootElement(name = "report")
 @XmlAccessorType(XmlAccessType.FIELD)

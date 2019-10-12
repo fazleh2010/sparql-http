@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * <h1>Download Exception</h1>
+ * This is a class for download exception.
  */
 package com.yellow.product.exception;
 
@@ -11,19 +10,19 @@ package com.yellow.product.exception;
  */
 public class DownloadException extends Exception {
 
-  public DownloadException() {
-  }
+    public DownloadException() {
+    }
 
-  public DownloadException(String message) {
-    super(message);
-  }
+    public DownloadException(String message) {
+        super(message);
+    }
 
-  public DownloadException(Throwable cause) {
-    super(cause);
-  }
+    public DownloadException(Throwable cause) {
+        super(cause);
+    }
 
-  public DownloadException(String message, Throwable cause) {
-    super(message, cause);
-  }
-    
+    public DownloadException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

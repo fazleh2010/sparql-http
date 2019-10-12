@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * <h1>Image download Report</h1>
+ * The ImageDownloadReport class store the result (SUCESS or FAIL) of an url.
  */
 package com.yellow.product.core.impl;
 
@@ -17,8 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ImageDownloadReport {
 
+    //the url of the image
     private URL url;
+    //the mentions the detail (or reason) if fails
     private String note;
+    //the image download success or fail
     private Status status;
 
     public enum Status {

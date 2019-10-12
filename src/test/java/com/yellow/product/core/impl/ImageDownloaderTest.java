@@ -24,6 +24,7 @@ public class ImageDownloaderTest extends TestCase {
     private File inputFile = new File(downloadLocation + File.separator + "linksSuccess.txt.txt");
 
     public ImageDownloaderTest() throws LoaderException {
+        
     }
 
     @Override

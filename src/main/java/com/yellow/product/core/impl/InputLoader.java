@@ -1,8 +1,7 @@
 /**
  * <h1>Input processor</h1>
- * The InputLoader simply takes a input file and extract all lines. It does not
- * check what the line contains. The line can be anything. and save them in a
- * set.
+ * The InputLoader takes a input file and extract all lines. The line can be
+ * anything.
  */
 package com.yellow.product.core.impl;
 
@@ -28,7 +27,9 @@ import com.yellow.product.core.constant.MimeType;
  */
 public class InputLoader implements Message, Loader, MimeType {
 
+    // The location of input file
     private final String resourceLocation;
+    // The lines of the file
     private Set<String> inputs;
 
     public InputLoader(File inputfile) throws LoaderException {
@@ -91,10 +92,10 @@ public class InputLoader implements Message, Loader, MimeType {
     }
 
     /**
-     * Check whether the file is text file.
+     * Checking whether the file is a text file.
      * <p>
-     * @param the input file
-     * @param the file type to check. In this case text file.
+     * @param the given input file
+     * @param the file type to check.
      * @return true if it is text file. false otherwise.
      * @throws LoaderException if the file is not text file.
      */

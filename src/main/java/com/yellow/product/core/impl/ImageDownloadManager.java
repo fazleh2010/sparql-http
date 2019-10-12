@@ -1,8 +1,9 @@
 /**
  * <h1>Image download Manager</h1>
- * The ImageDownloadManager is subclass of DownloadManager. This program takes a
- * input file and downloads and save all images. The input file is extracted at
- * super class. The results of download displayed at super class.
+ * The ImageDownloadManager is subclass of parent DownloadManager. The urls of
+ * input file is extracted at super class. This class downloads and stores
+ * images in local machine. The reports of result of download (SUCESS or FAIL)
+ * are generated.
  */
 package com.yellow.product.core.impl;
 
@@ -34,13 +35,12 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
     }
 
     /**
-     * Returns reports of all the image urls, whether these urls are downloaded
-     * or not (true or false) and note attached.
+     * Returns report whether images of the urls are downloaded or not.
      * <p>
-     * The method downloads images and reports the results.
+     * The method downloads images given urls and reports the results.
      *
-     * @return it returns download reports of all urls. That is the urls,
-     * whether they are downloaded or not, and note attached.
+     * @return it returns reports of all urls. That is whether images are
+     * downloaded or not.
      */
     @Override
     public Report download() throws DownloadException {
@@ -71,16 +71,16 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
             }
             reports.add(report);
         }
-        return new Report(this.downloadLocation,inputFileName, reports);
+        return new Report(this.downloadLocation, inputFileName, reports);
     }
 
     /**
-     * Return download report for the url.
+     * Return Report of download of an url.
      * <p>
-     * The method downloads the image and store it in download location.
+     * The method downloads the image given an url.
      *
      * @param url to download
-     * @param imageType
+     * @param imageType the types of image
      * @return the output file
      * @throws IOException if the image is failed to download
      */
@@ -98,11 +98,11 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
     }
 
     /**
-     * Check whether it is a valid image file of not (i.e. jpg, jpeg, png, etc.)
+     * Check whether it is a valid image file of not (i.e. jpg,png, etc.)
      * <p>
      * @param the file name
-     * @return two results. Whether it is image type or not (true or false). and
-     * the file name.
+     * @return two results. Whether it is image type or not (true or false) and
+     * the mimeType.
      */
     private Pair<Boolean, String> isImageFile(String path) throws DownloadException {
         String mimeType = null;

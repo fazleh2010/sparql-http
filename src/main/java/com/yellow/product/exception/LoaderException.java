@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * <h1>Loader Exception</h1>
+ * This exception class for input file processing.
  */
 package com.yellow.product.exception;
 
@@ -11,19 +10,19 @@ package com.yellow.product.exception;
  */
 public class LoaderException extends Exception {
 
-  public LoaderException() {
-  }
+    public LoaderException() {
+    }
 
-  public LoaderException(String message) {
-    super(message);
-  }
+    public LoaderException(String message) {
+        super(message);
+    }
 
-  public LoaderException(Throwable cause) {
-    super(cause);
-  }
+    public LoaderException(Throwable cause) {
+        super(cause);
+    }
 
-  public LoaderException(String message, Throwable cause) {
-    super(message, cause);
-  }
-    
+    public LoaderException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }
