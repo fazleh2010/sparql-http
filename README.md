@@ -3,36 +3,35 @@ downloadApp
 ================================
 
 This is a download application. 
-The program takes a text file containing urls. It then downloads all the images and stores them in local machine.
+The program takes a text file containing urls and downloads all the images and then stores them in local machine.
 The program is written in java.
 
 
 Input
 ------------
 
-The Input file is a txt file that contains urls. An example of input file is as follow:
+The Input file is a .txt file that contains urls. An example of input file is as follow:
 
 data/links.txt
-```
 https://www.technicalkeeda.com/img/images/article/spring-file-upload-eclipse-setup.png
 https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg
 http://eeweb.poly.edu/~yao/EL5123/image/barbara_gray.bmp
 http://mywebserver.com/images/24174.jpg
-```
+
 
 Output
 ------------
-The program downloads all the images and stores them in the same location of input file.n example of output is as follow:
+The program downloads all the images and stores them in the same location of input file. An example of output is as follow:
 
 data/
 ```
-article/spring-file-upload-eclipse-setup.png
+spring-file-upload-eclipse-setup.png
 4094333885_e8462a8338.jpg
 barbara_gray.bmp
 links_Report.xml
 ```
 
-The links_Report.xml reports the result of download application. I.e. whether images are downloaded or not (SUCCESS or FAIL). It also includes a note that mentions the reason of failure. For example:
+The links_Report.xml reports the result of download status of each url. I.e. whether images are downloaded or not (SUCCESS or FAIL). It also includes a note that mentions the reason of the failure. For example:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -55,10 +54,10 @@ The links_Report.xml reports the result of download application. I.e. whether im
 The download status of each url of the `links.txt` file is transformed into a separate element. 
 
 ## pom.xml
-A Project Object Model or POM contains information about the project used by Maven to build the project. A simple artifact is used with default project structure.
+The POM contains information about the project used by Maven to build the project. A simple artifact is used with default project structure.
 
 ## dependencies
-The program is written using core java. No external library is added to pom.xml.Only junit library is added in dependencies.
+The program is written using core java. No external library is added to pom.xml. Only junit library is added in dependencies.
 
 
 
@@ -68,9 +67,8 @@ How To Run
 git clone <repo> 
 
 
-Go to project folder and build the program 
+Go to project folder downloadApp/ and build the program 
 ```
-downloadApp/
 mvn clean package
 ```
 
@@ -83,7 +81,7 @@ java -jar target/downloadApp-1.5.jar data/links.txt
 ```
 
 ## Note
-No additional library (I.e. Apache Tika) is used to detect file type or mime type. The issue was resolved by codes. No library of utils is used. The program was written in core java.
+No additional library (I.e. Apache Tika) is used to detect file type or mime type. The issue was resolved by codes. No library of Utils (i.e Apache Common) is used. The program was written in core java.
 
 
 ## Author
