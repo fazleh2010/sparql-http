@@ -27,7 +27,7 @@ The program downloads all the images and stores them in the same location of inp
 data/article/spring-file-upload-eclipse-setup.png
 data/4094333885_e8462a8338.jpg
 data/barbara_gray.bmp
-links_Report.xml
+data/links_Report.xml
 ```
 
 The links_Report.xml reports the result of download application. I.e. whether images are downloaded or not (SUCCESS or FAIL). It also includes a note that mentions the reason of failure. For example:
@@ -38,6 +38,7 @@ The links_Report.xml reports the result of download application. I.e. whether im
     <inputFileName>../downloadApp/data/links.txt</inputFileName>
     <downloadReportFileName>../downloadApp/data/links_Report.xml</downloadReportFileName>
     <downloadLocation>..downloadApp/data</downloadLocation>
+
     <element url="https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg">
         <note>The image is successfully stored!! </note>
         <status>SUCCESS</status>
@@ -49,7 +50,7 @@ The links_Report.xml reports the result of download application. I.e. whether im
 </report>
 ```
 
-The download status of url of the `links.txt` file is transformed into a separate element.
+The download status of each url of the `links.txt` file is transformed into a separate element. 
 
 ## pom.xml
 A simple artifact is used.
