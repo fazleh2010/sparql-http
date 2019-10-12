@@ -1,21 +1,26 @@
 
 ## downloadApp
 
-This is a download application. The image download part is implemented. 
-The program takes a text file containing urls and downloads all the images.
+This is a download application. 
+The program takes a text file containing urls. It then downloads all the images and stores them in local machine.
 The program is written in java.
 
 
 ## Input and output
 
-The downloaded files will be stored in same of input file.
+## sample Input file
+https://www.technicalkeeda.com/img/images/article/spring-file-upload-eclipse-setup.png
+https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg
+http://eeweb.poly.edu/~yao/EL5123/image/barbara_gray.bmp
+
+The program downloads all the images and stores them in the same location 
 
 
-For example, there is sample input file in the following location
+For example, there is sample input file (links.txt) in the following location
 
 /data
 
-The downloaded files will also be stored 
+After running the program the images will be stored
 
 /data
 
