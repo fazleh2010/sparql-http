@@ -23,9 +23,9 @@ public interface MimeType {
     public static final String IMAGE_JPG = "jpg";
     public static final String IMAGE_PNG = "png";
     public static final String IMAGE_BMP = "bmp";
-    public static final String IMAGE_GIF = "gif";
+
     //A sets of all allowed image files
     public static final Set<String> IMAGE_FILES = new HashSet<String>(Arrays.asList(IMAGE_JPEG,
-            IMAGE_JPG, IMAGE_PNG, IMAGE_BMP, IMAGE_GIF));
+            IMAGE_JPG, IMAGE_PNG, IMAGE_BMP));
 
 }

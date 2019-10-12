@@ -24,7 +24,7 @@ public class ImageDownloaderTest extends TestCase {
     private File inputFile = new File(downloadLocation + File.separator + "linksSuccess.txt.txt");
 
     public ImageDownloaderTest() throws LoaderException {
-        
+
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ImageDownloaderTest extends TestCase {
         System.out.println("testDownload_WhenFail");
         inputFile = new File(downloadLocation + File.separator + "linksFail.txt");
         DownLoadManager ImagedownLoadManager = new ImageDownloadManager(inputFile);
-        ImageDownloadReport report = new ImageDownloadReport(null, Boolean.FALSE, Message.FAIL_DOWNLOAD);
+        ImageDownloadReport report = new ImageDownloadReport(null, Boolean.FALSE, Message.FAIL_DOWNLOAD_NO_IMAGE);
         List<ImageDownloadReport> expResult = new ArrayList<ImageDownloadReport>();
         expResult.add(report);
         Status status = expResult.iterator().next().getstatus();

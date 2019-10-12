@@ -23,7 +23,6 @@ import javafx.util.Pair;
 import javax.imageio.ImageIO;
 import com.yellow.product.core.constant.MimeType;
 import com.yellow.product.utils.FileNameUtils;
-
 /**
  *
  * @author Mohammad Fazleh Elahi
@@ -65,8 +64,10 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
                     report = new ImageDownloadReport(url, Boolean.FALSE, pair.getValue() + NOT_SUPPORTED_URL);
                 }
             } catch (MalformedURLException ex) {
-                report = new ImageDownloadReport(url, Boolean.FALSE, INVALID_URL);
-            } catch (DownloadException ex) {
+                throw new DownloadException(INVALID_URL + " " + ex.getMessage());
+            } catch (IOException ex) {
+                throw new DownloadException(ex.getMessage());
+            } catch (Exception ex) {
                 report = new ImageDownloadReport(url, Boolean.FALSE, ex.getMessage());
             }
             reports.add(report);
@@ -93,7 +94,7 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
             ImageIO.write(image, imageType, outputFile);
             return new ImageDownloadReport(url, Boolean.TRUE, SUCCESSFUL_DOWNLOAD);
         } else {
-            return new ImageDownloadReport(url, Boolean.FALSE, FAIL_DOWNLOAD);
+            return new ImageDownloadReport(url, Boolean.FALSE, FAIL_DOWNLOAD_NO_IMAGE);
         }
     }
 
@@ -104,21 +105,24 @@ public class ImageDownloadManager extends DownLoadManager implements Message, Mi
      * @return two results. Whether it is image type or not (true or false) and
      * the mimeType.
      */
-    private Pair<Boolean, String> isImageFile(String path) throws DownloadException {
+    private Pair<Boolean, String> isImageFile(String path) throws Exception {
         String mimeType = null;
+
+        mimeType = URLConnection.guessContentTypeFromName(new File(path).getName());
+        Pair<Boolean, String> pair;
         try {
-            mimeType = URLConnection.guessContentTypeFromName(new File(path).getName());
-            Pair<Boolean, String> pair = FileNameUtils.getExtensionFromMimeType(mimeType);
+            pair = FileNameUtils.getExtensionFromMimeType(mimeType);
             if (pair.getKey()) {
                 mimeType = pair.getValue();
                 if (IMAGE_FILES.contains(mimeType)) {
                     return new Pair<Boolean, String>(Boolean.TRUE, mimeType);
+                } else {
+                    throw new Exception(NOT_IMAGE_FILE);
                 }
             }
         } catch (Exception ex) {
-            throw new DownloadException(INVALID_MIME_TYPE + " " + ex.getMessage());
+            throw new Exception(FAIL_DETECT_IMAGE_FILE);
         }
-
         return new Pair<Boolean, String>(Boolean.FALSE, mimeType);
     }
 

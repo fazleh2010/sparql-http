@@ -64,7 +64,7 @@ public abstract class DownLoadManager implements Message {
         } catch (JAXBException ex) {
             throw new DownloadException(FAILED_TO_WRITE_XML + " " + ex.getMessage());
         } catch (FileNotFoundException ex) {
-            throw new LoaderException(INVALID_MIME_TYPE + " " + ex.getMessage());
+            throw new LoaderException(CANNOT_WRITE_XML + " " +ex.getMessage());
         }
     }
 

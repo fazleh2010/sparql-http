@@ -24,7 +24,7 @@ public class FileNameUtils {
         return fileName.replaceFirst("[.][^.]+$", "");
     }
 
-    public static Pair<Boolean, String> getExtensionFromMimeType(String mimetype) {
+    public static Pair<Boolean, String> getExtensionFromMimeType(String mimetype) throws Exception {
         if (mimetype.contains("/")) {
             mimetype = mimetype.split("/")[1];
             return new Pair<Boolean, String>(Boolean.TRUE, mimetype);
