@@ -8,21 +8,40 @@ The program is written in java.
 
 ## Input and output
 
-#sample Input file
+The Input file is txt file containing urls.
+
+Sample input: data/links.txt
+
 https://www.technicalkeeda.com/img/images/article/spring-file-upload-eclipse-setup.png
 https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg
 http://eeweb.poly.edu/~yao/EL5123/image/barbara_gray.bmp
 
-The program downloads all the images and stores them in the same location 
+The program downloads all the images and stores them in the same location of input file
+
+Sample output:
+article/spring-file-upload-eclipse-setup.png
+4094333885_e8462a8338.jpg
+barbara_gray.bmp
+links_Report.xml
 
 
-For example, there is sample input file (links.txt) in the following location
+The links_Report.xml reports the result of download application. That is whether images are downloaded or not (SUCCESS or FAIL). It also includes a note that mentions the reason of failure. For example:
 
-/data
+<report>
+    <inputFileName>../downloadApp/data/links.txt</inputFileName>
+    <downloadReportFileName>../downloadApp/data/links_Report.xml</downloadReportFileName>
+    <downloadLocation>..downloadApp/data</downloadLocation>
+    <element url="https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg">
+        <note>The image is successfully stored!! </note>
+        <status>SUCCESS</status>
+    </element>
+    <element url="http://mywebserver.com/images/24174.jpg">
+        <note>No image found to download!!</note>
+        <status>FAIL</status>
+    </element>
+    ....
+</report>
 
-After running the program the images will be stored
-
-/data
 
 ## pom.xml
 A simple artifact is used.
