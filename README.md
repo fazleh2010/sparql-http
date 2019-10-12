@@ -1,16 +1,20 @@
 
-## downloadApp
+downloadApp
+================================
 
 This is a download application. 
 The program takes a text file containing urls. It then downloads all the images and stores them in local machine.
 The program is written in java.
 
 
-## Input and output
+Input
+------------
 
-The Input file is txt file containing urls.
+The Input file is a txt file that contains urls.
 
-Sample input: data/links.txt
+An example of input file as 
+
+data/links.txt
 
 https://www.technicalkeeda.com/img/images/article/spring-file-upload-eclipse-setup.png
 https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg
@@ -27,6 +31,8 @@ links_Report.xml
 
 The links_Report.xml reports the result of download application. That is whether images are downloaded or not (SUCCESS or FAIL). It also includes a note that mentions the reason of failure. For example:
 
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <report>
     <inputFileName>../downloadApp/data/links.txt</inputFileName>
     <downloadReportFileName>../downloadApp/data/links_Report.xml</downloadReportFileName>
@@ -39,9 +45,10 @@ The links_Report.xml reports the result of download application. That is whether
         <note>No image found to download!!</note>
         <status>FAIL</status>
     </element>
-    ....
 </report>
+```
 
+The download status of url of the `links.txt` file is transformed into a separate element.
 
 ## pom.xml
 A simple artifact is used.
