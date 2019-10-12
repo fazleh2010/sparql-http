@@ -8,7 +8,7 @@ The program is written in java.
 
 ## Input and output
 
-## sample Input file
+#sample Input file
 https://www.technicalkeeda.com/img/images/article/spring-file-upload-eclipse-setup.png
 https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg
 http://eeweb.poly.edu/~yao/EL5123/image/barbara_gray.bmp
