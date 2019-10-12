@@ -10,15 +10,14 @@ The program is written in java.
 Input
 ------------
 
-The Input file is a txt file that contains urls.
-
-An example of input file as 
+The Input file is a txt file that contains urls. An example of input file is as follow:
 
 data/links.txt
-
+```
 https://www.technicalkeeda.com/img/images/article/spring-file-upload-eclipse-setup.png
 https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg
 http://eeweb.poly.edu/~yao/EL5123/image/barbara_gray.bmp
+```
 
 The program downloads all the images and stores them in the same location of input file
 
