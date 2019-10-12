@@ -23,11 +23,13 @@ http://mywebserver.com/images/24174.jpg
 Output
 ------------
 The program downloads all the images and stores them in the same location of input file.n example of output is as follow:
+
+data/
 ```
-data/article/spring-file-upload-eclipse-setup.png
-data/4094333885_e8462a8338.jpg
-data/barbara_gray.bmp
-data/links_Report.xml
+article/spring-file-upload-eclipse-setup.png
+4094333885_e8462a8338.jpg
+barbara_gray.bmp
+links_Report.xml
 ```
 
 The links_Report.xml reports the result of download application. I.e. whether images are downloaded or not (SUCCESS or FAIL). It also includes a note that mentions the reason of failure. For example:
@@ -35,9 +37,9 @@ The links_Report.xml reports the result of download application. I.e. whether im
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <report>
-    <inputFileName>../downloadApp/data/links.txt</inputFileName>
-    <downloadReportFileName>../downloadApp/data/links_Report.xml</downloadReportFileName>
-    <downloadLocation>..downloadApp/data</downloadLocation>
+    <input>../downloadApp/data/links.txt</input>
+    <downloadReport>../downloadApp/data/links_Report.xml</downloadReport>
+    <downloadLocation>../downloadApp/data</downloadLocation>
 
     <element url="https://farm3.static.flickr.com/2531/4094333885_e8462a8338.jpg">
         <note>The image is successfully stored!! </note>
