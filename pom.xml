@@ -6,7 +6,7 @@
 
     <groupId>my.org</groupId>
     <artifactId>downloadApp</artifactId>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.5</version>
 
     <name>downloadApp</name>
     <description>A simple downloadApp.</description>
