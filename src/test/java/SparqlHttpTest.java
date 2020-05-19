@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package citec.core;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -16,7 +15,7 @@ import com.hp.hpl.jena.query.ResultSetFormatter;
  *
  * @author elahi
  */
-public class SparqlHttp {
+public class SparqlHttpTest {
      public static void main(String[] args) {
 //
 //  //CONNESSIONE RDF METEO

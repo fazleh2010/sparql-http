@@ -46,7 +46,10 @@
             <artifactId>apache-jena-libs</artifactId>
             <type>pom</type>
             <version>2.11.1</version>
-        </dependency>			
+        </dependency>	
+        
+        
+                        		
         <!--dependency>
             <groupId>crimson</groupId>
             <artifactId>crimson</artifactId>
@@ -57,16 +60,6 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-        	
-        
-        	
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>23.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
        
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
@@ -75,26 +68,8 @@
             <version>3.9</version>
         </dependency>
         
-        <!-- https://mvnrepository.com/artifact/org.eclipse.rdf4j/rdf4j-rio-ntriples -->
-        <dependency>
-            <groupId>org.eclipse.rdf4j</groupId>
-            <artifactId>rdf4j-rio-ntriples</artifactId>
-            <version>3.0.3</version>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.hp.hpl.jena/arq -->
 
-        
-       
-        <!-- https://mvnrepository.com/artifact/org.apache.jena/jena-arq -->
-        <!--dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-arq</artifactId>
-            <version>3.13.0</version>
-        </dependency-->
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.10.2</version>
-        </dependency>
         
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
@@ -102,36 +77,6 @@
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-        
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queries</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-test-framework</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-analyzers-common</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queryparser</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        
-        
-    
-
 
     </dependencies>
 
@@ -156,7 +101,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.yellow.product.demo.App</mainClass>
+                            <mainClass>citec.core.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
