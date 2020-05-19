@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>my.org</groupId>
-    <artifactId>downloadApp</artifactId>
+    <artifactId>sparql-http</artifactId>
     <version>1.5</version>
 
-    <name>downloadApp</name>
+    <name>sparql-http</name>
     <description>A simple downloadApp.</description>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>

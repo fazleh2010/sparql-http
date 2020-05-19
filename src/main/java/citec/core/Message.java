@@ -1,7 +1,7 @@
 /*
  * 
  */
-package com.yellow.product.core.constant;
+package citec.core;
 
 /**
  *
