@@ -119,16 +119,16 @@ public class MySQLAccess implements DataBaseConst {
         Integer index=0;
         try {
             String query = " insert into "+tableName
-                           +" (id, term, original_url, alternative_url, reliabilityCode, administrativeSTatus, subjectField, subjectDescription, reference)"
+                           +" (id, term, originalUrl, alternativeUrl, reliabilityCode, administrativeStatus, subjectField, subjectDescription, reference)"
                            + " values (?,?,?,?,?,?,?,?,?)";
             
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, index++);
             preparedStmt.setString(2, "term");
-            preparedStmt.setString(3, "original_url");
-            preparedStmt.setString(4, "alternative_url");
+            preparedStmt.setString(3, "originalUrl");
+            preparedStmt.setString(4, "alternativeUrl");
             preparedStmt.setString(5, "reliabilityCode");
-            preparedStmt.setString(6, "administrativeSTatus");
+            preparedStmt.setString(6, "administrativeStatus");
             preparedStmt.setString(7, "subjectField");
             preparedStmt.setString(8, "subjectDescription");
             preparedStmt.setString(9, "reference");
@@ -142,20 +142,19 @@ public class MySQLAccess implements DataBaseConst {
     public void insertDataLinkTable(String tableName) {
         Integer index=0;
         try {
+            
             String query = " insert into "+tableName
-                           +" (id, term, original_url, alternative_url, reliabilityCode, administrativeSTatus, subjectField, subjectDescription, reference)"
-                           + " values (?,?,?,?,?,?,?,?,?)";
+                           +" (id, term_1, term_1_url, term_1_alter_url, term_2, term_2_url, term_2_alter_url)"
+                           + " values (?,?,?,?,?,?,?)";
             
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, index++);
-            preparedStmt.setString(2, "term");
-            preparedStmt.setString(3, "original_url");
-            preparedStmt.setString(4, "alternative_url");
-            preparedStmt.setString(5, "reliabilityCode");
-            preparedStmt.setString(6, "administrativeSTatus");
-            preparedStmt.setString(7, "subjectField");
-            preparedStmt.setString(8, "subjectDescription");
-            preparedStmt.setString(9, "reference");
+            preparedStmt.setString(2, "term_1");
+            preparedStmt.setString(3, "term_1_url");
+            preparedStmt.setString(4, "term_1_alter_url");
+            preparedStmt.setString(5, "term_2");
+            preparedStmt.setString(6, "term_2_url");
+            preparedStmt.setString(7, "term_2_alter_url");
             preparedStmt.execute();
         } catch (Exception e) {
             System.err.println("Got an exception!");
