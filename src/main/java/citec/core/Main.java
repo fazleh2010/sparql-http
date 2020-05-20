@@ -16,20 +16,16 @@ import com.hp.hpl.jena.query.ResultSetFormatter;
  *
  * @author elahi
  */
-public class Main {
+public class Main implements SparqlEndpoint{
 
     public static void main(String[] args) {
-        Main main=new Main();
-        String first_endpoint="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_iate/sparql/";
-        String  first_query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";
-        String sec_endpoint="http://dbpedia.org/sparql";
-         String sec_query="select distinct ?Concept where {[] a ?Concept} LIMIT 100";;
-        ResultSet  first_results=getResult(first_endpoint,first_query);
-        ResultSet  sec_results=getResult(sec_endpoint,sec_query);
+        Main main = new Main();
+        ResultSet first_results = getResult(tbx2rdf_iate_endpoint, tbx2rdf_iate__query);
+        //ResultSet sec_results = getResult(sec_endpoint, sec_query);
 
     }
 
-    private static ResultSet getResult( String sparql_endpoint,String sparql_query) {
+    private static ResultSet getResult(String sparql_endpoint, String sparql_query) {
         Query query = QueryFactory.create(sparql_query); //s2 = the query above
         QueryExecution qExe = QueryExecutionFactory.sparqlService(sparql_endpoint, query);
         ResultSet results = qExe.execSelect();
