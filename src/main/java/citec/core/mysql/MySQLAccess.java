@@ -28,11 +28,11 @@ public class MySQLAccess implements DataBaseConst {
     private ResultSet resultSet = null;
 
     public MySQLAccess() throws Exception {
-       
+       this.connectDataBase();
     }
 
     //command line location to /opt/lampp/bin/mysql -u root -p
-    /*public void connectDataBase() throws Exception {
+    public void connectDataBase() throws Exception {
 
         try {
             String url = "jdbc:mysql://" + host + ":" + port + "/test";
@@ -42,22 +42,15 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("Connection successfull!!");
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
-        } finally {
+        } /*finally {
             close();
-        }
+        }*/
 
-    }*/
+    }
 
     public void createTermTable(String tableName) throws Exception {
 
         try {
-            String url = "jdbc:mysql://" + host + ":" + port + "/test";
-            String user = "root";
-            String password = "";
-            Connection conn = DriverManager.getConnection(url, user, password);
-            
-            
-            System.out.println("Connection successfull!!");
             Statement stmt = conn.createStatement();
 
             String sql = "CREATE TABLE " + tableName + " "
@@ -77,22 +70,12 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
-        } finally {
-            close();
-        }
-
+        } 
     }
 
     public void createLinkingTable(String tableName) throws Exception {
 
         try {
-             String url = "jdbc:mysql://" + host + ":" + port + "/test";
-            String user = "root";
-            String password = "";
-            Connection conn = DriverManager.getConnection(url, user, password);
-            
-            
-            System.out.println("Connection successfull!!");
             Statement stmt = conn.createStatement();
 
             String sql = "CREATE TABLE " + tableName + " "
@@ -119,13 +102,6 @@ public class MySQLAccess implements DataBaseConst {
     public void deleteTable(String tableName) throws Exception {
 
         try {
-             String url = "jdbc:mysql://" + host + ":" + port + "/test";
-            String user = "root";
-            String password = "";
-            Connection conn = DriverManager.getConnection(url, user, password);
-            
-            
-            System.out.println("Connection successfull!!");
             Statement stmt = conn.createStatement();
             String sql = "Drop table " + tableName;
             stmt.executeUpdate(sql);
