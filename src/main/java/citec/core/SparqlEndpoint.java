@@ -16,12 +16,12 @@ import java.util.Set;
  */
 public interface SparqlEndpoint {
 
-    public static final String tbx2rdf_iate_endpoint = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_iate/sparql/";;
-    public static final String dbpedia_endpoint = "http://dbpedia.org/sparql";
+    public static final String tbx2rdf_iate_endpoint = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_iate/sparql/";
     public static String tbx2rdf_iate__query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";
+    public static final String dbpedia_endpoint = "http://dbpedia.org/sparql";
     public static String dbpedia_query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";;
 
-    public static String temporary_spqrql = "PREFIX cc:    <http://creativecommons.org/ns#> \n"
+    public static String iate_query = "PREFIX cc:    <http://creativecommons.org/ns#> \n"
             + "\n"
             + "PREFIX void:  <http://rdfs.org/ns/void#> \n"
             + "\n"

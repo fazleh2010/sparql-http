@@ -21,8 +21,7 @@ public class Main implements SparqlEndpoint{
     public static void main(String[] args) {
         Main main = new Main();
         ResultSet first_results = getResult(tbx2rdf_iate_endpoint, tbx2rdf_iate__query);
-        //ResultSet sec_results = getResult(sec_endpoint, sec_query);
-
+        ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);
     }
 
     private static ResultSet getResult(String sparql_endpoint, String sparql_query) {
