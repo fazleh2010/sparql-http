@@ -19,7 +19,8 @@ public interface SparqlEndpoint {
     public static final String tbx2rdf_iate_endpoint = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_iate/sparql/";
     public static String tbx2rdf_iate__query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";
     public static final String dbpedia_endpoint = "http://dbpedia.org/sparql";
-    public static String dbpedia_query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";;
+    public static String dbpedia_query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";
+    public static String tbx2rdftest ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdftest/sparql";
 
     public static String iate_query = "PREFIX cc:    <http://creativecommons.org/ns#> \n"
             + "\n"

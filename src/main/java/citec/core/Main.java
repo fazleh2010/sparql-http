@@ -5,6 +5,7 @@
  */
 package citec.core;
 
+import citec.core.mysql.MySQLAccess;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -18,10 +19,13 @@ import com.hp.hpl.jena.query.ResultSetFormatter;
  */
 public class Main implements SparqlEndpoint{
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Main main = new Main();
-        ResultSet first_results = getResult(tbx2rdf_iate_endpoint, tbx2rdf_iate__query);
-        ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);
+        //ResultSet first_results = getResult(tbx2rdf_iate_endpoint, tbx2rdf_iate__query);
+        //ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);
+         //ResultSet first_results = getResult(tbx2rdftest, tbx2rdf_iate__query);
+        MySQLAccess mySQLAccess=new MySQLAccess();
+        mySQLAccess.readDataBase();
     }
 
     private static ResultSet getResult(String sparql_endpoint, String sparql_query) {
