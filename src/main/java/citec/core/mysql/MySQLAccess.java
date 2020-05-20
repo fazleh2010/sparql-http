@@ -17,24 +17,63 @@ import java.util.Date;
 /**
  *
  * @author elahi
+ * SELECT * FROM `en_A_B_term` WHERE 1
+ * DROP table `en_A_B_term`;
  */
-public class MySQLAccess implements DataBaseConst{
+public class MySQLAccess implements DataBaseConst {
 
     private Connection conn = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
+    public MySQLAccess() throws Exception {
+       
+    }
+
     //command line location to /opt/lampp/bin/mysql -u root -p
-    public void readDataBase() throws Exception {
+    /*public void connectDataBase() throws Exception {
 
         try {
-            String url = "jdbc:mysql://" + host + ":" + port;
+            String url = "jdbc:mysql://" + host + ":" + port + "/test";
             String user = "root";
             String password = "";
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connection successfull!!");
-            // more processing here
+        } catch (Exception e) {
+            System.out.println("An error occurred. Maybe user/password is invalid");
+        } finally {
+            close();
+        }
+
+    }*/
+
+    public void createTermTable(String tableName) throws Exception {
+
+        try {
+            String url = "jdbc:mysql://" + host + ":" + port + "/test";
+            String user = "root";
+            String password = "";
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            
+            System.out.println("Connection successfull!!");
+            Statement stmt = conn.createStatement();
+
+            String sql = "CREATE TABLE " + tableName + " "
+                    + "(id INTEGER not NULL, "
+                    + " term VARCHAR(255), "
+                    + " originalUrl VARCHAR(255), "
+                    + " alternativeUrl VARCHAR(255), "
+                    + " reliabilityCode VARCHAR(255), "
+                    + " administrativeStatus VARCHAR(255), "
+                    + " subjectField VARCHAR(255), "
+                    + " subjectDescription VARCHAR(255), "
+                    + " reference VARCHAR(255), "
+                    + " PRIMARY KEY ( id ))";
+
+            stmt.executeUpdate(sql);
+            System.out.println("Created table in given database...");
 
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
@@ -42,6 +81,103 @@ public class MySQLAccess implements DataBaseConst{
             close();
         }
 
+    }
+
+    public void createLinkingTable(String tableName) throws Exception {
+
+        try {
+             String url = "jdbc:mysql://" + host + ":" + port + "/test";
+            String user = "root";
+            String password = "";
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            
+            System.out.println("Connection successfull!!");
+            Statement stmt = conn.createStatement();
+
+            String sql = "CREATE TABLE " + tableName + " "
+                    + "(id INTEGER not NULL, "
+                    + " term_1 VARCHAR(255), "
+                    + " term_1_url VARCHAR(255), "
+                    + " term_1_alter_url VARCHAR(255), "
+                    + " term_2 VARCHAR(255), "
+                    + " term_2_url VARCHAR(255), "
+                    + " term_2_alter_url VARCHAR(255), "
+                    + " PRIMARY KEY ( id ))";
+
+            stmt.executeUpdate(sql);
+            System.out.println("Created table in given database...");
+
+        } catch (Exception e) {
+            System.out.println("An error occurred. Maybe user/password is invalid");
+        } finally {
+            close();
+        }
+
+    }
+
+    public void deleteTable(String tableName) throws Exception {
+
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "DELETE FROM " + tableName;
+            stmt.executeUpdate(sql);
+            System.out.println("delete table in given database...");
+
+        } catch (Exception e) {
+            System.out.println("An error occurred. Maybe user/password is invalid");
+        } finally {
+            close();
+        }
+
+    }
+
+    public void insertDataTermTable(String tableName) {
+        Integer index=0;
+        try {
+            String query = " insert into "+tableName
+                           +" (id, term, original_url, alternative_url, reliabilityCode, administrativeSTatus, subjectField, subjectDescription, reference)"
+                           + " values (?,?,?,?,?,?,?,?,?)";
+            
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1, index++);
+            preparedStmt.setString(2, "term");
+            preparedStmt.setString(3, "original_url");
+            preparedStmt.setString(4, "alternative_url");
+            preparedStmt.setString(5, "reliabilityCode");
+            preparedStmt.setString(6, "administrativeSTatus");
+            preparedStmt.setString(7, "subjectField");
+            preparedStmt.setString(8, "subjectDescription");
+            preparedStmt.setString(9, "reference");
+            preparedStmt.execute();
+        } catch (Exception e) {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void insertDataLinkTable(String tableName) {
+        Integer index=0;
+        try {
+            String query = " insert into "+tableName
+                           +" (id, term, original_url, alternative_url, reliabilityCode, administrativeSTatus, subjectField, subjectDescription, reference)"
+                           + " values (?,?,?,?,?,?,?,?,?)";
+            
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1, index++);
+            preparedStmt.setString(2, "term");
+            preparedStmt.setString(3, "original_url");
+            preparedStmt.setString(4, "alternative_url");
+            preparedStmt.setString(5, "reliabilityCode");
+            preparedStmt.setString(6, "administrativeSTatus");
+            preparedStmt.setString(7, "subjectField");
+            preparedStmt.setString(8, "subjectDescription");
+            preparedStmt.setString(9, "reference");
+            preparedStmt.execute();
+        } catch (Exception e) {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
     }
 
     private void writeMetaData(ResultSet resultSet) throws SQLException {
@@ -130,4 +266,7 @@ public class MySQLAccess implements DataBaseConst{
             resultSet = statement
                     .executeQuery("select * from feedback.comments");
             writeMetaData(resultSet);*/
+    public void populateTable(String en_A_B_term) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -18,14 +18,19 @@ import com.hp.hpl.jena.query.ResultSetFormatter;
  * @author elahi
  */
 public class Main implements SparqlEndpoint{
+                
+
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
-        //ResultSet first_results = getResult(tbx2rdf_iate_endpoint, tbx2rdf_iate__query);
-        //ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);
+         /*ResultSet first_results = getResult(tbx2rdf_iate_endpoint, tbx2rdf_iate__query);
+         ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);*/
          //ResultSet first_results = getResult(tbx2rdftest, tbx2rdf_iate__query);
-        MySQLAccess mySQLAccess=new MySQLAccess();
-        mySQLAccess.readDataBase();
+         MySQLAccess mySQLAccess=new MySQLAccess();
+         mySQLAccess.createTermTable("en_A_B_term");
+         mySQLAccess.createLinkingTable("linking_terms");
+         //mySQLAccess.deleteTable("en_A_B_term");
+         //mySQLAccess.insertDataTermTable("en_A_B_term");
     }
 
     private static ResultSet getResult(String sparql_endpoint, String sparql_query) {
