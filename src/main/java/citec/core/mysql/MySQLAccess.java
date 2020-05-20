@@ -119,8 +119,15 @@ public class MySQLAccess implements DataBaseConst {
     public void deleteTable(String tableName) throws Exception {
 
         try {
+             String url = "jdbc:mysql://" + host + ":" + port + "/test";
+            String user = "root";
+            String password = "";
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            
+            System.out.println("Connection successfull!!");
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM " + tableName;
+            String sql = "Drop table " + tableName;
             stmt.executeUpdate(sql);
             System.out.println("delete table in given database...");
 

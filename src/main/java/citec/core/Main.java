@@ -29,7 +29,8 @@ public class Main implements SparqlEndpoint{
          MySQLAccess mySQLAccess=new MySQLAccess();
          mySQLAccess.createTermTable("en_A_B_term");
          mySQLAccess.createLinkingTable("linking_terms");
-         //mySQLAccess.deleteTable("en_A_B_term");
+          //mySQLAccess.deleteTable("en_A_B_term");
+          //mySQLAccess.deleteTable("linking_terms");
          //mySQLAccess.insertDataTermTable("en_A_B_term");
     }
 
