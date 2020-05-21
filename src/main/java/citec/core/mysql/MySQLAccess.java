@@ -5,7 +5,6 @@
  */
 package citec.core.mysql;
 
-import citec.core.DataBaseConst;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -93,8 +92,6 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
-        } finally {
-            close();
         }
 
     }
@@ -109,9 +106,7 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
-        } finally {
-            close();
-        }
+        } 
 
     }
 
@@ -160,6 +155,7 @@ public class MySQLAccess implements DataBaseConst {
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
         }
+         
     }
 
     private void writeMetaData(ResultSet resultSet) throws SQLException {
@@ -194,8 +190,7 @@ public class MySQLAccess implements DataBaseConst {
         }
     }
 
-    // You need to close the resultSet
-    private void close() {
+    public void close() {
         try {
             if (resultSet != null) {
                 resultSet.close();
@@ -248,7 +243,5 @@ public class MySQLAccess implements DataBaseConst {
             resultSet = statement
                     .executeQuery("select * from feedback.comments");
             writeMetaData(resultSet);*/
-    public void populateTable(String en_A_B_term) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 }
