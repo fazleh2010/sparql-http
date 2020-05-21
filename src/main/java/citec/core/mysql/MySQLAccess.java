@@ -5,6 +5,8 @@
  */
 package citec.core.mysql;
 
+import citec.core.termbase.TermInfo;
+import citec.core.termbase.Termbase;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,9 +17,7 @@ import java.util.Date;
 
 /**
  *
- * @author elahi
- * SELECT * FROM `en_A_B_term` WHERE 1
- * DROP table `en_A_B_term`;
+ * @author elahi SELECT * FROM `en_A_B_term` WHERE 1 DROP table `en_A_B_term`;
  */
 public class MySQLAccess implements DataBaseConst {
 
@@ -27,7 +27,7 @@ public class MySQLAccess implements DataBaseConst {
     private ResultSet resultSet = null;
 
     public MySQLAccess() throws Exception {
-       this.connectDataBase();
+        this.connectDataBase();
     }
 
     //command line location to /opt/lampp/bin/mysql -u root -p
@@ -41,7 +41,8 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("Connection successfull!!");
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
-        } /*finally {
+        }
+        /*finally {
             close();
         }*/
 
@@ -53,15 +54,17 @@ public class MySQLAccess implements DataBaseConst {
             Statement stmt = conn.createStatement();
 
             String sql = "CREATE TABLE " + tableName + " "
-                    + "(id INTEGER not NULL, "
-                    + " term VARCHAR(255), "
-                    + " originalUrl VARCHAR(255), "
+                    + "(id VARCHAR(255) not NULL, "
+                    + " term VARCHAR(4000), "
+                    + " originalUrl VARCHAR(4000), "
                     + " alternativeUrl VARCHAR(255), "
                     + " reliabilityCode VARCHAR(255), "
                     + " administrativeStatus VARCHAR(255), "
                     + " subjectField VARCHAR(255), "
                     + " subjectDescription VARCHAR(255), "
                     + " reference VARCHAR(255), "
+                    + " language VARCHAR(255), "
+                    + " pair VARCHAR(255), "
                     + " PRIMARY KEY ( id ))";
 
             stmt.executeUpdate(sql);
@@ -69,7 +72,7 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
-        } 
+        }
     }
 
     public void createLinkingTable(String tableName) throws Exception {
@@ -106,42 +109,56 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
-        } 
+        }
 
     }
 
-    public void insertDataTermTable(String tableName) {
-        Integer index=0;
+    public void insertDataTermTable(String tableName, Termbase languageTerms) {
+        String language = languageTerms.getLanguage();
+        String pair = languageTerms.getPair();
         try {
-            String query = " insert into "+tableName
-                           +" (id, term, originalUrl, alternativeUrl, reliabilityCode, administrativeStatus, subjectField, subjectDescription, reference)"
-                           + " values (?,?,?,?,?,?,?,?,?)";
-            
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setInt(1, index++);
-            preparedStmt.setString(2, "term");
-            preparedStmt.setString(3, "originalUrl");
-            preparedStmt.setString(4, "alternativeUrl");
-            preparedStmt.setString(5, "reliabilityCode");
-            preparedStmt.setString(6, "administrativeStatus");
-            preparedStmt.setString(7, "subjectField");
-            preparedStmt.setString(8, "subjectDescription");
-            preparedStmt.setString(9, "reference");
-            preparedStmt.execute();
+            Integer index = 1;
+
+            for (String url : languageTerms.getTerms().keySet()) {
+                TermInfo termInfo = languageTerms.getTerms().get(url);
+                index=index+1;
+                String id = index.toString();
+                System.out.println(id);
+                String query = " insert into " + tableName
+                        + " (id, term, originalUrl, alternativeUrl, reliabilityCode, "
+                        + " administrativeStatus, subjectField, subjectDescription, reference,"
+                        + " language, pair)"
+                        + " values (?,?,?,?,?,?,?,?,?,?,?)";
+
+                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                preparedStmt.setString(1, id);
+                preparedStmt.setString(2, termInfo.getTermString());
+                preparedStmt.setString(3, termInfo.getTermUrl());
+                preparedStmt.setString(4, termInfo.getAlternativeUrl());
+                preparedStmt.setString(5, termInfo.getReliabilityCode());
+                preparedStmt.setString(6, termInfo.getAdministrativeStatus());
+                preparedStmt.setString(7, termInfo.getSubjectId());
+                preparedStmt.setString(8, termInfo.getSubjectDescription());
+                preparedStmt.setString(9, termInfo.getReferenceID());
+                preparedStmt.setString(10, language);
+                preparedStmt.setString(11, pair);
+                preparedStmt.execute();
+            }
+
         } catch (Exception e) {
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
         }
     }
-    
+
     public void insertDataLinkTable(String tableName) {
-        Integer index=0;
+        Integer index = 0;
         try {
-            
-            String query = " insert into "+tableName
-                           +" (id, term_1, term_1_url, term_1_alter_url, term_2, term_2_url, term_2_alter_url)"
-                           + " values (?,?,?,?,?,?,?)";
-            
+
+            String query = " insert into " + tableName
+                    + " (id, term_1, term_1_url, term_1_alter_url, term_2, term_2_url, term_2_alter_url)"
+                    + " values (?,?,?,?,?,?,?)";
+
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, index++);
             preparedStmt.setString(2, "term_1");
@@ -155,7 +172,7 @@ public class MySQLAccess implements DataBaseConst {
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
         }
-         
+
     }
 
     private void writeMetaData(ResultSet resultSet) throws SQLException {
@@ -243,5 +260,4 @@ public class MySQLAccess implements DataBaseConst {
             resultSet = statement
                     .executeQuery("select * from feedback.comments");
             writeMetaData(resultSet);*/
-  
 }
