@@ -159,7 +159,7 @@ public class MySQLAccess implements DataBaseConst {
 
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
                 preparedStmt.setString(1, id);
-                preparedStmt.setString(2, termInfo.getTermString());
+                preparedStmt.setString(2, termInfo.getTermOrg());
                 preparedStmt.setString(3, termInfo.getTermUrl());
                 preparedStmt.setString(4, termInfo.getAlternativeUrl());
                 preparedStmt.setString(5, termInfo.getReliabilityCode());
@@ -177,6 +177,105 @@ public class MySQLAccess implements DataBaseConst {
             System.err.println(e.getMessage());
         }
     }
+    
+    /*private static String path = "src/main/resources/";
+    private static String myTermbase = "iate/";
+    private static String myTermTable = "tbx2rdf_iate_en_A_B";
+    private static String linkTermbase = "atc/";
+    private static String otherTermTable = "tbx2rdf_atc_en_A_B";
+    private static Integer limitOfTerms = 200;
+    private static String matchedTermTable = "tbx2rdf_atc_en_A_B";*/
+     /*while (rs.next()) {
+            //String language = rs.getString("language");
+            String term = rs.getString("term");
+            String orginalUrl = rs.getString("originalUrl");
+            if (otherTermTable.getTerms().containsKey(term)){
+                TermInfo othertermInfo=otherTermTable.getTerms().get(term);
+                System.out.println(term+ " "+orginalUrl+" "+othertermInfo.getTermUrl());
+            }
+        }*/
+    
+    /*
+    String query=" SELECT tbx2rdf_iate_en_A_B.term, tbx2rdf_iate_en_A_B.originalUrl"
+                + " FROM tbx2rdf_iate_en_A_B"
+                + " INNER JOIN tbx2rdf_atc_en_A_B ON tbx2rdf_iate_en_A_B.term = tbx2rdf_atc_en_A_B.term";
+        
+    */
+
+    
+    public void insertDataTermTable(String myTermTable, Termbase otherTermTable, String matchedTermTable) throws SQLException {
+        Statement stmt = conn.createStatement();
+        String query = " SELECT term, originalUrl"
+                + " FROM "+myTermTable;
+
+        ResultSet rs = stmt.executeQuery(query);
+       
+        
+        try {
+            while (rs.next()) {
+                //String language = rs.getString("language");
+                String term = rs.getString("term");
+                String orginalUrl = rs.getString("originalUrl");
+                if (otherTermTable.getTerms().containsKey(term)) {
+                    TermInfo othertermInfo = otherTermTable.getTerms().get(term);
+                    System.out.println(term + " " + orginalUrl);
+                    //System.out.println(term + " " + orginalUrl + " " +othertermInfo.getTermOrg() + " " + othertermInfo.getTermUrl());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        
+        /* String query2 = " SELECT term, originalUrl"
+                + " FROM "+myTermTable;
+
+        ResultSet rs2 = stmt.executeQuery(query);
+
+        while (rs2.next()) {
+            //String language = rs.getString("language");
+            String term = rs2.getString("term");
+            String orginalUrl = rs2.getString("originalUrl");
+            //term=term.toLowerCase().trim();
+             if(orginalUrl.contains("http:"))
+             System.out.println(term + " " + orginalUrl + " " ); 
+        }*/
+
+    }
+
+    
+    /*public void insertDataTermTable(String myTermTable, String otherTermTable, String matchedTermTable) throws SQLException {
+        Integer index = 0;
+        
+        Statement stmt = conn.createStatement();
+        String query=" SELECT tbx2rdf_iate_en_A_B.term, tbx2rdf_iate_en_A_B.originalUrl"
+                + " FROM tbx2rdf_iate_en_A_B"
+                + " INNER JOIN tbx2rdf_atc_en_A_B ON tbx2rdf_iate_en_A_B.term = tbx2rdf_atc_en_A_B.term";
+        
+       
+        
+        //String query="SELECT * FROM "+myTermTable+" INTERSECT SELECT * FROM "+otherTermTable;
+        
+         try {
+        ResultSet rs = stmt.executeQuery(query);
+        
+        
+        
+        while (rs.next()) {
+            //String language = rs.getString("language");
+            String term = rs.getString("term");
+            String orginalUrl = rs.getString("originalUrl");
+            System.out.println(term+ " "+orginalUrl);
+            
+        }
+        
+          } catch (Exception e) {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+      
+    }*/
 
     public void insertDataLinkTable(String myTerminology, String linkTerminology,String linkTableName) {
         Integer index = 0;
@@ -287,4 +386,6 @@ public class MySQLAccess implements DataBaseConst {
             resultSet = statement
                     .executeQuery("select * from feedback.comments");
             writeMetaData(resultSet);*/
+
+    
 }

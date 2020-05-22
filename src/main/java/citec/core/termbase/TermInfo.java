@@ -13,7 +13,8 @@ import citec.core.utils.StringMatcherUtil;
  */
 public class TermInfo {
 
-    private String termString = "";
+    private String termOrg = "";
+    private String termDecrpt = "";
     private String termUrl = "";
     private String alternativeUrl = "";
     private SubjectInfo subject = new SubjectInfo();
@@ -28,44 +29,41 @@ public class TermInfo {
     private String Variant = "";
     private String Synonym = "";
 
-     public TermInfo(String line) {
+    public TermInfo(String line) {
         String[] info = line.split("=");
-        termString = info[0].toLowerCase().trim();
-        termString = StringMatcherUtil.encripted(termString);
-        termUrl = info[1];
-        try {
-            termUrl = StringMatcherUtil.getUrl(termUrl);
-        } catch (Exception ie) {
-            System.err.println(ie.getMessage());
-        }
-
+        this.termOrg = info[0].toLowerCase().trim();
+        this.termUrl = info[1];
+        
     }
 
-    public TermInfo(Object term, Object url) {
-        this.termString = term.toString();
-        this.termUrl = url.toString();
+    public TermInfo(String term, String url) {
+        this.termOrg = term;
+        this.termUrl = url;
     }
 
- 
-    public TermInfo(Object term, Object url, Object alternativeUrl, SubjectInfo subject) {
+    public TermInfo(String term, String url, String alternativeUrl, SubjectInfo subject) {
         this(term, url);
         this.subject = subject;
         this.alternativeUrl = alternativeUrl.toString();
     }
 
-    public TermInfo(Object term, Object url, Object alternativeUrl, Object reliabilityCode, Object administrativeStatus, SubjectInfo subjectInfo) {
+    public TermInfo(String term, String url, String alternativeUrl, String reliabilityCode, String administrativeStatus, SubjectInfo subjectInfo) {
         this(term, url, alternativeUrl, subjectInfo);
         if (reliabilityCode != null) {
-            this.reliabilityCode = reliabilityCode.toString();
+            this.reliabilityCode = reliabilityCode;
         }
         if (administrativeStatus != null) {
-            this.administrativeStatus = administrativeStatus.toString();
+            this.administrativeStatus = administrativeStatus;
         }
 
     }
 
-    public String getTermString() {
-        return termString;
+    public String getTermOrg() {
+        return termOrg;
+    }
+
+    public String getTermDecrpt() {
+        return termDecrpt;
     }
 
     public String getTermUrl() {
@@ -131,10 +129,14 @@ public class TermInfo {
     public String getSynonym() {
         return Synonym;
     }
-    
+
+    public String getTermStringOrg() {
+        return termOrg;
+    }
+
     @Override
     public String toString() {
-        return "TermInfo{" + "termString=" + termString + ", termUrl=" + termUrl + ", alternativeUrl=" + alternativeUrl + ", subject=" + subject + ", reliabilityCode=" + reliabilityCode + ", administrativeStatus=" + administrativeStatus + '}';
+        return "TermInfo{" + "termString=" + termOrg + ", termUrl=" + termUrl + ", alternativeUrl=" + alternativeUrl + ", subject=" + subject + ", reliabilityCode=" + reliabilityCode + ", administrativeStatus=" + administrativeStatus + '}';
     }
 
 }

@@ -65,7 +65,7 @@ public class FileRelatedUtils {
                     /*String[] info = line.split("=");
                     System.out.println(line);
                     hash.put(info[0], info[1]);*/
-                    hash.put(termInfo.getTermUrl(), termInfo);
+                    hash.put(termInfo.getTermOrg(), termInfo);
                 }
 
             }
