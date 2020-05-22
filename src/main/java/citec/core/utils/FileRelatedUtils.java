@@ -7,6 +7,7 @@ package citec.core.utils;
 
 import citec.core.termbase.TermInfo;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class FileRelatedUtils {
         }
         return files;
     }*/
-    public static Map<String, TermInfo> getHashFromFile(String fileName) throws FileNotFoundException, IOException {
+    public static Map<String, TermInfo> getHashFromFile(File fileName) throws FileNotFoundException, IOException {
         Map<String, TermInfo> hash = new HashMap<String, TermInfo>();
         BufferedReader reader;
         try {

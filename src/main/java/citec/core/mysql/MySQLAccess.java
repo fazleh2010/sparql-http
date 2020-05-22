@@ -113,7 +113,7 @@ public class MySQLAccess implements DataBaseConst {
 
     }
 
-    public void insertDataTermTable(String tableName, Termbase languageTerms) {
+    public void insertDataTermTable(String tableName, Termbase languageTerms,Integer limit) {
         String language = languageTerms.getLanguage();
         String pair = languageTerms.getPair();
         try {
@@ -122,6 +122,14 @@ public class MySQLAccess implements DataBaseConst {
             for (String url : languageTerms.getTerms().keySet()) {
                 TermInfo termInfo = languageTerms.getTerms().get(url);
                 index=index+1;
+                
+                if (!(limit == -1)) {
+                    if (index > limit) {
+                        break;
+                    }
+                }
+                
+               
                 String id = index.toString();
                 System.out.println(id);
                 String query = " insert into " + tableName
@@ -151,11 +159,11 @@ public class MySQLAccess implements DataBaseConst {
         }
     }
 
-    public void insertDataLinkTable(String tableName) {
+    public void insertDataLinkTable(String myTerminology, String linkTerminology,String linkTableName) {
         Integer index = 0;
         try {
 
-            String query = " insert into " + tableName
+            String query = " insert into " + linkTableName
                     + " (id, term_1, term_1_url, term_1_alter_url, term_2, term_2_url, term_2_alter_url)"
                     + " values (?,?,?,?,?,?,?)";
 

@@ -6,6 +6,7 @@
 package citec.core.termbase;
 
 import citec.core.utils.FileRelatedUtils;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,11 +19,13 @@ public class Termbase {
 
     private final String language;
     private final String pair;
+    private final String termbaseName;
     private Map<String, TermInfo> terms = new HashMap<String, TermInfo>();
 
-    public Termbase(String language,String pair, String fileName) throws IOException {
+    public Termbase(String language, String pair, File fileName) throws IOException {
+        this.termbaseName = fileName.getName().replace(".txt", "");
         this.language = language;
-        this.pair=pair;
+        this.pair = pair;
         this.terms = FileRelatedUtils.getHashFromFile(fileName);
     }
 
@@ -36,6 +39,10 @@ public class Termbase {
 
     public String getPair() {
         return pair;
+    }
+
+    public String getTermbaseName() {
+        return termbaseName;
     }
 
 }

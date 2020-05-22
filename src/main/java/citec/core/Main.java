@@ -14,6 +14,7 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
+import java.io.File;
 
 /**
  *
@@ -22,22 +23,37 @@ import com.hp.hpl.jena.query.ResultSetFormatter;
 public class Main implements SparqlEndpoint {
     
     private static String path = "src/main/resources/";
-    private static String termbase = "iate/";
-    private static String fileName = "tbx2rdf_iate_en_A_B";
+    private static String myTermbase = "iate/";
+    private static String myTermFileName = "tbx2rdf_iate_en_A_B";
+    private static String linkTermbase = "atc/";
+    private static String linkTermFileName = "tbx2rdf_atc_en_A_B";
+    private static Integer limitOfTerms = -1;
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
-        /*ResultSet first_results = getResult(tbx2rdf_iate_endpoint, tbx2rdf_iate__query);
-         ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);*/
+        ResultSet first_results = getResult(tbx2rdf_atc_endpoint, iate_query);
+         //ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);*/
         //ResultSet first_results = getResult(tbx2rdftest, tbx2rdf_iate__query);
-        String inputFile=path+termbase+fileName+".txt";
-        Termbase languageTerms=new Termbase("en","A_B",inputFile);
-        MySQLAccess mySQLAccess = new MySQLAccess();
-        mySQLAccess.deleteTable(fileName);
-        mySQLAccess.createTermTable(fileName);
-        mySQLAccess.insertDataTermTable(fileName,languageTerms);
-        mySQLAccess.close();
-        //FileRelatedUtils.getHashFromFile(path+termbase+fileName);
+       
+        /*MySQLAccess mySQLAccess = new MySQLAccess();
+        
+        //my terminology
+        File inputFile=new File(path+myTermbase+myTermFileName+".txt");
+        Termbase languageMyTerms=new Termbase("en","A_B",inputFile);
+        mySQLAccess.deleteTable(myTermFileName);
+        mySQLAccess.createTermTable(myTermFileName);
+        mySQLAccess.insertDataTermTable(myTermFileName,languageMyTerms,limitOfTerms);
+        
+        //Link terminology
+        File LinkTermFile=new File(path+myTermbase+myTermFileName+".txt");
+        Termbase languageLInkTerms=new Termbase("en","A_B",LinkTermFile);
+        mySQLAccess.deleteTable(linkTermFileName);
+        mySQLAccess.createTermTable(linkTermFileName);
+        mySQLAccess.insertDataTermTable(linkTermFileName,languageLInkTerms,limitOfTerms);*/
+        
+        
+        //mySQLAccess.close();
+        //FileRelatedUtils.getHashFromFile(path+myTermbase+myTermFileName);
         //MySQLAccess mySQLAccess = new MySQLAccess();
         /*mySQLAccess.createTermTable("iate_en_A_B");
         mySQLAccess.createTermTable("atc_en_A_B");
