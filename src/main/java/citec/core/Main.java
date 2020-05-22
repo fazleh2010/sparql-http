@@ -27,7 +27,7 @@ public class Main  {
     //private static String myTermTable = "tbx2rdf_iate_en_A_B";
     private static String linkTermbase = "atc/";
     //private static String otherTermTable = "tbx2rdf_atc_en_A_B";
-    private static Integer limitOfTerms = 10000;
+    private static Integer limitOfTerms = 50000;
     private static String matchedTermTable = "tbx2rdf_atc_en_A_B";
 
     public static void main(String[] args) throws Exception {
@@ -50,7 +50,8 @@ public class Main  {
         Termbase otherTerminology = getTermBase(otherTermTable, path + linkTermbase, ".txt");
         addToDataBase(otherTermTable, otherTerminology,mySQLAccess,limitOfTerms);
         
-        mySQLAccess.insertDataTermTable(myTermTable,otherTerminology,matchedTermTable);
+        Integer index=mySQLAccess.insertDataTermTable(myTermTable,otherTerminology,matchedTermTable);
+        System.out.println("number of matched found:"+index);
         
     }
 
