@@ -8,11 +8,13 @@ package citec.core.utils;
 import citec.core.termbase.TermInfo;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 /**
  *
@@ -74,6 +76,15 @@ public class FileRelatedUtils {
             e.printStackTrace();
         }
         return hash;
+    }
+    
+    public static File[] getFiles(String fileDir, String ntriple) throws Exception {
+
+        File dir = new File(fileDir);
+        FileFilter fileFilter = new WildcardFileFilter("*" + ntriple);
+        File[] files = dir.listFiles(fileFilter);
+        return files;
+
     }
 
 }

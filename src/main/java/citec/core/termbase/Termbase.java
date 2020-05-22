@@ -17,28 +17,16 @@ import java.util.Map;
  */
 public class Termbase {
 
-    private final String language;
-    private final String pair;
     private final String termbaseName;
     private Map<String, TermInfo> terms = new HashMap<String, TermInfo>();
 
-    public Termbase(String language, String pair, File fileName) throws IOException {
-        this.termbaseName = fileName.getName().replace(".txt", "");
-        this.language = language;
-        this.pair = pair;
-        this.terms = FileRelatedUtils.getHashFromFile(fileName);
-    }
-
-    public String getLanguage() {
-        return language;
+    public Termbase(String termbaseName, Map<String, TermInfo> terms) throws IOException {
+        this.termbaseName = termbaseName;
+        this.terms =terms;
     }
 
     public Map<String, TermInfo> getTerms() {
         return terms;
-    }
-
-    public String getPair() {
-        return pair;
     }
 
     public String getTermbaseName() {

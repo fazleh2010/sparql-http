@@ -47,8 +47,8 @@ public class MySQLAccess implements DataBaseConst {
         }*/
 
     }
-    
-     //command line location to /opt/lampp/bin/mysql -u root -p
+
+    //command line location to /opt/lampp/bin/mysql -u root -p
     //jdbc:mariadb://localhost:3306/revmgt?localSocket=/var/run/mysqld/mysqld.sock
     public void connectDataBaseUnix() throws Exception {
 
@@ -113,7 +113,7 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("Created table in given database...");
 
         } catch (Exception e) {
-            System.out.println("An error occurred. Maybe user/password is invalid");
+           System.out.println("create table not possible!!...");
         }
 
     }
@@ -127,30 +127,28 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("delete table in given database...");
 
         } catch (Exception e) {
-            System.out.println("An error occurred. Maybe user/password is invalid");
+            System.out.println("delete table not possible!!...");
         }
 
     }
 
-    public void insertDataTermTable(String tableName, Termbase languageTerms,Integer limit) {
-        String language = languageTerms.getLanguage();
-        String pair = languageTerms.getPair();
+    public void insertDataTermTable(String tableName, Termbase languageTerms, Integer limit) {
+        String language = "";
+        String pair = "";
         try {
             Integer index = 1;
 
             for (String url : languageTerms.getTerms().keySet()) {
                 TermInfo termInfo = languageTerms.getTerms().get(url);
-                index=index+1;
-                
+                index = index + 1;
+
                 if (!(limit == -1)) {
                     if (index > limit) {
                         break;
                     }
                 }
-                
-               
+
                 String id = index.toString();
-                System.out.println(id);
                 String query = " insert into " + tableName
                         + " (id, term, originalUrl, alternativeUrl, reliabilityCode, "
                         + " administrativeStatus, subjectField, subjectDescription, reference,"
@@ -177,7 +175,7 @@ public class MySQLAccess implements DataBaseConst {
             System.err.println(e.getMessage());
         }
     }
-    
+
     /*private static String path = "src/main/resources/";
     private static String myTermbase = "iate/";
     private static String myTermTable = "tbx2rdf_iate_en_A_B";
@@ -185,7 +183,7 @@ public class MySQLAccess implements DataBaseConst {
     private static String otherTermTable = "tbx2rdf_atc_en_A_B";
     private static Integer limitOfTerms = 200;
     private static String matchedTermTable = "tbx2rdf_atc_en_A_B";*/
-     /*while (rs.next()) {
+ /*while (rs.next()) {
             //String language = rs.getString("language");
             String term = rs.getString("term");
             String orginalUrl = rs.getString("originalUrl");
@@ -194,32 +192,28 @@ public class MySQLAccess implements DataBaseConst {
                 System.out.println(term+ " "+orginalUrl+" "+othertermInfo.getTermUrl());
             }
         }*/
-    
-    /*
+ /*
     String query=" SELECT tbx2rdf_iate_en_A_B.term, tbx2rdf_iate_en_A_B.originalUrl"
                 + " FROM tbx2rdf_iate_en_A_B"
                 + " INNER JOIN tbx2rdf_atc_en_A_B ON tbx2rdf_iate_en_A_B.term = tbx2rdf_atc_en_A_B.term";
         
-    */
-
-    
+     */
     public void insertDataTermTable(String myTermTable, Termbase otherTermTable, String matchedTermTable) throws SQLException {
         Statement stmt = conn.createStatement();
         String query = " SELECT term, originalUrl"
-                + " FROM "+myTermTable;
+                + " FROM " + myTermTable;
 
         ResultSet rs = stmt.executeQuery(query);
-       
-        
+
         try {
             while (rs.next()) {
                 //String language = rs.getString("language");
                 String term = rs.getString("term");
                 String orginalUrl = rs.getString("originalUrl");
+                //System.out.println(term + " " + orginalUrl + " ");
                 if (otherTermTable.getTerms().containsKey(term)) {
                     TermInfo othertermInfo = otherTermTable.getTerms().get(term);
-                    System.out.println(term + " " + orginalUrl);
-                    //System.out.println(term + " " + orginalUrl + " " +othertermInfo.getTermOrg() + " " + othertermInfo.getTermUrl());
+                    System.out.println(term + " " + orginalUrl + " " + othertermInfo.getTermUrl());
                 }
             }
         } catch (Exception e) {
@@ -227,7 +221,7 @@ public class MySQLAccess implements DataBaseConst {
             System.err.println(e.getMessage());
         }
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        
+
         /* String query2 = " SELECT term, originalUrl"
                 + " FROM "+myTermTable;
 
@@ -241,10 +235,8 @@ public class MySQLAccess implements DataBaseConst {
              if(orginalUrl.contains("http:"))
              System.out.println(term + " " + orginalUrl + " " ); 
         }*/
-
     }
 
-    
     /*public void insertDataTermTable(String myTermTable, String otherTermTable, String matchedTermTable) throws SQLException {
         Integer index = 0;
         
@@ -276,8 +268,7 @@ public class MySQLAccess implements DataBaseConst {
         }
       
     }*/
-
-    public void insertDataLinkTable(String myTerminology, String linkTerminology,String linkTableName) {
+    public void insertDataLinkTable(String myTerminology, String linkTerminology, String linkTableName) {
         Integer index = 0;
         try {
 
@@ -386,6 +377,4 @@ public class MySQLAccess implements DataBaseConst {
             resultSet = statement
                     .executeQuery("select * from feedback.comments");
             writeMetaData(resultSet);*/
-
-    
 }
