@@ -27,7 +27,7 @@ public class MySQLAccess implements DataBaseConst {
     private ResultSet resultSet = null;
 
     public MySQLAccess() throws Exception {
-        this.connectDataBase();
+        this.connectDataBaseUnix();
     }
 
     //command line location to /opt/lampp/bin/mysql -u root -p
@@ -35,6 +35,25 @@ public class MySQLAccess implements DataBaseConst {
 
         try {
             String url = "jdbc:mysql://" + host + ":" + port + "/test";
+            String user = "root";
+            String password = "";
+            conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Connection successfull!!");
+        } catch (Exception e) {
+            System.out.println("An error occurred. Maybe user/password is invalid");
+        }
+        /*finally {
+            close();
+        }*/
+
+    }
+    
+     //command line location to /opt/lampp/bin/mysql -u root -p
+    //jdbc:mariadb://localhost:3306/revmgt?localSocket=/var/run/mysqld/mysqld.sock
+    public void connectDataBaseUnix() throws Exception {
+
+        try {
+            String url = "jdbc:mysql://" + host + ":" + port + "/test?localSocket=/var/run/mysqld/mysqld.sock";
             String user = "root";
             String password = "";
             conn = DriverManager.getConnection(url, user, password);

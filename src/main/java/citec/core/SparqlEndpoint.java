@@ -17,7 +17,9 @@ import java.util.Set;
 public interface SparqlEndpoint {
     
     //http://scdemo.techfak.uni-bielefeld.de/termeallod/
-
+    //https://github.com/kohlschutter/junixsocket/blob/master/junixsocket-mysql/src/main/java/org/newsclub/net/mysql/AFUNIXDatabaseSocketFactory.java
+    //https://github.com/kohlschutter/junixsocket/blob/master/junixsocket-mysql/src/main/java/org/newsclub/net/mysql/AFUNIXDatabaseSocketFactoryCJ.java
+    
     public static final String tbx2rdf_iate_endpoint = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_iate/sparql/";
     public static String tbx2rdf_iate__query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";
 

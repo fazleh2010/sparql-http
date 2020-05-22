@@ -27,15 +27,15 @@ public class Main implements SparqlEndpoint {
     private static String myTermFileName = "tbx2rdf_iate_en_A_B";
     private static String linkTermbase = "atc/";
     private static String linkTermFileName = "tbx2rdf_atc_en_A_B";
-    private static Integer limitOfTerms = -1;
+    private static Integer limitOfTerms = 100;
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
-        ResultSet first_results = getResult(tbx2rdf_atc_endpoint, iate_query);
+        //ResultSet first_results = getResult(tbx2rdf_atc_endpoint, iate_query);
          //ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);*/
         //ResultSet first_results = getResult(tbx2rdftest, tbx2rdf_iate__query);
        
-        /*MySQLAccess mySQLAccess = new MySQLAccess();
+        MySQLAccess mySQLAccess = new MySQLAccess();
         
         //my terminology
         File inputFile=new File(path+myTermbase+myTermFileName+".txt");
@@ -49,7 +49,7 @@ public class Main implements SparqlEndpoint {
         Termbase languageLInkTerms=new Termbase("en","A_B",LinkTermFile);
         mySQLAccess.deleteTable(linkTermFileName);
         mySQLAccess.createTermTable(linkTermFileName);
-        mySQLAccess.insertDataTermTable(linkTermFileName,languageLInkTerms,limitOfTerms);*/
+        mySQLAccess.insertDataTermTable(linkTermFileName,languageLInkTerms,limitOfTerms);
         
         
         //mySQLAccess.close();
