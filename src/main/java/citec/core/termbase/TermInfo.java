@@ -6,6 +6,7 @@
 package citec.core.termbase;
 
 import citec.core.utils.StringMatcherUtil;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 
 /**
  *
@@ -13,6 +14,8 @@ import citec.core.utils.StringMatcherUtil;
  */
 public class TermInfo {
 
+    public static String LANGUAGE_SEPERATE_SYMBOLE = "@";
+    public static String HASH_SYMBOLE = "#";
     private String termOrg = "";
     private String termDecrpt = "";
     private String termUrl = "";
@@ -28,12 +31,19 @@ public class TermInfo {
     private String Hyponym = "";
     private String Variant = "";
     private String Synonym = "";
+    private String language = "";
+
+    public TermInfo(RDFNode subject, RDFNode object) {
+        this.setTermUrl(subject);
+        this.setTermAndLanguage(object);
+
+    }
 
     public TermInfo(String line) {
         String[] info = line.split("=");
         this.termOrg = info[0].toLowerCase().trim();
         this.termUrl = info[1];
-        
+
     }
 
     public TermInfo(String term, String url) {
@@ -130,10 +140,45 @@ public class TermInfo {
         return Synonym;
     }
 
- 
+    private String findTermUrl(RDFNode subject) {
+        boolean isSubjectFound = subject.toString().indexOf(HASH_SYMBOLE) != -1 ? true : false;
+        if (isSubjectFound) {
+            String[] info = subject.toString().split(HASH_SYMBOLE);
+            return info[0];
+        }
+        return null;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    private void setTermUrl(RDFNode subject) {
+        boolean isSubjectFound = subject.toString().indexOf(HASH_SYMBOLE) != -1 ? true : false;
+        if (isSubjectFound) {
+            String[] info = subject.toString().split(HASH_SYMBOLE);
+            this.termUrl = info[0];
+        }
+    }
+
+    private void setTermAndLanguage(RDFNode object) {
+        boolean isObjectFound = object.toString().indexOf(LANGUAGE_SEPERATE_SYMBOLE) != -1 ? true : false;
+        if (isObjectFound) {
+            String[] info = object.toString().split(LANGUAGE_SEPERATE_SYMBOLE);
+            this.termOrg = info[0].toLowerCase().trim();
+            this.termDecrpt = StringMatcherUtil.decripted(termOrg);
+            this.language = info[1].toLowerCase().trim();
+        }
+    }
+
     @Override
     public String toString() {
-        return "TermInfo{" + "termString=" + termOrg + ", termUrl=" + termUrl + ", alternativeUrl=" + alternativeUrl + ", subject=" + subject + ", reliabilityCode=" + reliabilityCode + ", administrativeStatus=" + administrativeStatus + '}';
+        return "TermInfo{" + "language=" + language + ",termOrg=" + termOrg + ", termDecrpt=" + termDecrpt + ", termUrl=" + termUrl
+                + ", alternativeUrl=" + alternativeUrl + ", subject=" + subject
+                + ", reliabilityCode=" + reliabilityCode + ", administrativeStatus=" + administrativeStatus + ", POST=" + POST
+                + ", Number=" + Number + ", Gender=" + Gender + ", Definition=" + Definition
+                + ", Hypernym=" + Hypernym + ", Hyponym=" + Hyponym + ", Variant=" + Variant
+                + ", Synonym=" + Synonym + '}';
     }
 
 }

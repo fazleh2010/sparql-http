@@ -33,4 +33,13 @@ public class Termbase {
         return termbaseName;
     }
 
+    
+    public void display() {
+        for(String term:terms.keySet()){
+            TermInfo terminfo=terms.get(term);
+            System.out.println(terminfo);
+            
+        }
+    }
+
 }

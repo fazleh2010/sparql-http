@@ -18,6 +18,9 @@ import java.util.Date;
 /**
  *
  * @author elahi SELECT * FROM `en_A_B_term` WHERE 1 DROP table `en_A_B_term`;
+ * //command line location to /opt/lampp/bin/mysql -u root -p
+ * //jdbc:mariadb://localhost:3306/revmgt?localSocket=/var/run/mysqld/mysqld.sock
+ * //command line location to /opt/lampp/bin/mysql -u root -p
  */
 public class MySQLAccess implements DataBaseConst {
 
@@ -30,7 +33,6 @@ public class MySQLAccess implements DataBaseConst {
         this.connectDataBaseUnix();
     }
 
-    //command line location to /opt/lampp/bin/mysql -u root -p
     public void connectDataBase() throws Exception {
 
         try {
@@ -42,14 +44,8 @@ public class MySQLAccess implements DataBaseConst {
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
         }
-        /*finally {
-            close();
-        }*/
-
     }
 
-    //command line location to /opt/lampp/bin/mysql -u root -p
-    //jdbc:mariadb://localhost:3306/revmgt?localSocket=/var/run/mysqld/mysqld.sock
     public void connectDataBaseUnix() throws Exception {
 
         try {
@@ -61,10 +57,6 @@ public class MySQLAccess implements DataBaseConst {
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
         }
-        /*finally {
-            close();
-        }*/
-
     }
 
     public void createTermTable(String tableName) throws Exception {
@@ -87,13 +79,12 @@ public class MySQLAccess implements DataBaseConst {
                     + " PRIMARY KEY ( id ))";
 
             stmt.executeUpdate(sql);
-            System.out.println("Created table in given database...");
+            System.out.println("Created " + tableName + " table in given database...");
 
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
         }
     }
-
 
     public void deleteTable(String tableName) throws Exception {
 
@@ -101,7 +92,7 @@ public class MySQLAccess implements DataBaseConst {
             Statement stmt = conn.createStatement();
             String sql = "Drop table " + tableName;
             stmt.executeUpdate(sql);
-            System.out.println("delete table in given database...");
+            System.out.println("delete " + tableName + " table in given database...");
 
         } catch (Exception e) {
             System.out.println("delete table not possible!!...");
@@ -146,6 +137,7 @@ public class MySQLAccess implements DataBaseConst {
                 preparedStmt.setString(11, pair);
                 preparedStmt.execute();
             }
+            System.out.println("insert to " + tableName + " table is successful!!...");
 
         } catch (Exception e) {
             System.err.println("Got an exception!");
@@ -153,32 +145,8 @@ public class MySQLAccess implements DataBaseConst {
         }
     }
 
-    /*private static String path = "src/main/resources/";
-    private static String myTermbase = "iate/";
-    private static String myTermTable = "tbx2rdf_iate_en_A_B";
-    private static String linkTermbase = "atc/";
-    private static String otherTermTable = "tbx2rdf_atc_en_A_B";
-    private static Integer limitOfTerms = 200;
-    private static String matchedTermTable = "tbx2rdf_atc_en_A_B";*/
- /*while (rs.next()) {
-            //String language = rs.getString("language");
-            String term = rs.getString("term");
-            String orginalUrl = rs.getString("originalUrl");
-            if (otherTermTable.getTerms().containsKey(term)){
-                TermInfo othertermInfo=otherTermTable.getTerms().get(term);
-                System.out.println(term+ " "+orginalUrl+" "+othertermInfo.getTermUrl());
-            }
-        }*/
- /*
-    String query=" SELECT tbx2rdf_iate_en_A_B.term, tbx2rdf_iate_en_A_B.originalUrl"
-                + " FROM tbx2rdf_iate_en_A_B"
-                + " INNER JOIN tbx2rdf_atc_en_A_B ON tbx2rdf_iate_en_A_B.term = tbx2rdf_atc_en_A_B.term";
-        
-     */
-    
-    
     public Integer insertDataTermTable(String myTermTable, Termbase otherTermTable, String matchedTermTable) throws SQLException, Exception {
-        Integer index=0;        
+        Integer index = 0;
         Statement stmt = conn.createStatement();
         String query = " SELECT term, originalUrl"
                 + " FROM " + myTermTable;
@@ -190,77 +158,32 @@ public class MySQLAccess implements DataBaseConst {
                 //String language = rs.getString("language");
                 String term = rs.getString("term");
                 String orginalUrl = rs.getString("originalUrl");
-                TermInfo myterm=new TermInfo(term,orginalUrl);
+                TermInfo myterm = new TermInfo(term, orginalUrl);
                 //System.out.println(term + " " + orginalUrl + " ");
                 if (otherTermTable.getTerms().containsKey(term)) {
                     TermInfo othertermInfo = otherTermTable.getTerms().get(term);
-                    TermInfo otherTerm=new TermInfo(term,othertermInfo.getTermUrl());
+                    TermInfo otherTerm = new TermInfo(term, othertermInfo.getTermUrl());
                     //System.out.println(term + " " + orginalUrl + " " + othertermInfo.getTermUrl());
                     index++;
-                    insertDataLinkTable(myterm, otherTerm, matchedTermTable,index);
-                    
+                    insertDataLinkTable(myterm, otherTerm, matchedTermTable, index);
                 }
             }
+            System.out.println("insert to " + matchedTermTable + " table is successful!!...");
+
         } catch (Exception e) {
             System.err.println("Matching table exceptions!");
             System.err.println(e.getMessage());
         }
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-        /* String query2 = " SELECT term, originalUrl"
-                + " FROM "+myTermTable;
-
-        ResultSet rs2 = stmt.executeQuery(query);
-
-        while (rs2.next()) {
-            //String language = rs.getString("language");
-            String term = rs2.getString("term");
-            String orginalUrl = rs2.getString("originalUrl");
-            //term=term.toLowerCase().trim();
-             if(orginalUrl.contains("http:"))
-             System.out.println(term + " " + orginalUrl + " " ); 
-        }*/
         return index;
     }
 
-    /*public void insertDataTermTable(String myTermTable, String otherTermTable, String matchedTermTable) throws SQLException {
-        Integer index = 0;
-        
-        Statement stmt = conn.createStatement();
-        String query=" SELECT tbx2rdf_iate_en_A_B.term, tbx2rdf_iate_en_A_B.originalUrl"
-                + " FROM tbx2rdf_iate_en_A_B"
-                + " INNER JOIN tbx2rdf_atc_en_A_B ON tbx2rdf_iate_en_A_B.term = tbx2rdf_atc_en_A_B.term";
-        
-       
-        
-        //String query="SELECT * FROM "+myTermTable+" INTERSECT SELECT * FROM "+otherTermTable;
-        
-         try {
-        ResultSet rs = stmt.executeQuery(query);
-        
-        
-        
-        while (rs.next()) {
-            //String language = rs.getString("language");
-            String term = rs.getString("term");
-            String orginalUrl = rs.getString("originalUrl");
-            System.out.println(term+ " "+orginalUrl);
-            
-        }
-        
-          } catch (Exception e) {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
-        }
-      
-    }*/
-    
-     public void createLinkingTable(String tableName) throws Exception {
+    public void createLinkingTable(String tableName) throws Exception {
 
         try {
             Statement stmt = conn.createStatement();
 
-           String sql = "CREATE TABLE " + tableName + " "
+            String sql = "CREATE TABLE " + tableName + " "
                     + "(id VARCHAR(255) not NULL, "
                     + " termOrg VARCHAR(4000), "
                     + " term VARCHAR(4000), "
@@ -271,107 +194,36 @@ public class MySQLAccess implements DataBaseConst {
                     + " PRIMARY KEY ( id ))";
 
             stmt.executeUpdate(sql);
-            System.out.println("Created table in given database...");
+            System.out.println("Created " + tableName + " table in given database...");
 
         } catch (Exception e) {
-           System.out.println("create table not possible!!...");
+            System.out.println("create table not possible!!...");
         }
 
     }
-    
-     public void insertDataLinkTable(TermInfo myTerminology, TermInfo linkTerminology, String linkTableName,Integer index) {
-       
+
+    public void insertDataLinkTable(TermInfo myTerminology, TermInfo linkTerminology, String linkTableName, Integer index) {
+
         try {
-            
-             String query = " insert into link (id, termOrg, term, myTermUrl, myTermAlterUrl, otherTermUrl, otherTermAlterUrl)"
-        + " values (?, ?, ?, ?, ?, ?, ?)";
 
-      // create the mysql insert preparedstatement
-      PreparedStatement preparedStmt = conn.prepareStatement(query);
-      preparedStmt.setInt(1, index);
-      preparedStmt.setString(2, myTerminology.getTermOrg());
-      preparedStmt.setString(3, myTerminology.getTermDecrpt());
-      preparedStmt.setString(4, myTerminology.getTermUrl());
-      preparedStmt.setString(5, myTerminology.getAlternativeUrl());
-      preparedStmt.setString(6, linkTerminology.getTermUrl());
-      preparedStmt.setString(7, linkTerminology.getAlternativeUrl());
-      preparedStmt.execute();
-            
-              /*String query = " insert into " + linkTableName
-                        + " (id, termOrg, term, myTermUrl, myTermAlterUrl, otherTermUrl, otherTermAlterUrl)"
-                        + " values (?,?,?,?,?,?,?)";*/
-              
-              
+            String query = " insert into link (id, termOrg, term, myTermUrl, myTermAlterUrl, otherTermUrl, otherTermAlterUrl)"
+                    + " values (?, ?, ?, ?, ?, ?, ?)";
 
-            /*PreparedStatement preparedStmt = conn.prepareStatement(query);
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, index);
-            preparedStmt.setString(2, "");
-            preparedStmt.setString(3, myTerminology.getTermStringOrg());
+            preparedStmt.setString(2, myTerminology.getTermOrg());
+            preparedStmt.setString(3, myTerminology.getTermDecrpt());
             preparedStmt.setString(4, myTerminology.getTermUrl());
             preparedStmt.setString(5, myTerminology.getAlternativeUrl());
             preparedStmt.setString(6, linkTerminology.getTermUrl());
-            preparedStmt.setString(7, linkTerminology.getAlternativeUrl());*/
-            
+            preparedStmt.setString(7, linkTerminology.getAlternativeUrl());
+            preparedStmt.execute();
+
         } catch (Exception e) {
             System.err.println("Got an exception while adding data!");
             System.err.println(e.getMessage());
         }
 
-    }
-    /*public void insertDataLinkTable(String myTerminology, String linkTerminology, String linkTableName) {
-        Integer index = 0;
-        try {
-
-            String query = " insert into " + linkTableName
-                    + " (id, term_1, term_1_url, term_1_alter_url, term_2, term_2_url, term_2_alter_url)"
-                    + " values (?,?,?,?,?,?,?)";
-
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setInt(1, index++);
-            preparedStmt.setString(2, "term_1");
-            preparedStmt.setString(3, "term_1_url");
-            preparedStmt.setString(4, "term_1_alter_url");
-            preparedStmt.setString(5, "term_2");
-            preparedStmt.setString(6, "term_2_url");
-            preparedStmt.setString(7, "term_2_alter_url");
-            preparedStmt.execute();
-        } catch (Exception e) {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
-        }
-
-    }*/
-
-    private void writeMetaData(ResultSet resultSet) throws SQLException {
-        //  Now get some metadata from the database
-        // Result set get the result of the SQL query
-
-        System.out.println("The columns in the table are: ");
-
-        System.out.println("Table: " + resultSet.getMetaData().getTableName(1));
-        for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-            System.out.println("Column " + i + " " + resultSet.getMetaData().getColumnName(i));
-        }
-    }
-
-    private void writeResultSet(ResultSet resultSet) throws SQLException {
-        // ResultSet is initially before the first data set
-        while (resultSet.next()) {
-            // It is possible to get the columns via name
-            // also possible to get the columns via the column number
-            // which starts at 1
-            // e.g. resultSet.getSTring(2);
-            String user = resultSet.getString("myuser");
-            String website = resultSet.getString("webpage");
-            String summary = resultSet.getString("summary");
-            Date date = resultSet.getDate("datum");
-            String comment = resultSet.getString("comments");
-            System.out.println("User: " + user);
-            System.out.println("Website: " + website);
-            System.out.println("summary: " + summary);
-            System.out.println("Date: " + date);
-            System.out.println("Comment: " + comment);
-        }
     }
 
     public void close() {
@@ -391,40 +243,4 @@ public class MySQLAccess implements DataBaseConst {
 
         }
     }
-
-    // connect way #1
-    /*// Statements allow to issue SQL queries to the database
-            statement = connect.createStatement();
-            // Result set get the result of the SQL query
-            resultSet = statement
-                    .executeQuery("select * from feedback.comments");
-            writeResultSet(resultSet);
-
-            // PreparedStatements can use variables and are more efficient
-            preparedStatement = connect
-                    .prepareStatement("insert into  feedback.comments values (default, ?, ?, ?, ? , ?, ?)");
-            // "myuser, webpage, datum, summary, COMMENTS from feedback.comments");
-            // Parameters start with 1
-            preparedStatement.setString(1, "Test");
-            preparedStatement.setString(2, "TestEmail");
-            preparedStatement.setString(3, "TestWebpage");
-            preparedStatement.setDate(4, new java.sql.Date(2009, 12, 11));
-            preparedStatement.setString(5, "TestSummary");
-            preparedStatement.setString(6, "TestComment");
-            preparedStatement.executeUpdate();
-
-            preparedStatement = connect
-                    .prepareStatement("SELECT myuser, webpage, datum, summary, COMMENTS from feedback.comments");
-            resultSet = preparedStatement.executeQuery();
-            writeResultSet(resultSet);
-
-            // Remove again the insert comment
-            preparedStatement = connect
-                    .prepareStatement("delete from feedback.comments where myuser= ? ; ");
-            preparedStatement.setString(1, "Test");
-            preparedStatement.executeUpdate();
-
-            resultSet = statement
-                    .executeQuery("select * from feedback.comments");
-            writeMetaData(resultSet);*/
 }
