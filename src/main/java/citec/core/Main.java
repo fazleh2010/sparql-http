@@ -24,11 +24,8 @@ public class Main  {
     
     private static String path = "src/main/resources/";
     private static String myTermbase = "iate/";
-    //private static String myTermTable = "tbx2rdf_iate_en_A_B";
     private static String linkTermbase = "atc/";
-    //private static String otherTermTable = "tbx2rdf_atc_en_A_B";
     private static Integer limitOfTerms = 50000;
-    private static String matchedTermTable = "tbx2rdf_atc_en_A_B";
 
     public static void main(String[] args) throws Exception {
         //ResultSet first_results = getResult(tbx2rdf_atc_endpoint, iate_query);
@@ -39,7 +36,7 @@ public class Main  {
         
           //System.out.println(file.getAbsolutePath());
         
-        String myTermTable = "iate", otherTermTable = "atc";
+        String myTermTable = "iate", otherTermTable = "atc",matchedTermTable="link";
         MySQLAccess mySQLAccess=new MySQLAccess();
         
         //my terminology
@@ -50,8 +47,11 @@ public class Main  {
         Termbase otherTerminology = getTermBase(otherTermTable, path + linkTermbase, ".txt");
         addToDataBase(otherTermTable, otherTerminology,mySQLAccess,limitOfTerms);
         
-        Integer index=mySQLAccess.insertDataTermTable(myTermTable,otherTerminology,matchedTermTable);
-        System.out.println("number of matched found:"+index);
+        matchWithDataBase(myTermTable,otherTerminology,mySQLAccess, matchedTermTable);
+        
+        mySQLAccess.close();
+        
+       
         
     }
 
@@ -79,11 +79,22 @@ public class Main  {
 
     private static Boolean addToDataBase(String myTermTable, Termbase myTerminology, MySQLAccess mySQLAccess,Integer limitOfTerms) {
         try {
-            mySQLAccess = new MySQLAccess();
             mySQLAccess.deleteTable(myTermTable);
             mySQLAccess.createTermTable(myTermTable);
             mySQLAccess.insertDataTermTable(myTermTable, myTerminology, limitOfTerms);
-            mySQLAccess.close();
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+     return true;
+       
+    }
+    private static Boolean matchWithDataBase(String myTermTable, Termbase otherTerminology, MySQLAccess mySQLAccess,String matchedTermTable) {
+        try {
+            mySQLAccess.deleteTable(matchedTermTable);
+            mySQLAccess.createLinkingTable(matchedTermTable);
+            Integer index=mySQLAccess.insertDataTermTable(myTermTable,otherTerminology,matchedTermTable);
+            System.out.println("number of matched found:"+index);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             return false;
