@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class Main  {
     
     private static String path = "src/main/resources/";
-    private static Integer limitOfTerms = 100;
+    private static Integer limitOfTerms = 10000;
 
     public static void main(String[] args) throws Exception {
         
