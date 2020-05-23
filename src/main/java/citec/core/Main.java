@@ -23,12 +23,32 @@ import java.util.logging.Logger;
 public class Main  {
     
     private static String path = "src/main/resources/";
-    private static String myTermbase = "iate/";
-    private static String linkTermbase = "atc/";
-    private static Integer limitOfTerms = 50000;
+    private static Integer limitOfTerms = 100;
 
     public static void main(String[] args) throws Exception {
-        //ResultSet first_results = getResult(tbx2rdf_atc_endpoint, iate_query);
+        
+        String myTermTable = null, otherTermTable = null,matchedTermTable="link";
+        
+        try {
+            if(args[0]!=null);
+                myTermTable = args[0];
+            if( args[1]!=null)
+                otherTermTable = args[1];
+         
+
+        }catch (Exception e) {
+              myTermTable = "iate";
+              otherTermTable = "atc";
+             //String myTermbase = "iate/";
+            // String linkTermbase = "atc/";
+            System.out.println("An error occurred. Maybe user/password is invalid");
+        }
+        
+            System.out.println(myTermTable);
+            System.out.println(otherTermTable);
+
+
+       //ResultSet first_results = getResult(tbx2rdf_atc_endpoint, iate_query);
          //ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);*/
         //ResultSet first_results = getResult(tbx2rdftest, tbx2rdf_iate__query);
        
@@ -36,15 +56,15 @@ public class Main  {
         
           //System.out.println(file.getAbsolutePath());
         
-        String myTermTable = "iate", otherTermTable = "atc",matchedTermTable="link";
+        //String myTermTable = "iate", otherTermTable = "atc",matchedTermTable="link";
         MySQLAccess mySQLAccess=new MySQLAccess();
         
         //my terminology
-        Termbase myTerminology = getTermBase(myTermTable, path + myTermbase, ".txt");
+        Termbase myTerminology = getTermBase(myTermTable, path + myTermTable+File.separator, ".txt");
         addToDataBase(myTermTable, myTerminology,mySQLAccess,limitOfTerms);
         
         //Link terminology
-        Termbase otherTerminology = getTermBase(otherTermTable, path + linkTermbase, ".txt");
+        Termbase otherTerminology = getTermBase(otherTermTable, path + otherTermTable+File.separator, ".txt");
         addToDataBase(otherTermTable, otherTerminology,mySQLAccess,limitOfTerms);
         
         matchWithDataBase(myTermTable,otherTerminology,mySQLAccess, matchedTermTable);
