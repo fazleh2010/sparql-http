@@ -63,7 +63,7 @@ public class TermInfo {
     }
 
     public String getTermDecrpt() {
-        return termDecrpt;
+        return StringMatcherUtil.decripted(termOrg);
     }
 
     public String getTermUrl() {
@@ -130,10 +130,7 @@ public class TermInfo {
         return Synonym;
     }
 
-    public String getTermStringOrg() {
-        return termOrg;
-    }
-
+ 
     @Override
     public String toString() {
         return "TermInfo{" + "termString=" + termOrg + ", termUrl=" + termUrl + ", alternativeUrl=" + alternativeUrl + ", subject=" + subject + ", reliabilityCode=" + reliabilityCode + ", administrativeStatus=" + administrativeStatus + '}';

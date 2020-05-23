@@ -6,7 +6,7 @@
 
     <groupId>my.org</groupId>
     <artifactId>sparql-http</artifactId>
-    <version>1.5</version>
+    <version>1.6</version>
 
     <name>sparql-http</name>
     <description>A simple sparql query program.</description>

@@ -178,9 +178,7 @@ public class MySQLAccess implements DataBaseConst {
     
     
     public Integer insertDataTermTable(String myTermTable, Termbase otherTermTable, String matchedTermTable) throws SQLException, Exception {
-        Integer index=0;
-        createLinkingTable(matchedTermTable);
-        
+        Integer index=0;        
         Statement stmt = conn.createStatement();
         String query = " SELECT term, originalUrl"
                 + " FROM " + myTermTable;
@@ -198,8 +196,9 @@ public class MySQLAccess implements DataBaseConst {
                     TermInfo othertermInfo = otherTermTable.getTerms().get(term);
                     TermInfo otherTerm=new TermInfo(term,othertermInfo.getTermUrl());
                     //System.out.println(term + " " + orginalUrl + " " + othertermInfo.getTermUrl());
-                    insertDataLinkTable(myterm, otherTerm, matchedTermTable,index);
                     index++;
+                    insertDataLinkTable(myterm, otherTerm, matchedTermTable,index);
+                    
                 }
             }
         } catch (Exception e) {
@@ -261,10 +260,10 @@ public class MySQLAccess implements DataBaseConst {
         try {
             Statement stmt = conn.createStatement();
 
-            String sql = "CREATE TABLE " + tableName + " "
-                    + "(id INTEGER not NULL, "
-                    + " termEncripted VARCHAR(255), "
-                    + " termDecripted VARCHAR(255), "
+           String sql = "CREATE TABLE " + tableName + " "
+                    + "(id VARCHAR(255) not NULL, "
+                    + " termOrg VARCHAR(4000), "
+                    + " term VARCHAR(4000), "
                     + " myTermUrl VARCHAR(255), "
                     + " myTermAlterUrl VARCHAR(255), "
                     + " otherTermUrl VARCHAR(255), "
@@ -283,22 +282,38 @@ public class MySQLAccess implements DataBaseConst {
      public void insertDataLinkTable(TermInfo myTerminology, TermInfo linkTerminology, String linkTableName,Integer index) {
        
         try {
+            
+             String query = " insert into link (id, termOrg, term, myTermUrl, myTermAlterUrl, otherTermUrl, otherTermAlterUrl)"
+        + " values (?, ?, ?, ?, ?, ?, ?)";
 
-            String query = " insert into " + linkTableName
-                    + " (id, termEncripted, termDecripted, myTermUrl, myTermAlterUrl, otherTermUrl, otherTermAlterUrl)"
-                    + " values (?,?,?,?,?,?,?)";
+      // create the mysql insert preparedstatement
+      PreparedStatement preparedStmt = conn.prepareStatement(query);
+      preparedStmt.setInt(1, index);
+      preparedStmt.setString(2, myTerminology.getTermOrg());
+      preparedStmt.setString(3, myTerminology.getTermDecrpt());
+      preparedStmt.setString(4, myTerminology.getTermUrl());
+      preparedStmt.setString(5, myTerminology.getAlternativeUrl());
+      preparedStmt.setString(6, linkTerminology.getTermUrl());
+      preparedStmt.setString(7, linkTerminology.getAlternativeUrl());
+      preparedStmt.execute();
+            
+              /*String query = " insert into " + linkTableName
+                        + " (id, termOrg, term, myTermUrl, myTermAlterUrl, otherTermUrl, otherTermAlterUrl)"
+                        + " values (?,?,?,?,?,?,?)";*/
+              
+              
 
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            /*PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, index);
-            preparedStmt.setString(2, myTerminology.getTermOrg());
+            preparedStmt.setString(2, "");
             preparedStmt.setString(3, myTerminology.getTermStringOrg());
             preparedStmt.setString(4, myTerminology.getTermUrl());
             preparedStmt.setString(5, myTerminology.getAlternativeUrl());
             preparedStmt.setString(6, linkTerminology.getTermUrl());
-            preparedStmt.setString(7, linkTerminology.getAlternativeUrl());
-            preparedStmt.execute();
+            preparedStmt.setString(7, linkTerminology.getAlternativeUrl());*/
+            
         } catch (Exception e) {
-            System.err.println("Got an exception!");
+            System.err.println("Got an exception while adding data!");
             System.err.println(e.getMessage());
         }
 
