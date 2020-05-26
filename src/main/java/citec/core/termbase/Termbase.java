@@ -5,7 +5,7 @@
  */
 package citec.core.termbase;
 
-import citec.core.utils.FileRelatedUtils;
+import citec.core.utils.FileUrlUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;

@@ -5,19 +5,13 @@
  */
 package citec.core;
 
+import citec.core.utils.FileUrlUtils;
 import citec.core.sparql.SparqlEndpoint;
 import citec.core.termbase.Termbase;
 import citec.core.mysql.MySQLAccess;
+import citec.core.sparql.CurlSparqlQuery;
+import citec.core.sparql.SparqlQuery;
 import citec.core.termbase.TermInfo;
-import citec.core.utils.FileRelatedUtils;
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
-import com.hp.hpl.jena.query.QueryFactory;
-import com.hp.hpl.jena.query.QuerySolution;
-import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.ResultSetFormatter;
-import com.hp.hpl.jena.rdf.model.RDFNode;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,67 +42,42 @@ public class Main implements SparqlEndpoint {
         } catch (Exception e) {
             myTermSparqlEndpoint = SparqlEndpoint.tbx2rdf_atc_endpoint;
             otherTermSparqlEndpoint = SparqlEndpoint.tbx2rdf_intaglio_endpoint;
-            System.out.println("Invalid parameter!! default values are used");
+            System.out.println("myTermSparqlEndpoint");
+            System.out.println("otherTermSparqlEndpoint");
         }
 
-        MySQLAccess mySQLAccess = new MySQLAccess();
+        CurlSparqlQuery curlSparql = new CurlSparqlQuery(tbx2rdf_atc_endpoint,writtenFormQuery,myTermSparqlEndpoint);
+
+        /*MySQLAccess mySQLAccess = new MySQLAccess();
 
         //my terminology
         //Termbase myTerminology = getTermBaseFromTxtFiles(myTermTableName, path + myTermTableName+File.separator, ".txt");
-        Termbase myTerminology = getTermBaseFromSparqlEndpoint(myTermSparqlEndpoint, myTermTableName);
-        addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
+        SparqlQuery myTermsparqlQuery=new SparqlQuery(myTermSparqlEndpoint, myTermTableName);
+        Termbase myTerminology = myTermsparqlQuery.getTerminology();
+        addToDataBase(myTermTableName, myTermsparqlQuery.getTerminology(), mySQLAccess, limitOfTerms);
 
         //Link terminology
         //Termbase otherTerminology = getTermBaseFromTxtFiles(otherTermTableName, path + otherTermTableName+File.separator, ".txt");
-        Termbase otherTerminology = getTermBaseFromSparqlEndpoint(otherTermSparqlEndpoint, otherTermTableName);
-        addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
+        SparqlQuery otherSparqlQuery=new SparqlQuery(otherTermSparqlEndpoint, otherTermTableName);
+        Termbase otherTerminology = otherSparqlQuery.getTerminology();
+        addToDataBase(otherTermTableName, otherSparqlQuery.getTerminology(), mySQLAccess, limitOfTerms);
 
-        matchWithDataBase(myTermTableName, otherTerminology, mySQLAccess, matchedTermTable);
+        matchWithDataBase(myTermTableName,otherTerminology, mySQLAccess, matchedTermTable);
 
-        mySQLAccess.close();
-
-    }
-
-    private static ResultSet getResultSparql(String sparql_endpoint, String sparql_query) {
-        Query query = QueryFactory.create(sparql_query); //s2 = the query above
-        QueryExecution qExe = QueryExecutionFactory.sparqlService(sparql_endpoint, query);
-        ResultSet results = qExe.execSelect();
-        //ResultSetFormatter.out(System.out, results, query);
-        return results;
+        mySQLAccess.close();*/
     }
 
     private static Termbase getTermBaseFromTxtFiles(String termBaseName, String path, String extension) throws Exception {
         //System.out.println(termBaseName+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        File[] myTerminologyfiles = FileRelatedUtils.getFiles(path, extension);
+        File[] myTerminologyfiles = FileUrlUtils.getFiles(path, extension);
         Map<String, TermInfo> allkeysValues = new HashMap<String, TermInfo>();
         for (File file : myTerminologyfiles) {
             //System.out.println(file.getAbsolutePath());
             Map<String, TermInfo> terms = new HashMap<String, TermInfo>();
-            terms = FileRelatedUtils.getHashFromFile(file);
+            terms = FileUrlUtils.getHashFromFile(file);
             allkeysValues.putAll(terms);
         }
         Termbase termbase = new Termbase(termBaseName, allkeysValues);
-        return termbase;
-    }
-
-    private static Termbase getTermBaseFromSparqlEndpoint(String sparqlEndpoint, String termBaseName) throws Exception {
-        Map<String, TermInfo> allkeysValues = new HashMap<String, TermInfo>();
-        ResultSet results = getResultSparql(sparqlEndpoint, iate_query);
-        while (results != null && results.hasNext()) {
-            QuerySolution querySolution = results.next();
-            RDFNode subject = querySolution.get("?s");
-            RDFNode predicate = querySolution.get("?p");
-            RDFNode object = querySolution.get("?o");
-            //System.out.println("subject:"+subject);
-            //System.out.println("predicate:"+predicate);
-            //System.out.println("object:"+object);
-            TermInfo termInfo = new TermInfo(subject, object);
-            //System.out.println(termInfo);
-            allkeysValues.put(termInfo.getTermOrg(), termInfo);
-        }
-
-        Termbase termbase = new Termbase(termBaseName, allkeysValues);
-        //termbase.display();
         return termbase;
     }
 
@@ -139,7 +108,7 @@ public class Main implements SparqlEndpoint {
 
     }
 
-    //ResultSet first_results = getResultSparql(tbx2rdf_atc_endpoint, iate_query);
+    //ResultSet first_results = getResultSparql(tbx2rdf_atc_endpoint, writtenFormQuery);
     //ResultSet sec_results = getResultSparql(dbpedia_endpoint, dbpedia_query);*/
     //ResultSet first_results = getResultSparql(tbx2rdftest, tbx2rdf_iate__query);
     //Test connection..

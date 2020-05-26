@@ -16,3 +16,25 @@ SELECT ?s ?p ?o from <http://tbx2rdf.lider-project.eu/> WHERE {
     ?o ontolex:canonicalForm ?canform .
     ?canform ontolex:writtenRep ?rep .
 }
+
+
+select distinct ?type where {?thing <http://www.wikidata.org/prop/direct/P31> ?type}limit 20
+
+  
+      /*doc.getDocumentElement().normalize();
+        Element root = doc.getDocumentElement();
+        NodeList results = doc.getElementsByTagName("results");
+        
+        
+        for (int i = 0; i < results.getLength(); i++) {
+            Node node = results.item(i);
+
+          
+                Element eElement = (Element) node;
+                System.out.println("First Name : " + eElement.getElementsByTagName("result").item(i).getTextContent());
+                System.out.println("Employee id : " + eElement.getAttribute("result"));
+                System.out.println("First Name : " + eElement.getElementsByTagName("firstName").item(0).getTextContent());
+                System.out.println("Last Name : " + eElement.getElementsByTagName("lastName").item(0).getTextContent());
+                System.out.println("Location : " + eElement.getElementsByTagName("location").item(0).getTextContent());
+            
+        }*/

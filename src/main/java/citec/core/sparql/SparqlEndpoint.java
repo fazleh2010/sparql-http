@@ -56,7 +56,7 @@ public interface SparqlEndpoint {
     public static String dbpedia_query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";
     public static String tbx2rdftest = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdftest/sparql";
 
-    /*public static String iate_query = "PREFIX cc:    <http://creativecommons.org/ns#> \n"
+    /*public static String writtenFormQuery = "PREFIX cc:    <http://creativecommons.org/ns#> \n"
             + "\n"
             + "PREFIX void:  <http://rdfs.org/ns/void#> \n"
             + "\n"
@@ -133,14 +133,33 @@ public interface SparqlEndpoint {
             + "\n"
             + "} LIMIT 5";
      
-       /*public static String iate_query = ontoLexPrefix
+        public static String writtenFormQuery = ontoLexPrefix
             + "\n"
-            + "select  ?s ?o  where { ?s ontolex:writtenRep ?o}";*/
+            + "select  ?s ?o  where { ?s ontolex:writtenRep ?o}";
      
         public static String iate_query = ontoLexPrefix
             + "\n"
             + "select  ?s ?p ?o  where {  ?s ?p ?o . ?s ontolex:writtenRep ?o}";
        
        //https://lemon-model.net/sparql.php
+        
+          /* String tbx2rdf_atc_query = "PREFIX cc:<http://creativecommons.org/ns#> "
+                + "PREFIX void: <http://rdfs.org/ns/void#> "
+                + "PREFIX skos: <http://www.w3.org/2004/02/skos/core#> "
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
+                + "PREFIX tbx: <http://tbx2rdf.lider-project.eu/tbx#> "
+                + "PREFIX decomp: <http://www.w3.org/ns/lemon/decomp#> "
+                + "PREFIX dct: <http://purl.org/dc/terms/> "
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
+                + "PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#> "
+                + "PREFIX ldr: <http://purl.oclc.org/NET/ldr/ns#> "
+                + "PREFIX odrl: <http://www.w3.org/ns/odrl/2/> "
+                + "PREFIX dcat: <http://www.w3.org/ns/dcat#> "
+                + "PREFIX prov: <http://www.w3.org/ns/prov#> "
+                + "SELECT ?s ?p ?o from <http://tbx2rdf.lider-project.eu/> WHERE { "
+                + "?s ?p ?o ."
+                + "?o ontolex:canonicalForm ?canform ."
+                + "?canform ontolex:writtenRep ?rep ."
+                + "}Limit 5";*/
 
 }

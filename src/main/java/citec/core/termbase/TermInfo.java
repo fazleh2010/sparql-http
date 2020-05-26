@@ -6,7 +6,6 @@
 package citec.core.termbase;
 
 import citec.core.utils.StringMatcherUtil;
-import com.hp.hpl.jena.rdf.model.RDFNode;
 
 /**
  *
@@ -33,10 +32,17 @@ public class TermInfo {
     private String Synonym = "";
     private String language = "";
 
-    public TermInfo(RDFNode subject, RDFNode object) {
-        this.setTermUrl(subject);
-        this.setTermAndLanguage(object);
-
+    public TermInfo(String subject, String predicate, String object, Boolean flag) {
+        if (flag) {
+           this.termUrl=makeTermUrl(subject);
+           this.termOrg=object;
+           this.termDecrpt=StringMatcherUtil.decripted(termOrg);
+           this.language=this.setLanguage(this.termUrl);
+          
+        } else {
+            this.termUrl=this.makeTermUrl(subject);
+            this.setTermAndLanguage(object);
+        }
     }
 
     public TermInfo(String line) {
@@ -140,7 +146,7 @@ public class TermInfo {
         return Synonym;
     }
 
-    private String findTermUrl(RDFNode subject) {
+    private String findTermUrl(String subject) {
         boolean isSubjectFound = subject.toString().indexOf(HASH_SYMBOLE) != -1 ? true : false;
         if (isSubjectFound) {
             String[] info = subject.toString().split(HASH_SYMBOLE);
@@ -153,15 +159,16 @@ public class TermInfo {
         return language;
     }
 
-    private void setTermUrl(RDFNode subject) {
+    private String makeTermUrl(String subject) {
         boolean isSubjectFound = subject.toString().indexOf(HASH_SYMBOLE) != -1 ? true : false;
         if (isSubjectFound) {
             String[] info = subject.toString().split(HASH_SYMBOLE);
-            this.termUrl = info[0];
+            return info[0];
         }
+        return null;
     }
 
-    private void setTermAndLanguage(RDFNode object) {
+    private void setTermAndLanguage(String object) {
         boolean isObjectFound = object.toString().indexOf(LANGUAGE_SEPERATE_SYMBOLE) != -1 ? true : false;
         if (isObjectFound) {
             String[] info = object.toString().split(LANGUAGE_SEPERATE_SYMBOLE);
@@ -179,6 +186,10 @@ public class TermInfo {
                 + ", Number=" + Number + ", Gender=" + Gender + ", Definition=" + Definition
                 + ", Hypernym=" + Hypernym + ", Hyponym=" + Hyponym + ", Variant=" + Variant
                 + ", Synonym=" + Synonym + '}';
+    }
+
+    private String setLanguage(String subject) {
+        return StringMatcherUtil.getLanguage(subject);
     }
 
 }
