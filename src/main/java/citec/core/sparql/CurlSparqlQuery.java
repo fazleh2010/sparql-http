@@ -6,7 +6,6 @@
 package citec.core.sparql;
 
 import static citec.core.sparql.SparqlEndpoint.iate_query1;
-import static citec.core.sparql.SparqlEndpoint.tbx2rdf_atc_endpoint;
 import citec.core.termbase.TermInfo;
 import citec.core.termbase.Termbase;
 import citec.core.utils.FileUrlUtils;
@@ -30,6 +29,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import static citec.core.sparql.SparqlEndpoint.endpoint_atc;
 
 /**
  *
@@ -121,7 +121,7 @@ public class CurlSparqlQuery {
 
                     }
                     TermInfo termInfo = new TermInfo(url, null, term, true);
-                    System.out.println(termInfo);
+                    System.out.println(termInfo.getTermOrg());
                     allkeysValues.put(termInfo.getTermOrg(), termInfo);
                 }
             }

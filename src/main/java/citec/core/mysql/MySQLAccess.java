@@ -33,7 +33,7 @@ public class MySQLAccess implements DataBaseConst {
         this.connectDataBaseUnix();
     }
 
-    public void connectDataBase() throws Exception {
+    /*public void connectDataBase() throws Exception {
 
         try {
             String url = "jdbc:mysql://" + host + ":" + port + "/test";
@@ -44,18 +44,19 @@ public class MySQLAccess implements DataBaseConst {
         } catch (Exception e) {
             System.out.println("An error occurred. Maybe user/password is invalid");
         }
-    }
+    }*/
 
     public void connectDataBaseUnix() throws Exception {
 
         try {
+            //Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://" + host + ":" + port + "/test?localSocket=/var/run/mysqld/mysqld.sock";
             String user = "root";
             String password = "";
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connection successfull!!");
         } catch (Exception e) {
-            System.out.println("An error occurred. Maybe user/password is invalid");
+            System.out.println("message:"+e.getMessage());
         }
     }
 

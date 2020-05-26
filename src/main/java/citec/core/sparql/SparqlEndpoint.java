@@ -24,7 +24,7 @@ public interface SparqlEndpoint {
     public static final String tbx2rdf_iate_endpoint = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_iate/sparql/";
     public static String tbx2rdf_iate__query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";
 
-    public static final String tbx2rdf_atc_endpoint = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_atc/sparql/";
+    public static final String endpoint_atc = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_atc/sparql/";
     public static final String tbx2rdf_intaglio_endpoint ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_intaglio/sparql/";
     public static final String tbx2rdf_solar_endpoint ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/sparql/";
     public static final String tbx2rdf_wastemanagement_endpoint ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_wastemanagement/sparql/";
@@ -56,7 +56,7 @@ public interface SparqlEndpoint {
     public static String dbpedia_query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";
     public static String tbx2rdftest = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdftest/sparql";
 
-    /*public static String writtenFormQuery = "PREFIX cc:    <http://creativecommons.org/ns#> \n"
+    /*public static String query_writtenRep = "PREFIX cc:    <http://creativecommons.org/ns#> \n"
             + "\n"
             + "PREFIX void:  <http://rdfs.org/ns/void#> \n"
             + "\n"
@@ -133,7 +133,7 @@ public interface SparqlEndpoint {
             + "\n"
             + "} LIMIT 5";
      
-        public static String writtenFormQuery = ontoLexPrefix
+        public static String query_writtenRep = ontoLexPrefix
             + "\n"
             + "select  ?s ?o  where { ?s ontolex:writtenRep ?o}";
      

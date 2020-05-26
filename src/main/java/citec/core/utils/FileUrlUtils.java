@@ -63,9 +63,9 @@ public class FileUrlUtils implements SparqlEndpoint{
          
          String string= "SELECT * WHERE {?s ?p ?o} LIMIT 8";
          String resultUnicode=FileUrlUtils.stringToUrlUnicode(iate_query1);
-         System.out.println("curl "+tbx2rdf_atc_endpoint+"?query="+resultUnicode);
+         System.out.println("curl "+endpoint_atc+"?query="+resultUnicode);
          
-         String command ="curl "+tbx2rdf_atc_endpoint+"?query="+resultUnicode;
+         String command ="curl "+endpoint_atc+"?query="+resultUnicode;
          Process process = Runtime.getRuntime().exec(command);
          
          try {
@@ -92,7 +92,7 @@ public class FileUrlUtils implements SparqlEndpoint{
        
    
         
-       // ResultSet first_results = getResult(tbx2rdf_atc_endpoint, tbx2rdf_atc_query);
+       // ResultSet first_results = getResult(endpoint_atc, tbx2rdf_atc_query);
         //ResultSet sec_results = getResult(dbpedia_endpoint, dbpedia_query);
         //ResultSet first_results = getResult(tbx2rdftest, tbx2rdf_iate__query);
         

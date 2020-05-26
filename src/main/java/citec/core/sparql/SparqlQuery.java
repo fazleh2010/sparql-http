@@ -17,7 +17,7 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;*/
 import java.util.HashMap;
 import java.util.Map;
-import static citec.core.sparql.SparqlEndpoint.writtenFormQuery;
+import static citec.core.sparql.SparqlEndpoint.query_writtenRep;
 
 /**
  *
@@ -33,7 +33,7 @@ public class SparqlQuery {
 
     /* private Termbase getTermBaseFromSparqlEndpoint(String sparqlEndpoint, String termBaseName) throws Exception {
         Map<String, TermInfo> allkeysValues = new HashMap<String, TermInfo>();
-        ResultSet results = getResultSparql(sparqlEndpoint, writtenFormQuery);
+        ResultSet results = getResultSparql(sparqlEndpoint, query_writtenRep);
         while (results != null && results.hasNext()) {
             QuerySolution querySolution = results.next();
             RDFNode subject = querySolution.get("?s");

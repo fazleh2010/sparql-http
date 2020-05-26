@@ -31,7 +31,6 @@ public class Main implements SparqlEndpoint {
 
         String myTermTableName = "myTerminology", otherTermTableName = "otherTerminology", matchedTermTable = "link";
         String myTermSparqlEndpoint = null, otherTermSparqlEndpoint = null;
-
         try {
             if (args[0] != null);
             myTermSparqlEndpoint = args[0];
@@ -40,45 +39,25 @@ public class Main implements SparqlEndpoint {
             }
 
         } catch (Exception e) {
-            myTermSparqlEndpoint = SparqlEndpoint.tbx2rdf_atc_endpoint;
+            myTermSparqlEndpoint = SparqlEndpoint.endpoint_atc;
             otherTermSparqlEndpoint = SparqlEndpoint.tbx2rdf_intaglio_endpoint;
-            System.out.println("myTermSparqlEndpoint");
-            System.out.println("otherTermSparqlEndpoint");
+            System.out.println("myTermSparqlEndpoint:" + endpoint_atc);
+            System.out.println("otherTermSparqlEndpoint:" + tbx2rdf_intaglio_endpoint);
         }
 
-        CurlSparqlQuery curlSparql = new CurlSparqlQuery(tbx2rdf_atc_endpoint,writtenFormQuery,myTermSparqlEndpoint);
-
-        /*MySQLAccess mySQLAccess = new MySQLAccess();
+        MySQLAccess mySQLAccess = new MySQLAccess();
 
         //my terminology
-        //Termbase myTerminology = getTermBaseFromTxtFiles(myTermTableName, path + myTermTableName+File.separator, ".txt");
-        SparqlQuery myTermsparqlQuery=new SparqlQuery(myTermSparqlEndpoint, myTermTableName);
-        Termbase myTerminology = myTermsparqlQuery.getTerminology();
-        addToDataBase(myTermTableName, myTermsparqlQuery.getTerminology(), mySQLAccess, limitOfTerms);
+         Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
+         addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
 
         //Link terminology
-        //Termbase otherTerminology = getTermBaseFromTxtFiles(otherTermTableName, path + otherTermTableName+File.separator, ".txt");
-        SparqlQuery otherSparqlQuery=new SparqlQuery(otherTermSparqlEndpoint, otherTermTableName);
-        Termbase otherTerminology = otherSparqlQuery.getTerminology();
-        addToDataBase(otherTermTableName, otherSparqlQuery.getTerminology(), mySQLAccess, limitOfTerms);
+         Termbase otherTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
+         addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
 
-        matchWithDataBase(myTermTableName,otherTerminology, mySQLAccess, matchedTermTable);
+         matchWithDataBase(myTermTableName, otherTerminology, mySQLAccess, matchedTermTable);
 
-        mySQLAccess.close();*/
-    }
-
-    private static Termbase getTermBaseFromTxtFiles(String termBaseName, String path, String extension) throws Exception {
-        //System.out.println(termBaseName+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        File[] myTerminologyfiles = FileUrlUtils.getFiles(path, extension);
-        Map<String, TermInfo> allkeysValues = new HashMap<String, TermInfo>();
-        for (File file : myTerminologyfiles) {
-            //System.out.println(file.getAbsolutePath());
-            Map<String, TermInfo> terms = new HashMap<String, TermInfo>();
-            terms = FileUrlUtils.getHashFromFile(file);
-            allkeysValues.putAll(terms);
-        }
-        Termbase termbase = new Termbase(termBaseName, allkeysValues);
-        return termbase;
+         mySQLAccess.close();
     }
 
     private static Boolean addToDataBase(String myTermTableName, Termbase myTerminology, MySQLAccess mySQLAccess, Integer limitOfTerms) {
@@ -107,11 +86,18 @@ public class Main implements SparqlEndpoint {
         return true;
 
     }
+    /*private static Termbase getTermBaseFromTxtFiles(String termBaseName, String path, String extension) throws Exception {
+        //System.out.println(termBaseName+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        File[] myTerminologyfiles = FileUrlUtils.getFiles(path, extension);
+        Map<String, TermInfo> allkeysValues = new HashMap<String, TermInfo>();
+        for (File file : myTerminologyfiles) {
+            //System.out.println(file.getAbsolutePath());
+            Map<String, TermInfo> terms = new HashMap<String, TermInfo>();
+            terms = FileUrlUtils.getHashFromFile(file);
+            allkeysValues.putAll(terms);
+        }
+        Termbase termbase = new Termbase(termBaseName, allkeysValues);
+        return termbase;
+    }*/
 
-    //ResultSet first_results = getResultSparql(tbx2rdf_atc_endpoint, writtenFormQuery);
-    //ResultSet sec_results = getResultSparql(dbpedia_endpoint, dbpedia_query);*/
-    //ResultSet first_results = getResultSparql(tbx2rdftest, tbx2rdf_iate__query);
-    //Test connection..
-    //System.out.println(file.getAbsolutePath());
-    //String myTermTableName = "iate", otherTermTableName = "atc",matchedTermTable="link";
 }

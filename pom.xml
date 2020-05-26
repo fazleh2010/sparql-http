@@ -56,20 +56,32 @@
             <version>2.6</version>
         </dependency>
      
-     
-        
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.20</version>
+        </dependency>
+
+        
+        <!--dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>2.5.4</version>
-        </dependency>
+        </dependency-->
+        
+        <!--dependency>
+           <groupId>mysql</groupId>
+           <artifactId>mysql-connector-java</artifactId>
+           <version>5.1.6</version>
+        </dependency-->
         
        
-        <dependency>
+        <!--dependency>
             <groupId>org.toile-libre.libe</groupId>
             <artifactId>curl</artifactId>
             <version>LATEST</version>
-        </dependency>
+        </dependency-->
 
 
 

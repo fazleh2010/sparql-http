@@ -1,0 +1,19 @@
+ MySQLAccess mySQLAccess = new MySQLAccess();
+
+        //my terminology
+        //Termbase myTerminology = getTermBaseFromTxtFiles(myTermTableName, path + myTermTableName+File.separator, ".txt");
+        //SparqlQuery myTermsparqlQuery=new SparqlQuery(myTermSparqlEndpoint, myTermTableName);
+        //Termbase myTerminology = myTermsparqlQuery.getTerminology();
+        Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint,query_writtenRep,myTermTableName).getTermbase();
+        addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
+
+        //Link terminology
+        //Termbase otherTerminology = getTermBaseFromTxtFiles(otherTermTableName, path + otherTermTableName+File.separator, ".txt");
+        //SparqlQuery otherSparqlQuery=new SparqlQuery(otherTermSparqlEndpoint, otherTermTableName);
+        //Termbase otherTerminology = otherSparqlQuery.getTerminology();
+        Termbase otherTerminology = new CurlSparqlQuery(myTermSparqlEndpoint,query_writtenRep,otherTermTableName).getTermbase();
+        addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
+
+        matchWithDataBase(myTermTableName,otherTerminology, mySQLAccess, matchedTermTable);
+
+        mySQLAccess.close();
