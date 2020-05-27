@@ -45,19 +45,19 @@ public class Main implements SparqlEndpoint {
             System.out.println("otherTermSparqlEndpoint:" + tbx2rdf_intaglio_endpoint);
         }
 
-        MySQLAccess mySQLAccess = new MySQLAccess();
+        //MySQLAccess mySQLAccess = new MySQLAccess();
 
         //my terminology
          Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
-         addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
+         //addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
 
         //Link terminology
-         Termbase otherTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
-         addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
+         //Termbase otherTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
+         //addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
 
-         matchWithDataBase(myTermTableName, otherTerminology, mySQLAccess, matchedTermTable);
+         //matchWithDataBase(myTermTableName, otherTerminology, mySQLAccess, matchedTermTable);
 
-         mySQLAccess.close();
+         //mySQLAccess.close();
     }
 
     private static Boolean addToDataBase(String myTermTableName, Termbase myTerminology, MySQLAccess mySQLAccess, Integer limitOfTerms) {
