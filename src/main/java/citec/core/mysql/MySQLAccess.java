@@ -45,7 +45,6 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("An error occurred. Maybe user/password is invalid");
         }
     }*/
-
     public void connectDataBaseUnix() throws Exception {
 
         try {
@@ -56,7 +55,8 @@ public class MySQLAccess implements DataBaseConst {
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connection successfull!!");
         } catch (Exception e) {
-            System.out.println("message:"+e.getMessage());
+            System.out.println("jdbc:mysql://" + host + ":" + port + "/test?localSocket=/var/run/mysqld/mysqld.sock");
+            System.out.println("mysql database connection failed!!:" + e.getMessage());
         }
     }
 
@@ -83,7 +83,8 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("Created " + tableName + " table in given database...");
 
         } catch (Exception e) {
-            System.out.println("An error occurred. Maybe user/password is invalid");
+            System.out.println("create table is failed!!!!");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -96,7 +97,8 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("delete " + tableName + " table in given database...");
 
         } catch (Exception e) {
-            System.out.println("delete table not possible!!...");
+            System.out.println("delete data to " + tableName + " is failed!!!!");
+            System.out.println(e.getMessage());
         }
 
     }
@@ -141,8 +143,8 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("insert to " + tableName + " table is successful!!...");
 
         } catch (Exception e) {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
+            System.out.println("insert data to " + tableName + " is failed!!!!");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -172,7 +174,7 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("insert to " + matchedTermTable + " table is successful!!...");
 
         } catch (Exception e) {
-            System.err.println("Matching table exceptions!");
+            System.out.println("insert data to " + matchedTermTable + " is failed!!!!");
             System.err.println(e.getMessage());
         }
 
@@ -198,7 +200,8 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("Created " + tableName + " table in given database...");
 
         } catch (Exception e) {
-            System.out.println("create table not possible!!...");
+            System.out.println("create table is failed!!...");
+            System.err.println(e.getMessage());
         }
 
     }
@@ -221,7 +224,7 @@ public class MySQLAccess implements DataBaseConst {
             preparedStmt.execute();
 
         } catch (Exception e) {
-            System.err.println("Got an exception while adding data!");
+            System.out.println("insert data to " + linkTableName + " is failed!!!!");
             System.err.println(e.getMessage());
         }
 

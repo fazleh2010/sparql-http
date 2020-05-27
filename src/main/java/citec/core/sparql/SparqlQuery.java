@@ -27,6 +27,7 @@ public class SparqlQuery {
 
     private Termbase terminology;
 
+    //for unknown reason jena is not working..therefore jena library is deleted...
     public SparqlQuery(String myTermSparqlEndpoint, String myTermTableName) throws Exception {
         //this.terminology = getTermBaseFromSparqlEndpoint(myTermSparqlEndpoint, myTermTableName);
     }
