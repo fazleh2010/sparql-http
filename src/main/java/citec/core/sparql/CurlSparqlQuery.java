@@ -121,7 +121,7 @@ public class CurlSparqlQuery {
 
                     }
                     TermInfo termInfo = new TermInfo(url, null, term, true);
-                    System.out.println(termInfo.getTermOrg());
+                    //System.out.println(termInfo.getTermOrg());
                     allkeysValues.put(termInfo.getTermOrg(), termInfo);
                 }
             }

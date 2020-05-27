@@ -84,7 +84,6 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("create table is failed!!!!");
-            System.out.println(e.getMessage());
         }
     }
 
@@ -98,7 +97,6 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("delete data to " + tableName + " is failed!!!!");
-            System.out.println(e.getMessage());
         }
 
     }
@@ -144,19 +142,19 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("insert data to " + tableName + " is failed!!!!");
-            System.out.println(e.getMessage());
         }
     }
 
     public Integer insertDataTermTable(String myTermTable, Termbase otherTermTable, String matchedTermTable) throws SQLException, Exception {
         Integer index = 0;
-        Statement stmt = conn.createStatement();
-        String query = " SELECT term, originalUrl"
-                + " FROM " + myTermTable;
-
-        ResultSet rs = stmt.executeQuery(query);
 
         try {
+
+            Statement stmt = conn.createStatement();
+            String query = " SELECT term, originalUrl"
+                    + " FROM " + myTermTable;
+
+            ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 //String language = rs.getString("language");
                 String term = rs.getString("term");
@@ -175,7 +173,6 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("insert data to " + matchedTermTable + " is failed!!!!");
-            System.err.println(e.getMessage());
         }
 
         return index;
@@ -201,7 +198,6 @@ public class MySQLAccess implements DataBaseConst {
 
         } catch (Exception e) {
             System.out.println("create table is failed!!...");
-            System.err.println(e.getMessage());
         }
 
     }

@@ -48,16 +48,21 @@ public class Main implements SparqlEndpoint {
         MySQLAccess mySQLAccess = new MySQLAccess();
 
         //my terminology
+         System.out.println("Adding my terminology!!");
          Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
          addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
 
         //Link terminology
+         System.out.println("Adding my other terminology!!");
          Termbase otherTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
          addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
 
+         System.out.println("creating linking table!!");
          matchWithDataBase(myTermTableName, otherTerminology, mySQLAccess, matchedTermTable);
 
          mySQLAccess.close();
+         
+         System.out.println("The process is completed!!");
     }
 
     private static Boolean addToDataBase(String myTermTableName, Termbase myTerminology, MySQLAccess mySQLAccess, Integer limitOfTerms) {
