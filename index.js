@@ -9,11 +9,6 @@ const server = http.createServer((req, res) => {
   res.end('Hello World');
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
-
-
 
 var exec = require('child_process').exec, child;
 child = exec('/usr/bin/java -jar target/sparql-http-1.6.jar',
@@ -24,3 +19,8 @@ child = exec('/usr/bin/java -jar target/sparql-http-1.6.jar',
       console.log('exec error: ' + error);
     }
 });
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+
