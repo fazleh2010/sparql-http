@@ -16,7 +16,7 @@ server.listen(port, hostname, () => {
 
 
 var exec = require('child_process').exec, child;
-child = exec('/usr/bin/java -jar /Users/elahi/NetBeansProjects/prepareVersion/original/sparql-http/target/sparql-http-1.6.jar',
+child = exec('/usr/bin/java -jar /target/sparql-http-1.6.jar',
   function (error, stdout, stderr){
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
