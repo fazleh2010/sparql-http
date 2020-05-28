@@ -32,20 +32,63 @@ public class MySQLAccess implements DataBaseConst {
     public MySQLAccess() throws Exception {
         this.connectDataBaseUnix();
     }
+    
+     private void connectDataBaseUnix() throws Exception {
 
-    /*public void connectDataBase() throws Exception {
+        // check driver
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("JDBC driver found");
+        } catch (ClassNotFoundException e) {
+            System.err.println("JDBC driver not found");
+            e.printStackTrace();
+            return;
+        }
+
+        // check connection
+        String dbname = "tal";
+        String additional = "?socketFactory=org.newsclub.net.mysql.AFUNIXDatabaseSocketFactoryCJ&junixsocket.file=/var/run/mysqld/mysqld.sock";
+        String connString = "jdbc:mysql://localhost:3306/" + dbname + additional;
+
+        System.out.println("connecting to " + connString);
+        try {
+            conn = DriverManager.getConnection(connString, "root", "root");
+            if (conn != null) {
+                System.out.println("connection okay");
+            } else {
+                System.err.println("connection failed");
+            }
+        } catch (SQLException e) {
+            System.err.println("connection failed w/ error");
+            e.printStackTrace();
+            return;
+        }
+
+        // check querying
+        String sql = "SHOW DATABASES";
 
         try {
-            String url = "jdbc:mysql://" + host + ":" + port + "/test";
-            String user = "root";
-            String password = "";
-            conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Connection successfull!!");
-        } catch (Exception e) {
-            System.out.println("An error occurred. Maybe user/password is invalid");
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                System.out.println("Result row: " + rs);
+            }
+
+
+        } catch (SQLException e) {
+            System.err.println("query failed w/ error");
+            e.printStackTrace();
+            return;
         }
-    }*/
-    public void connectDataBaseUnix() throws Exception {
+
+
+    }
+
+
+    
+    /*public void connectDataBaseUnix() throws Exception {
 
         try {
             //Class.forName("com.mysql.jdbc.Driver");
@@ -58,8 +101,7 @@ public class MySQLAccess implements DataBaseConst {
             System.out.println("jdbc:mysql://" + host + ":" + port + "/test?localSocket=/var/run/mysqld/mysqld.sock");
             System.out.println("mysql database connection failed!!:" + e.getMessage());
         }
-    }
-
+    }*/
     public void createTermTable(String tableName) throws Exception {
 
         try {

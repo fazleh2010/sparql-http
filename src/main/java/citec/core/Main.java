@@ -28,6 +28,8 @@ public class Main implements SparqlEndpoint {
     private static Integer limitOfTerms = -1;
 
     public static void main(String[] args) throws Exception {
+        
+        
 
         String myTermTableName = "myTerminology", otherTermTableName = "otherTerminology", matchedTermTable = "link";
         String myTermSparqlEndpoint = null, otherTermSparqlEndpoint = null;
@@ -47,7 +49,7 @@ public class Main implements SparqlEndpoint {
 
         MySQLAccess mySQLAccess = new MySQLAccess();
 
-        //my terminology
+        /*//my terminology
          System.out.println("Adding my terminology!!");
          Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
          addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
@@ -58,7 +60,7 @@ public class Main implements SparqlEndpoint {
          addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
 
          System.out.println("creating linking table!!");
-         matchWithDataBase(myTermTableName, otherTerminology, mySQLAccess, matchedTermTable);
+         matchWithDataBase(myTermTableName, otherTerminology, mySQLAccess, matchedTermTable);*/
 
          mySQLAccess.close();
          
@@ -104,5 +106,6 @@ public class Main implements SparqlEndpoint {
         Termbase termbase = new Termbase(termBaseName, allkeysValues);
         return termbase;
     }*/
+    
 
 }
