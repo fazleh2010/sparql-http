@@ -22,7 +22,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
+//import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 /**
  *
@@ -159,14 +159,14 @@ public class FileUrlUtils implements SparqlEndpoint{
         return hash;
     }
     
-    public static File[] getFiles(String fileDir, String ntriple) throws Exception {
+    /*public static File[] getFiles(String fileDir, String ntriple) throws Exception {
 
         File dir = new File(fileDir);
         FileFilter fileFilter = new WildcardFileFilter("*" + ntriple);
         File[] files = dir.listFiles(fileFilter);
         return files;
 
-    }
+    }*/
     
     public static String urlUnicodeToString(String url) throws Exception {
         URI uri = new URI(url);
