@@ -33,28 +33,38 @@ public class Main implements SparqlEndpoint {
 
         String myTermTableName = "myTerminology", otherTermTableName = "otherTerminology", matchedTermTable = "link";
         String myTermSparqlEndpoint = null, otherTermSparqlEndpoint = null;
-        try {
-            if (args[0] != null);
-            myTermSparqlEndpoint = args[0];
-            if (args[1] != null) {
-                otherTermSparqlEndpoint = args[1];
+       
+            
+            System.out.println("called");
+            System.out.println("arguments: " + args.length);
+            if (args.length > 0) {
+                myTermSparqlEndpoint = args[0];
+                System.out.println("endpoint 1: " + args[0]);
+            } else {
+                System.err.println("no first endpoint in arguments");
+            }
+            if (args.length > 1) {
+                 otherTermSparqlEndpoint = args[1];
+                System.out.println("endpoint 2: " + args[1]);
+            } else {
+                System.err.println("no second endpoint in arguments");
             }
 
-        } catch (Exception e) {
+        /* catch (Exception e) {
             myTermSparqlEndpoint = SparqlEndpoint.endpoint_atc;
             otherTermSparqlEndpoint = SparqlEndpoint.tbx2rdf_intaglio_endpoint;
             System.out.println("myTermSparqlEndpoint:" + endpoint_atc);
             System.out.println("otherTermSparqlEndpoint:" + tbx2rdf_intaglio_endpoint);
-        }
+        }*/
 
         MySQLAccess mySQLAccess = new MySQLAccess();
 
-        /*//my terminology
+         //my terminology
          System.out.println("Adding my terminology!!");
          Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
          addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
 
-        //Link terminology
+        /*Link terminology
          System.out.println("Adding my other terminology!!");
          Termbase otherTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
          addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
