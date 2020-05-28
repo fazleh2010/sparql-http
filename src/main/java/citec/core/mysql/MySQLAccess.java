@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package citec.core.mysql;
-
 import citec.core.termbase.TermInfo;
 import citec.core.termbase.Termbase;
 import java.sql.Connection;
@@ -13,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 
 /**
  *
