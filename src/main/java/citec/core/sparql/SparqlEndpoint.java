@@ -25,9 +25,9 @@ public interface SparqlEndpoint {
     public static String tbx2rdf_iate__query = "select distinct ?Concept where {[] a ?Concept} LIMIT 100";
 
     public static final String endpoint_atc = "https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_atc/sparql/";
-    public static final String tbx2rdf_intaglio_endpoint ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_intaglio/sparql/";
-    public static final String tbx2rdf_solar_endpoint ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/sparql/";
-    public static final String tbx2rdf_wastemanagement_endpoint ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_wastemanagement/sparql/";
+    public static final String endpoint_intaglio ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_intaglio/sparql/";
+    public static final String endpoint_solar ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_solarenergy/sparql/";
+    public static final String endpoint_wastemanagement ="https://webtentacle1.techfak.uni-bielefeld.de/tbx2rdf_wastemanagement/sparql/";
     
     
     public static String tbx2rdf_atc_query = "PREFIX cc:    <http://creativecommons.org/ns#> \n"

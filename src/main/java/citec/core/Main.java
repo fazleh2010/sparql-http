@@ -74,7 +74,8 @@ public class Main implements SparqlEndpoint {
 
          mySQLAccess.close();
          
-         System.out.println("The process is completed!!");
+         System.out.println("The process is completed!!"+myTermSparqlEndpoint);
+         System.out.println("The process is completed!!"+otherTermSparqlEndpoint);
     }
 
     private static Boolean addToDataBase(String myTermTableName, Termbase myTerminology, MySQLAccess mySQLAccess, Integer limitOfTerms) {
