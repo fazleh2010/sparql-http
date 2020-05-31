@@ -55,20 +55,22 @@ public class Main implements SparqlEndpoint {
             }
 
 
-         
+       
 
          //my terminology
          System.out.println("Adding my terminology!!"+myTermSparqlEndpoint);
+         display(myTermTableName);
           //Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
           //addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
          
          //Link terminology
          System.out.println("Adding my other terminology!!"+otherTermTableName);
-         Termbase otherTerminology = new CurlSparqlQuery(otherTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
+         display(otherTermTableName);
+         //Termbase otherTerminology = new CurlSparqlQuery(otherTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
          //addToDataBase(otherTermTableName, otherTerminology, limitOfTerms);
 
          //System.out.println("creating linking table!!");
-          matchWithDataBase(myTermTableName, otherTerminology, matchedTermTable);
+          //matchWithDataBase(myTermTableName, otherTerminology, matchedTermTable);
 
        
          
@@ -106,6 +108,17 @@ public class Main implements SparqlEndpoint {
             return false;
         }
         return true;
+
+    }
+     private static void display(String myTermTable) {
+        try {
+            MySQLAccess mySQLAccess = new MySQLAccess();
+            mySQLAccess.readMatchedTermTable(myTermTable);
+            mySQLAccess.close();
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
 
     }
     /*private static Termbase getTermBaseFromTxtFiles(String termBaseName, String path, String extension) throws Exception {
