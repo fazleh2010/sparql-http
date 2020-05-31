@@ -63,7 +63,7 @@ public class MySQLAccess implements DataBaseConst {
         }
 
         // check querying
-        String sql = "SHOW DATABASES";
+        /*String sql = "SHOW DATABASES";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -79,7 +79,7 @@ public class MySQLAccess implements DataBaseConst {
             System.err.println("query failed w/ error");
             e.printStackTrace();
             return;
-        }
+        }*/
 
 
     }
