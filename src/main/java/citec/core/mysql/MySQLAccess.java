@@ -299,7 +299,7 @@ public class MySQLAccess implements DataBaseConst {
         try {
 
             Statement stmt = conn.createStatement();
-            String query = " SELECT id, term, originalUrl"
+            String query = " SELECT termOrg, term, myTermUrl"
                     + " FROM " + termTableName;
 
             ResultSet rs = stmt.executeQuery(query);
