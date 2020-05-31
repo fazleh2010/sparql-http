@@ -106,7 +106,7 @@ public class Main implements SparqlEndpoint {
 
     private static void display(String myTermTable) {
           System.out.println();
-         System.out.println("table:  " + myTermTable);
+         System.out.println("!!!!!!!!!!!!!!table!!!!!!!!!!!!!!!!  " + myTermTable);
         try {
             MySQLAccess mySQLAccess = new MySQLAccess();
             mySQLAccess.readMatchedTermTable(myTermTable);
