@@ -59,11 +59,10 @@ public class Main implements SparqlEndpoint {
         //Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
         //addToDataBase(myTermTableName, myTerminology, limitOfTerms);
         //display(myTermTableName);
-
         //Link terminology
         System.out.println("Adding my other terminology!!" + otherTermTableName);
 
-         Termbase otherTerminology = new CurlSparqlQuery(otherTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
+        Termbase otherTerminology = new CurlSparqlQuery(otherTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
         //addToDataBase(otherTermTableName, otherTerminology, limitOfTerms);
         //display(otherTermTableName);
 
@@ -96,8 +95,8 @@ public class Main implements SparqlEndpoint {
             mySQLAccess.createLinkingTable(matchedTermTable);
             Integer index = mySQLAccess.insertDataTermTable(myTermTable, otherTerminology, matchedTermTable);
             //mySQLAccess.readMatchedTermTable(matchedTermTable);
-            System.out.println(matchedTermTable+"  number of matched found:  " + index);
-            //display(matchedTermTable);
+            System.out.println(matchedTermTable + "  number of matched found:  " + index);
+            display(matchedTermTable);
             mySQLAccess.close();
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,6 +107,7 @@ public class Main implements SparqlEndpoint {
     }
 
     private static void display(String myTermTable) {
+         System.out.println("table:  " + myTermTable);
         try {
             MySQLAccess mySQLAccess = new MySQLAccess();
             mySQLAccess.readMatchedTermTable(myTermTable);
