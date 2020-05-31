@@ -28,56 +28,49 @@ public class Main implements SparqlEndpoint {
     private static Integer limitOfTerms = 100;
 
     public static void main(String[] args) throws Exception {
-        
-        Integer index=1;
+
+        Integer index = 1;
 
         String myTermTableName = "myTerminology", otherTermTableName = "otherTerminology", matchedTermTable = "link";
         String myTermSparqlEndpoint = null, otherTermSparqlEndpoint = null;
-       
-            
-            System.out.println("called");
-            System.out.println("arguments: " + args.length);
-            if (args.length > 0) {
-                myTermSparqlEndpoint = args[0];
-                System.out.println("endpoint 1: " + args[0]);
-            } else {
-                System.err.println("no first endpoint in arguments");
-                if(index==1){
-                    myTermSparqlEndpoint=endpoint_atc;
-                }
+
+        System.out.println("called");
+        System.out.println("arguments: " + args.length);
+        if (args.length > 0) {
+            myTermSparqlEndpoint = args[0];
+            System.out.println("endpoint 1: " + args[0]);
+        } else {
+            System.err.println("no first endpoint in arguments");
+            if (index == 1) {
+                myTermSparqlEndpoint = endpoint_atc;
             }
-            if (args.length > 1) {
-                 otherTermSparqlEndpoint = args[1];
-                System.out.println("endpoint 2: " + args[1]);
-            } else {
-                System.err.println("no second endpoint in arguments");
-                otherTermSparqlEndpoint = endpoint_intaglio;
-            }
+        }
+        if (args.length > 1) {
+            otherTermSparqlEndpoint = args[1];
+            System.out.println("endpoint 2: " + args[1]);
+        } else {
+            System.err.println("no second endpoint in arguments");
+            otherTermSparqlEndpoint = endpoint_intaglio;
+        }
 
+        //my terminology
+        System.out.println("Adding my terminology!!" + myTermSparqlEndpoint);
 
-       
+        Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
+        addToDataBase(myTermTableName, myTerminology, limitOfTerms);
+        //display(myTermTableName);
 
-         //my terminology
-         System.out.println("Adding my terminology!!"+myTermSparqlEndpoint);
-         
-          Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
-          addToDataBase(myTermTableName, myTerminology,limitOfTerms);
-          display(myTermTableName);
-         
-         //Link terminology
-         System.out.println("Adding my other terminology!!"+otherTermTableName);
-        
-          Termbase otherTerminology = new CurlSparqlQuery(otherTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
-          addToDataBase(otherTermTableName, otherTerminology, limitOfTerms);
-          display(otherTermTableName);
+        //Link terminology
+        System.out.println("Adding my other terminology!!" + otherTermTableName);
 
-         //System.out.println("creating linking table!!");
-          //matchWithDataBase(myTermTableName, otherTerminology, matchedTermTable);
+        Termbase otherTerminology = new CurlSparqlQuery(otherTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
+        addToDataBase(otherTermTableName, otherTerminology, limitOfTerms);
+        //display(otherTermTableName);
 
-       
-         
-         System.out.println("MY terminology !!"+myTermSparqlEndpoint);
-         System.out.println("Other terminology!!"+otherTermSparqlEndpoint);
+        //System.out.println("creating linking table!!");
+        matchWithDataBase(myTermTableName, otherTerminology, matchedTermTable);
+        System.out.println("MY terminology !!" + myTermSparqlEndpoint);
+        System.out.println("Other terminology!!" + otherTermSparqlEndpoint);
     }
 
     private static Boolean addToDataBase(String myTermTableName, Termbase myTerminology, Integer limitOfTerms) {
@@ -112,7 +105,8 @@ public class Main implements SparqlEndpoint {
         return true;
 
     }
-     private static void display(String myTermTable) {
+
+    private static void display(String myTermTable) {
         try {
             MySQLAccess mySQLAccess = new MySQLAccess();
             mySQLAccess.readMatchedTermTable(myTermTable);
@@ -120,7 +114,6 @@ public class Main implements SparqlEndpoint {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
 
     }
     /*private static Termbase getTermBaseFromTxtFiles(String termBaseName, String path, String extension) throws Exception {
@@ -136,6 +129,5 @@ public class Main implements SparqlEndpoint {
         Termbase termbase = new Termbase(termBaseName, allkeysValues);
         return termbase;
     }*/
-    
 
 }
