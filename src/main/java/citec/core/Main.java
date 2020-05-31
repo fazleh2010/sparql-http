@@ -105,16 +105,6 @@ public class Main implements SparqlEndpoint {
 
     }
 
-    private static void display(String myTermTable) {
-        System.out.println();
-        System.out.println("!!!!!!!!!!!!!!table!!!!!!!!!!!!!!!!  " + myTermTable);
-        try {
-            mySQLAccess.readMatchedTermTable(myTermTable);
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
     /*private static Termbase getTermBaseFromTxtFiles(String termBaseName, String path, String extension) throws Exception {
         //System.out.println(termBaseName+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         File[] myTerminologyfiles = FileUrlUtils.getFiles(path, extension);
