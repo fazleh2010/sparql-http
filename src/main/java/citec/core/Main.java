@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public class Main implements SparqlEndpoint {
 
     private static String path = "src/main/resources/";
-    private static Integer limitOfTerms = 100;
+    private static Integer limitOfTerms = -1;
     private static MySQLAccess mySQLAccess;
 
     public static void main(String[] args) throws Exception {
