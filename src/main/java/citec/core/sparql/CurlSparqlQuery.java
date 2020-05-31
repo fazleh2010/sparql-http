@@ -43,7 +43,8 @@ public class CurlSparqlQuery {
 
     public CurlSparqlQuery(String endpoint, String query, String termBaseName) throws Exception {
         String resultSparql = sparqlQuery(endpoint, query);
-        this.termbase = new Termbase(termBaseName, parseResult(resultSparql));
+        System.out.println(resultSparql);
+        //this.termbase = new Termbase(termBaseName, parseResult(resultSparql));
     }
 
     private String sparqlQuery(String tbx2rdf_atc_endpoint, String iate_query1) throws Exception, IOException, UnsupportedEncodingException {
