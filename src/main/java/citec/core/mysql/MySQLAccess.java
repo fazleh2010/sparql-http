@@ -144,6 +144,7 @@ public class MySQLAccess implements DataBaseConst {
     public void insertDataTermTable(String tableName, Termbase languageTerms, Integer limit) {
         String language = "";
         String pair = "";
+       
         try {
             Integer index = 1;
 
