@@ -97,6 +97,7 @@ public class Main implements SparqlEndpoint {
             Integer index = mySQLAccess.insertDataTermTable(myTermTable, otherTerminology, matchedTermTable);
             mySQLAccess.readMatchedTermTable(matchedTermTable);
             System.out.println(matchedTermTable+"  number of matched found:  " + index);
+            display(matchedTermTable);
             mySQLAccess.close();
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
