@@ -267,6 +267,7 @@ public class MySQLAccess implements DataBaseConst {
     }
     
     public void readTermTable(String termTableName) throws SQLException, Exception {
+        System.out.println("running read table command");
       
         try {
 
