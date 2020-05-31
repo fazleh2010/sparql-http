@@ -65,7 +65,7 @@ public class Main implements SparqlEndpoint {
          //Link terminology
          System.out.println("Adding my other terminology!!"+otherTermTableName);
          Termbase otherTerminology = new CurlSparqlQuery(otherTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
-         //addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
+         addToDataBase(otherTermTableName, otherTerminology, limitOfTerms);
 
          //System.out.println("creating linking table!!");
         //matchWithDataBase(myTermTableName, otherTerminology, mySQLAccess, matchedTermTable);
@@ -92,12 +92,15 @@ public class Main implements SparqlEndpoint {
 
     }
 
-    private static Boolean matchWithDataBase(String myTermTable, Termbase otherTerminology, MySQLAccess mySQLAccess, String matchedTermTable) {
+    private static Boolean matchWithDataBase(String myTermTable, Termbase otherTerminology, String matchedTermTable) {
         try {
+            MySQLAccess mySQLAccess = new MySQLAccess();
             mySQLAccess.deleteTable(matchedTermTable);
             mySQLAccess.createLinkingTable(matchedTermTable);
             Integer index = mySQLAccess.insertDataTermTable(myTermTable, otherTerminology, matchedTermTable);
+            mySQLAccess.readMatchedTermTable(matchedTermTable);
             System.out.println("number of matched found:" + index);
+            mySQLAccess.close();
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             return false;

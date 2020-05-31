@@ -291,6 +291,33 @@ public class MySQLAccess implements DataBaseConst {
         }
 
     }
+    
+    public void readMatchedTermTable(String termTableName) throws SQLException, Exception {
+        System.out.println("running read table command");
+      
+        try {
+
+            Statement stmt = conn.createStatement();
+            String query = " SELECT id, term, originalUrl"
+                    + " FROM " + termTableName;
+
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                //String language = rs.getString("language");
+                String termOrg= rs.getString("termOrg");
+                String term = rs.getString("term");
+                String orginalUrl = rs.getString("myTermUrl");
+
+                System.out.println(termOrg + " " + term + " " + orginalUrl);
+            }
+            System.out.println("reading " + termTableName + " table is successful!!...");
+
+        } catch (Exception e) {
+            System.out.println("reading data to " + termTableName + " is failed!!!!");
+        }
+
+    }
+
 
     public void close() {
         try {
