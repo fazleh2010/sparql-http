@@ -29,7 +29,7 @@ public class Main implements SparqlEndpoint {
 
     public static void main(String[] args) throws Exception {
         
-        
+        Integer index=1;
 
         String myTermTableName = "myTerminology", otherTermTableName = "otherTerminology", matchedTermTable = "link";
         String myTermSparqlEndpoint = null, otherTermSparqlEndpoint = null;
@@ -42,12 +42,16 @@ public class Main implements SparqlEndpoint {
                 System.out.println("endpoint 1: " + args[0]);
             } else {
                 System.err.println("no first endpoint in arguments");
+                if(index==1){
+                    myTermSparqlEndpoint=endpoint_atc;
+                }
             }
             if (args.length > 1) {
                  otherTermSparqlEndpoint = args[1];
                 System.out.println("endpoint 2: " + args[1]);
             } else {
                 System.err.println("no second endpoint in arguments");
+                otherTermSparqlEndpoint = endpoint_intaglio;
             }
 
 
@@ -60,7 +64,7 @@ public class Main implements SparqlEndpoint {
          
          //Link terminology
          System.out.println("Adding my other terminology!!"+otherTermTableName);
-         Termbase otherTerminology = new CurlSparqlQuery(otherTermTableName, query_writtenRep, otherTermTableName).getTermbase();
+         Termbase otherTerminology = new CurlSparqlQuery(otherTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
          //addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
 
          //System.out.println("creating linking table!!");
