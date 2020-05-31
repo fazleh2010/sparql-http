@@ -55,21 +55,21 @@ public class Main implements SparqlEndpoint {
 
         //my terminology
         System.out.println("Adding my terminology!!" + myTermSparqlEndpoint);
-
-        //Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
-        //addToDataBase(myTermTableName, myTerminology, limitOfTerms);
-        //display(myTermTableName);
+        Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
+        addToDataBase(myTermTableName, myTerminology, limitOfTerms);
+        display(myTermTableName);
+        
+        
         //Link terminology
         System.out.println("Adding my other terminology!!" + otherTermTableName);
-
         Termbase otherTerminology = new CurlSparqlQuery(otherTermSparqlEndpoint, query_writtenRep, otherTermTableName).getTermbase();
-        //addToDataBase(otherTermTableName, otherTerminology, limitOfTerms);
-        //display(otherTermTableName);
+        addToDataBase(otherTermTableName, otherTerminology, limitOfTerms);
+        display(otherTermTableName);
 
         //System.out.println("creating linking table!!");
         matchWithDataBase(myTermTableName, otherTerminology, matchedTermTable);
-        System.out.println("MY terminology !!" + myTermSparqlEndpoint);
-        System.out.println("Other terminology!!" + otherTermSparqlEndpoint);
+        //System.out.println("MY terminology !!" + myTermSparqlEndpoint);
+        //System.out.println("Other terminology!!" + otherTermSparqlEndpoint);
     }
 
     private static Boolean addToDataBase(String myTermTableName, Termbase myTerminology, Integer limitOfTerms) {
@@ -78,7 +78,6 @@ public class Main implements SparqlEndpoint {
             mySQLAccess.deleteTable(myTermTableName);
             mySQLAccess.createTermTable(myTermTableName);
             mySQLAccess.insertDataTermTable(myTermTableName, myTerminology, limitOfTerms);
-            //mySQLAccess.readTermTable(myTermTableName);
             mySQLAccess.close();
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,9 +93,8 @@ public class Main implements SparqlEndpoint {
             mySQLAccess.deleteTable(matchedTermTable);
             mySQLAccess.createLinkingTable(matchedTermTable);
             Integer index = mySQLAccess.insertDataTermTable(myTermTable, otherTerminology, matchedTermTable);
-            //mySQLAccess.readMatchedTermTable(matchedTermTable);
-            System.out.println(matchedTermTable + "  number of matched found:  " + index);
             display(matchedTermTable);
+            System.out.println(matchedTermTable + "  number of matched found:  " + index);
             mySQLAccess.close();
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
