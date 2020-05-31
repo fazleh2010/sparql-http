@@ -57,11 +57,10 @@ public class Main implements SparqlEndpoint {
          System.out.println("Adding my terminology!!"+myTermSparqlEndpoint);
           //Termbase myTerminology = new CurlSparqlQuery(myTermSparqlEndpoint, query_writtenRep, myTermTableName).getTermbase();
           //addToDataBase(myTermTableName, myTerminology, mySQLAccess, limitOfTerms);
-           mySQLAccess.readTermTable(myTermTableName);
          
          //Link terminology
          System.out.println("Adding my other terminology!!"+otherTermTableName);
-         //Termbase otherTerminology = new CurlSparqlQuery(otherTermTableName, query_writtenRep, otherTermTableName).getTermbase();
+         Termbase otherTerminology = new CurlSparqlQuery(otherTermTableName, query_writtenRep, otherTermTableName).getTermbase();
          //addToDataBase(otherTermTableName, otherTerminology, mySQLAccess, limitOfTerms);
 
          //System.out.println("creating linking table!!");
