@@ -95,7 +95,7 @@ public class Main implements SparqlEndpoint {
             mySQLAccess.deleteTable(matchedTermTable);
             mySQLAccess.createLinkingTable(matchedTermTable);
             Integer index = mySQLAccess.insertDataTermTable(myTermTable, otherTerminology, matchedTermTable);
-            mySQLAccess.readMatchedTermTable(matchedTermTable);
+            //mySQLAccess.readMatchedTermTable(matchedTermTable);
             System.out.println(matchedTermTable+"  number of matched found:  " + index);
             display(matchedTermTable);
             mySQLAccess.close();
