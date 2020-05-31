@@ -266,12 +266,12 @@ public class MySQLAccess implements DataBaseConst {
 
     }
     
-    public void readTable(String termTableName) throws SQLException, Exception {
-        Integer index = 0;
+    public void readTermTable(String termTableName) throws SQLException, Exception {
+      
         try {
 
             Statement stmt = conn.createStatement();
-            String query = " SELECT term, originalUrl"
+            String query = " SELECT id, term, originalUrl"
                     + " FROM " + termTableName;
 
             ResultSet rs = stmt.executeQuery(query);
@@ -279,9 +279,9 @@ public class MySQLAccess implements DataBaseConst {
                 //String language = rs.getString("language");
                 int id = rs.getInt("id");
                 String term = rs.getString("term");
-                String orginalUrl = rs.getString("term");
+                String orginalUrl = rs.getString("originalUrl");
 
-                System.out.println(id + " " + term + " "+orginalUrl );
+                System.out.println(id + " " + term + " " + orginalUrl);
             }
             System.out.println("reading " + termTableName + " table is successful!!...");
 

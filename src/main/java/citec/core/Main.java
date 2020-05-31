@@ -77,6 +77,7 @@ public class Main implements SparqlEndpoint {
             mySQLAccess.deleteTable(myTermTableName);
             mySQLAccess.createTermTable(myTermTableName);
             mySQLAccess.insertDataTermTable(myTermTableName, myTerminology, limitOfTerms);
+            mySQLAccess.readTermTable(myTermTableName);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             return false;
