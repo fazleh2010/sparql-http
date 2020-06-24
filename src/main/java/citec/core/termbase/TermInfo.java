@@ -210,5 +210,11 @@ public class TermInfo {
     public List<String> getLinks() {
         return links;
     }
+    
+     public static void display(List<TermInfo> termList) {
+         for (TermInfo termInfo:termList){
+               System.out.println(termInfo.getTermOrg()+" "+termInfo.getTermUrl()+" "+termInfo.getLinks().iterator().next()+ "\n");
+         }
+    }
 
 }

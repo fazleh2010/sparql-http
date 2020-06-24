@@ -5,19 +5,14 @@
  */
 package citec.core;
 
-import citec.core.utils.FileUrlUtils;
 import citec.core.sparql.SparqlEndpoint;
 import citec.core.termbase.Termbase;
 import citec.core.mysql.MySQLAccess;
 import citec.core.sparql.CurlSparqlQuery;
-import citec.core.sparql.JenaSparqlQuery;
 import citec.core.sparql.SparqlGenerator;
 import citec.core.termbase.TermInfo;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,8 +69,9 @@ public class Main implements SparqlEndpoint {
 
         System.out.println("inserting linked terminologies in host terminology!!");
         List<TermInfo> termList = matchWithDataBase(myTermTableName, otherTerminology, matchedTermTable);
-        SparqlGenerator sparqlGenerator = new SparqlGenerator(termList, ontolex_prefix, ontolex_owl_sameAs);
-        CurlSparqlQuery curlSparqlQuery=new CurlSparqlQuery(myTermSparqlEndpoint,sparqlGenerator.getSparqlQuery());
+        TermInfo.display(termList);
+        /*SparqlGenerator sparqlGenerator = new SparqlGenerator(termList, ontolex_prefix, ontolex_owl_sameAs);
+        CurlSparqlQuery curlSparqlQuery=new CurlSparqlQuery(myTermSparqlEndpoint,sparqlGenerator.getSparqlQuery());*/
 
         mySQLAccess.close();
         //System.out.println("MY terminology !!" + myTermSparqlEndpoint);
