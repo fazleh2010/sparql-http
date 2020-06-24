@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package citec.core.mysql;
+import citec.core.sparql.SparqlGenerator;
 import citec.core.termbase.TermInfo;
 import citec.core.termbase.Termbase;
 import java.sql.Connection;
@@ -12,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -293,8 +296,9 @@ public class MySQLAccess implements DataBaseConst {
 
     }
     
-    public void readMatchedTermTable(String termTableName) throws SQLException, Exception {
+    public List<TermInfo> readMatchedTermTable(String termTableName) throws SQLException, Exception {
         System.out.println("running read table command");
+        List<TermInfo> termInfos=new ArrayList<TermInfo>();
       
         try {
 
@@ -307,16 +311,19 @@ public class MySQLAccess implements DataBaseConst {
                 //String language = rs.getString("language");
                 String termOrg= rs.getString("termOrg");
                 String term = rs.getString("term");
-                String orginalUrl = rs.getString("myTermUrl");
-
-                System.out.println(termOrg + " " + term + " " + orginalUrl);
+                String myTermOrginalUrl = rs.getString("myTermUrl");
+                String OtherTermOrginalUrl = rs.getString("otherTermUrl");                
+                System.out.println(termOrg + " " + term + " " + myTermOrginalUrl+" "+OtherTermOrginalUrl);
+                TermInfo terminfo=new TermInfo(termOrg,myTermOrginalUrl,OtherTermOrginalUrl);
+                termInfos.add(terminfo);
+                //SparqlGenerator.linkSparqlGenerator(termOrg,myTermOrginalUrl,"other",OtherTermOrginalUrl);
             }
             System.out.println("reading " + termTableName + " table is successful!!...");
 
         } catch (Exception e) {
             System.out.println("reading data to " + termTableName + " is failed!!!!");
         }
-
+       return termInfos;
     }
 
 

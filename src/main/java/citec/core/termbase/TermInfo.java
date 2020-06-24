@@ -6,6 +6,10 @@
 package citec.core.termbase;
 
 import citec.core.utils.StringMatcherUtil;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -31,6 +35,7 @@ public class TermInfo {
     private String Variant = "";
     private String Synonym = "";
     private String language = "";
+    private List<String> links = new ArrayList<String>();
 
     public TermInfo(String subject, String predicate, String object, Boolean flag) {
         if (flag) {
@@ -44,6 +49,10 @@ public class TermInfo {
             this.setTermAndLanguage(object);
         }
     }
+    
+     public TermInfo() {
+        
+    }
 
     public TermInfo(String line) {
         String[] info = line.split("=");
@@ -55,6 +64,11 @@ public class TermInfo {
     public TermInfo(String term, String url) {
         this.termOrg = term;
         this.termUrl = url;
+    }
+    
+    public TermInfo(String term, String termUrl, String otherTermUrl) {
+        this(term,termUrl);
+        this.links.add(otherTermUrl);
     }
 
     public TermInfo(String term, String url, String alternativeUrl, SubjectInfo subject) {
@@ -185,11 +199,16 @@ public class TermInfo {
                 + ", reliabilityCode=" + reliabilityCode + ", administrativeStatus=" + administrativeStatus + ", POST=" + POST
                 + ", Number=" + Number + ", Gender=" + Gender + ", Definition=" + Definition
                 + ", Hypernym=" + Hypernym + ", Hyponym=" + Hyponym + ", Variant=" + Variant
+                + ", links=" + this.links.toString()
                 + ", Synonym=" + Synonym + '}';
     }
 
     private String setLanguage(String subject) {
         return StringMatcherUtil.getLanguage(subject);
+    }
+
+    public List<String> getLinks() {
+        return links;
     }
 
 }

@@ -23,12 +23,12 @@ import static citec.core.sparql.SparqlEndpoint.query_writtenRep;
  *
  * @author elahi
  */
-public class SparqlQuery {
+public class JenaSparqlQuery {
 
     private Termbase terminology;
 
     //for unknown reason jena is not working..therefore jena library is deleted...
-    public SparqlQuery(String myTermSparqlEndpoint, String myTermTableName) throws Exception {
+    public JenaSparqlQuery(String myTermSparqlEndpoint, String myTermTableName) throws Exception {
         //this.terminology = getTermBaseFromSparqlEndpoint(myTermSparqlEndpoint, myTermTableName);
     }
 

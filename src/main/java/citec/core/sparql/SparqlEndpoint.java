@@ -161,5 +161,6 @@ public interface SparqlEndpoint {
                 + "?o ontolex:canonicalForm ?canform ."
                 + "?canform ontolex:writtenRep ?rep ."
                 + "}Limit 5";*/
-
+        public static String ontolex_prefix = "PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>";
+        public static String ontolex_owl_sameAs = "ontolex:owl:sameAs";
 }

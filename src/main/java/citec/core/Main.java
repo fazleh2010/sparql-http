@@ -10,10 +10,13 @@ import citec.core.sparql.SparqlEndpoint;
 import citec.core.termbase.Termbase;
 import citec.core.mysql.MySQLAccess;
 import citec.core.sparql.CurlSparqlQuery;
-import citec.core.sparql.SparqlQuery;
+import citec.core.sparql.JenaSparqlQuery;
+import citec.core.sparql.SparqlGenerator;
 import citec.core.termbase.TermInfo;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +72,11 @@ public class Main implements SparqlEndpoint {
         System.out.println("creating linking table!!");
         matchWithDataBase(myTermTableName, otherTerminology, matchedTermTable);
 
+        System.out.println("inserting linked terminologies in host terminology!!");
+        List<TermInfo> termList = matchWithDataBase(myTermTableName, otherTerminology, matchedTermTable);
+        SparqlGenerator sparqlGenerator = new SparqlGenerator(termList, ontolex_prefix, ontolex_owl_sameAs);
+        CurlSparqlQuery curlSparqlQuery=new CurlSparqlQuery(myTermSparqlEndpoint,sparqlGenerator.getSparqlQuery());
+
         mySQLAccess.close();
         //System.out.println("MY terminology !!" + myTermSparqlEndpoint);
         //System.out.println("Other terminology!!" + otherTermSparqlEndpoint);
@@ -88,20 +96,20 @@ public class Main implements SparqlEndpoint {
 
     }
 
-    private static Boolean matchWithDataBase(String myTermTable, Termbase otherTerminology, String matchedTermTable) {
-        Integer index =0;
+    private static List<TermInfo> matchWithDataBase(String myTermTable, Termbase otherTerminology, String matchedTermTable) {
+        Integer index = 0;
+        List<TermInfo> termInfos = new ArrayList<TermInfo>();
         try {
             mySQLAccess.deleteTable(matchedTermTable);
             mySQLAccess.createLinkingTable(matchedTermTable);
             index = mySQLAccess.insertDataTermTable(myTermTable, otherTerminology, matchedTermTable);
-            mySQLAccess.readMatchedTermTable(matchedTermTable);
+            termInfos = mySQLAccess.readMatchedTermTable(matchedTermTable);
             //display(matchedTermTable);
             System.out.println(matchedTermTable + "  number of matched found:  " + index);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
         }
-        return true;
+        return termInfos;
 
     }
 
@@ -118,5 +126,4 @@ public class Main implements SparqlEndpoint {
         Termbase termbase = new Termbase(termBaseName, allkeysValues);
         return termbase;
     }*/
-
 }

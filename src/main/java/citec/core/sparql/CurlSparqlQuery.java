@@ -46,6 +46,11 @@ public class CurlSparqlQuery {
         this.termbase = new Termbase(termBaseName, parseResult(resultSparql));
     }
 
+    public CurlSparqlQuery(String endpoint, String query) throws Exception {
+        String resultSparql = sparqlQuery(endpoint, query);
+        System.out.println(resultSparql);
+    }
+
     private String sparqlQuery(String tbx2rdf_atc_endpoint, String iate_query1) throws Exception, IOException, UnsupportedEncodingException {
         String result = null;
         String resultUnicode = FileUrlUtils.stringToUrlUnicode(iate_query1);
